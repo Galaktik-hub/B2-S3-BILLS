@@ -1,4 +1,4 @@
-<?PHP
+gti<?PHP
 /* Connexion au serveur et à la base de données */
 include('parametre.php');
 // Connexion avec avec PDO
