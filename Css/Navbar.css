@@ -43,10 +43,23 @@ nav.vertical-navigation ul.navigation-items {
     padding: 0;
     margin: 0;
     flex: 2;
+    margin-left: 30px;
 }
 
 nav.vertical-navigation ul.navigation-items a {
     text-decoration: none;
+}
+
+nav.vertical-navigation ul.navigation-items a.active li.item {
+    background-color: #eaeffa;
+}
+
+nav.vertical-navigation ul.navigation-items a.active li.item p {
+    background: linear-gradient(to right, #3E79E5, #01B8E3); /* Applique le dégradé au texte */
+    -webkit-background-clip: text; /* Applique le dégradé uniquement au texte */
+    -webkit-text-fill-color: transparent; /* Rendre le texte transparent */
+    background-clip: text;
+    color: transparent; /* Assure que le texte est transparent */
 }
 
 nav.vertical-navigation ul.navigation-items li.item {
@@ -57,7 +70,10 @@ nav.vertical-navigation ul.navigation-items li.item {
     padding: 10px;
     transition: background-color 0.3s;
     color: black;
-    margin-left: 30px;
+}
+
+nav.vertical-navigation ul.navigation-items li.item p {
+    margin: 0;
 }
 
 nav.vertical-navigation ul.navigation-items li.item:hover {
