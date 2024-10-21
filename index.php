@@ -84,7 +84,7 @@ if(isset($_POST['login'])){
         <!-- Bootstrap core CSS -->
 
         <!-- Custom styles for this template -->
-        <link href="Css/Connexion.css" rel="stylesheet">
+        <link href="../Css/Connexion.css" rel="stylesheet">
 
         <title>Connexion</title>
 
@@ -95,7 +95,7 @@ if(isset($_POST['login'])){
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
     </head>
     <body>
-       
+
         <?php head_C()?>
         <div class="text_center">
             <form class="form-signin" action="index.php" method="post">
@@ -110,21 +110,21 @@ if(isset($_POST['login'])){
                         <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
                         <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709z"/>
                         <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z"/>
-                    </svg>  
-                </div>  
+                    </svg>
+                </div>
                 <button class="connect" type="submit">Se connecter</button>
-                <!--<p class="mt-5 mb-3 text-muted">&copy;</p>-->
             </form>
         </div>
 
-        <script src="Js/oeil.js"></script>
+        <script src="../Js/oeil.js"></script>
 
         <footer>
             <div class='contains d-flex justify-content-around align-items-center'>
-                <p class><a href='https://www.linkedin.com/in/trang-anh-nguyen/' id='linkedIn' target='_blank'>Trang Anh Nguyen</a></p>
-                <p><a href='https://www.linkedin.com/in/vincent-pisier-4520b2175/' target='_blank'>Vincent Pisier</a></p>
-                <p><a href='https://www.linkedin.com/in/lucas-tripier-b03bbb1a2/' target='_blank'>Lucas Tripier</a></p>
-                <p><a href='https://www.linkedin.com/in/killian-pelletier/' target='_blank'>Killian Pelletier</a></p>
+                <p class><a href='https://www.linkedin.com/in/alexis-telle/' id='linkedIn' target='_blank'>Alexis Telle</a></p>
+                <p><a href='https://www.linkedin.com/in/julien-synaeve/' target='_blank'>Julien Synaeve</a></p>
+                <p><a href='https://www.linkedin.com/in/champaulta/' target='_blank'>Alexis Champault</a></p>
+                <p><a href='https://www.linkedin.com/in/elankeethan/' target='_blank'>Kirushikesan</a></p>
+                <p><a href='https://www.linkedin.com/in/victorsts/' target='_blank'>Victor Santos</a></p>
             </div>
         </footer>
         <?php

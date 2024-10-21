@@ -55,11 +55,11 @@ nav.vertical-navigation ul.navigation-items a.active li.item {
 }
 
 nav.vertical-navigation ul.navigation-items a.active li.item p {
-    background: linear-gradient(to right, #3E79E5, #01B8E3); /* Applique le dégradé au texte */
-    -webkit-background-clip: text; /* Applique le dégradé uniquement au texte */
-    -webkit-text-fill-color: transparent; /* Rendre le texte transparent */
+    background: linear-gradient(to right, #3E79E5, #01B8E3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: transparent; /* Assure que le texte est transparent */
+    color: transparent;
 }
 
 nav.vertical-navigation ul.navigation-items li.item {

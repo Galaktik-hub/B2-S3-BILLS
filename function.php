@@ -20,12 +20,12 @@ function checkIsPO(){
 
 function head(){
 
-    $forPO = (isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'])?"<a href='productOwnerToClient.php'><button type='button' class='retour' ><p class='texte'>Espace Product Owner</p></button></a>":"";
+    $forPO = (isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'])? "<a href='productOwnerToClient.php'><button type='button' class='retour' ><p class='texte'>Espace Product Owner</p></button></a>" :"";
     echo "<header>
         <div class='superieur'>
             Bonjour ".$_SESSION['raisonSociale'].
 
-            "$forPO
+        "$forPO
             <a href='deconnexion.php'><button type='button' class='deconnexion' ><p class='texte'>Déconnexion</p></button></a>
         </div>
         <div class='inferieur'>
@@ -41,7 +41,7 @@ function head(){
 function head_A($po){
     echo "<header>
         <div class='superieur'>
-            Bonjour ".$_SESSION['raisonSociale']."
+            Bonjour ".$_SESSION['raisonSociale']. "
             <a href='deconnexion.php'><button type='button' class='deconnexion' ><p class='texte'>Déconnexion</p></button></a>
         </div>
         <div class='inferieur'>
@@ -50,7 +50,7 @@ function head_A($po){
             <a href='insertClient.php' class='direction'><button type='button' class='nav'><p class='texte'>Insérer un nouveau client</p></button></a>";
 
             if($po==1){
-                echo"
+                echo "
             <a href='productOwner.php' class='direction'><button type='button' class='nav'><p class='texte'>Trésorerie</p></button></a>
             <a href='productOwnerRemise.php' class='direction'><button type='button' class='nav'><p class='texte'>Remises</p></button></a>
             <a href='productOwnerImpaye.php' class='direction'><button type='button' class='nav'><p class='texte'>Impayés</p></button></a>";
@@ -64,7 +64,7 @@ function head_A($po){
 function head_C(){
     echo "
         <header class='superieur'>
-            <h2 class='titre_h'> MyBank <h2>
+            <h2 class='titre_h'> B.I.L.L.S. <h2>
         </header>
     ";
 }
