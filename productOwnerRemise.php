@@ -2,6 +2,7 @@
 session_start();
 include('function.php');
 include('connexion.php');
+include("navbar.php");
 checkIsPO();
 ?>
 
