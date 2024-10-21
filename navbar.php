@@ -14,45 +14,9 @@
                 B.I.L.L.S.
             </p>
         </div>
-<!--        <ul class="navigation-items">-->
-<!--            <a href="home.php" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/accueil.svg" alt="Icone Accueil" class="icon">-->
-<!--                    <p>Accueil</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--            <a href="remise.php" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/remises.svg" alt="Icone Remises" class="icon">-->
-<!--                    <p>Remises</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--            <a href="impaye.php" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/impayés.svg" alt="Icone Impayés" class="icon">-->
-<!--                    <p>Impayés</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--            <a href="stats.php" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/stats.svg" alt="Icone Statistiques" class="icon">-->
-<!--                    <p>Statistiques</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--            <a href="#" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/compte.svg" alt="Icone Compte" class="icon">-->
-<!--                    <p>Compte</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--            <a href="#" class="nav-item">-->
-<!--                <li class="item">-->
-<!--                    <img src="../Image/settings.svg" alt="Icone Paramètres" class="icon">-->
-<!--                    <p>Paramètres</p>-->
-<!--                </li>-->
-<!--            </a>-->
-<!--        </ul>-->
+
         <?php display_navigation(); ?>
+
         <div class="deconnect">
             <a href="deconnexion.php" class="deconnect-link">
                 <img src="../Image/deconnect.svg" alt="Icone Paramètres" class="icon">
@@ -63,28 +27,41 @@
 
     <script>
         const navItems = document.querySelectorAll('.navigation-items a.nav-item');
+        const currentPage = window.location.pathname.split("/").pop();
+
+        // Fonction pour gérer le changement d'icône
+        function updateIcon(item, isActive) {
+            const img = item.querySelector('img');
+            const imgSrc = img.getAttribute('src');
+            if (isActive) {
+                const newSrc = imgSrc.replace('.svg', '_selected.svg');
+                img.setAttribute('src', newSrc);
+            } else {
+                const originalSrc = imgSrc.replace('_selected.svg', '.svg');
+                img.setAttribute('src', originalSrc);
+            }
+        }
+
+        // Mettre à jour l'élément actif au chargement de la page
+        navItems.forEach(item => {
+            const href = item.getAttribute('href');
+            if (href === currentPage) {
+                item.classList.add('active');
+                updateIcon(item, true); // Changer l'icône en version "active"
+            } else {
+                updateIcon(item, false); // Remettre l'icône d'origine
+            }
+        });
 
         navItems.forEach(item => {
             item.addEventListener('click', function() {
-                // Supprime la classe active de tous les éléments
                 navItems.forEach(nav => {
                     nav.classList.remove('active');
-
-                    // Récupère l'icône et remet l'icône d'origine
-                    const img = nav.querySelector('img');
-                    const imgSrc = img.getAttribute('src');
-                    const originalSrc = imgSrc.replace('_selected.svg', '.svg');
-                    img.setAttribute('src', originalSrc); // Remet à jour l'attribut src de l'image
+                    updateIcon(nav, false); // Remettre l'icône d'origine
                 });
 
-                // Ajoute la classe active à l'élément cliqué
                 this.classList.add('active');
-
-                // Change l'icône SVG en ajoutant "_selected" au nom de fichier
-                const img = this.querySelector('img');
-                const imgSrc = img.getAttribute('src');
-                const newSrc = imgSrc.replace('.svg', '_selected.svg'); // Remplace ".svg" par "_selected.svg"
-                img.setAttribute('src', newSrc); // Met à jour l'attribut src de l'image
+                updateIcon(this, true); // Changer l'icône en version "active"
             });
         });
     </script>
