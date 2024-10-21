@@ -11,7 +11,7 @@ body:before {
     content: "";
     position: fixed;
     height: 100%; width: 100%;
-    background: url('../Image/fond_accueil.jpg');
+    background-image: url('Image/fond_accueil.jpg');
     background-size: cover;
     z-index: -1; /* Keep the background behind the content */     
     -webkit-filter:opacity(.5) blur(5px);
@@ -105,12 +105,38 @@ body:before {
     font-size: x-large;
     width: 100%;
     height: 40px;
+    background-color: white;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
     border: none;
-    background-color: #718798;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
+    background: linear-gradient(to right, #01B8E3, #3E79E5);
 }
+
+/*.connect {*/
+/*    position: relative; !* Nécessaire pour le pseudo-élément *!*/
+/*    color: #3E79E5;*/
+/*    font-size: x-large;*/
+/*    width: 100%;*/
+/*    height: 40px;*/
+/*    background-color: white;*/
+/*    border-radius: 15px;*/
+/*    text-align: center; !* Centrer le texte *!*/
+/*    line-height: 40px; !* Aligner verticalement le texte *!*/
+/*    z-index: 1; !* S'assurer que le contenu soit au-dessus du pseudo-élément *!*/
+/*}*/
+
+/*.connect::before {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    top: -2px; !* Ajustement pour l'épaisseur de la bordure *!*/
+/*    left: -2px;*/
+/*    right: -2px;*/
+/*    bottom: -2px;*/
+/*    border-radius: 15px; !* Applique le radius au dégradé *!*/
+/*    background: linear-gradient(to right, #01B8E3, #3E79E5); !* Bordure en dégradé *!*/
+/*    z-index: -1; !* Placer derrière l'élément .connect *!*/
+/*}*/
 
 .erreur{
     text-align: center;
