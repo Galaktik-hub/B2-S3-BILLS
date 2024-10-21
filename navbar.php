@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,44 +14,45 @@
                 B.I.L.L.S.
             </p>
         </div>
-        <ul class="navigation-items">
-            <a href="home.php" class="nav-item">
-                <li class="item">
-                    <img src="../Image/accueil.svg" alt="Icone Accueil" class="icon">
-                    <p>Accueil</p>
-                </li>
-            </a>
-            <a href="remise.php" class="nav-item">
-                <li class="item">
-                    <img src="../Image/remises.svg" alt="Icone Remises" class="icon">
-                    <p>Remises</p>
-                </li>
-            </a>
-            <a href="impaye.php" class="nav-item">
-                <li class="item">
-                    <img src="../Image/impayés.svg" alt="Icone Impayés" class="icon">
-                    <p>Impayés</p>
-                </li>
-            </a>
-            <a href="stats.php" class="nav-item">
-                <li class="item">
-                    <img src="../Image/stats.svg" alt="Icone Statistiques" class="icon">
-                    <p>Statistiques</p>
-                </li>
-            </a>
-            <a href="#" class="nav-item">
-                <li class="item">
-                    <img src="../Image/compte.svg" alt="Icone Compte" class="icon">
-                    <p>Compte</p>
-                </li>
-            </a>
-            <a href="#" class="nav-item">
-                <li class="item">
-                    <img src="../Image/settings.svg" alt="Icone Paramètres" class="icon">
-                    <p>Paramètres</p>
-                </li>
-            </a>
-        </ul>
+<!--        <ul class="navigation-items">-->
+<!--            <a href="home.php" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/accueil.svg" alt="Icone Accueil" class="icon">-->
+<!--                    <p>Accueil</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--            <a href="remise.php" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/remises.svg" alt="Icone Remises" class="icon">-->
+<!--                    <p>Remises</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--            <a href="impaye.php" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/impayés.svg" alt="Icone Impayés" class="icon">-->
+<!--                    <p>Impayés</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--            <a href="stats.php" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/stats.svg" alt="Icone Statistiques" class="icon">-->
+<!--                    <p>Statistiques</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--            <a href="#" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/compte.svg" alt="Icone Compte" class="icon">-->
+<!--                    <p>Compte</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--            <a href="#" class="nav-item">-->
+<!--                <li class="item">-->
+<!--                    <img src="../Image/settings.svg" alt="Icone Paramètres" class="icon">-->
+<!--                    <p>Paramètres</p>-->
+<!--                </li>-->
+<!--            </a>-->
+<!--        </ul>-->
+        <?php display_navigation(); ?>
         <div class="deconnect">
             <a href="deconnexion.php" class="deconnect-link">
                 <img src="../Image/deconnect.svg" alt="Icone Paramètres" class="icon">
