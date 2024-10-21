@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NavBar</title>
     <link rel="stylesheet" href="../Css/Navbar.css">
 </head>
 <body>
@@ -52,7 +51,7 @@
             </a>
         </ul>
         <div class="deconnect">
-            <a href="#" class="deconnect-link">
+            <a href="deconnexion.php" class="deconnect-link">
                 <img src="../Image/deconnect.svg" alt="Icone Paramètres" class="icon">
                 <p>Déconnexion</p>
             </a>
