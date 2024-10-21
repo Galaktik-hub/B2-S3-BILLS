@@ -121,10 +121,11 @@ if(isset($_POST['login'])){
 
         <footer>
             <div class='contains d-flex justify-content-around align-items-center'>
-                <p class><a href='https://www.linkedin.com/in/trang-anh-nguyen/' id='linkedIn' target='_blank'>Trang Anh Nguyen</a></p>
-                <p><a href='https://www.linkedin.com/in/vincent-pisier-4520b2175/' target='_blank'>Vincent Pisier</a></p>
-                <p><a href='https://www.linkedin.com/in/lucas-tripier-b03bbb1a2/' target='_blank'>Lucas Tripier</a></p>
-                <p><a href='https://www.linkedin.com/in/killian-pelletier/' target='_blank'>Killian Pelletier</a></p>
+                <p class><a href='' id='linkedIn' target='_blank'>Alexis Telle</a></p>
+                <p><a href='' target='_blank'>Julien Synaeve</a></p>
+                <p><a href='' target='_blank'>Kirushikesan Elankeethan</a></p>
+                <p><a href='' target='_blank'>Victor Santos</a></p>
+                <p><a href='' target='_blank'>Alexis Champault</a></p>
             </div>
         </footer>
         <?php
