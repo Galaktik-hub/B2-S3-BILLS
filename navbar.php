@@ -14,25 +14,25 @@
             </p>
         </div>
         <ul class="navigation-items">
-            <a href="#" class="nav-item">
+            <a href="home.php" class="nav-item">
                 <li class="item">
                     <img src="../Image/accueil.svg" alt="Icone Accueil" class="icon">
                     <p>Accueil</p>
                 </li>
             </a>
-            <a href="#" class="nav-item">
+            <a href="remise.php" class="nav-item">
                 <li class="item">
                     <img src="../Image/remises.svg" alt="Icone Remises" class="icon">
                     <p>Remises</p>
                 </li>
             </a>
-            <a href="#" class="nav-item">
+            <a href="impaye.php" class="nav-item">
                 <li class="item">
                     <img src="../Image/impayés.svg" alt="Icone Impayés" class="icon">
                     <p>Impayés</p>
                 </li>
             </a>
-            <a href="#" class="nav-item">
+            <a href="stats.php" class="nav-item">
                 <li class="item">
                     <img src="../Image/stats.svg" alt="Icone Statistiques" class="icon">
                     <p>Statistiques</p>
