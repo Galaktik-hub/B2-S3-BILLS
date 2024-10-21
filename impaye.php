@@ -28,12 +28,12 @@ checkIsUser();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 
     <title>Espace Utilisateur</title>
 </head>
 <body>
-<?php head();
+<?php //head();
 ?>
 
 <?php
@@ -61,51 +61,52 @@ checkIsUser();
 <h3 class="titre">Impayés</h3>
 
 
-<div class="container box">
-    <form action="impaye.php" method="POST">
-        <label for="debut">Du</label>
-        <input type="date" name="debut" id="debut"  <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
+<!--<div class="container box">-->
+<!--    <form action="impaye.php" method="POST">-->
+<!--        <label for="debut">Du</label>-->
+<!--        <input type="date" name="debut" id="debut"  --><?php //echo "value='".$debut."' max='".date('Y-m-d')."'";  ?><!--
+<!---->
+<!--        <label for="fin">Au</label>-->
+<!--        <input type="date" name="fin" id="fin"  --><?php //echo "value='".$fin."' max='".date('Y-m-d')."'";  ?><!--
+<!---->
+<!--        <input type="submit">-->
+<!--    </form>-->
+<!---->
+<!--    --><?php
+//    echo "
+//        <ul>
+//                <li>Début : $debut</li>
+//                <li>Fin : $fin</li>
+//        </ul>";
+//
+//    if($debut > $fin  && $fin != null){
+//        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
+//        exit;
+//    }
+//    $title = "LISTE DES IMPAYES DE L ENTREPRISE $_SESSION[raisonSociale] N° SIREN $_SESSION[numSiren]";
+//    ?>
+<!--    <br/>-->
+<!--    <div class="table-responsive">-->
+<!--        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">-->
+<!--            <thead class="thead-dark">-->
+<!--            <tr>-->
+<!--                <th>Dossier impayé</th>-->
+<!--                <th class="no-sort">N° SIREN</th>-->
+<!--                <th>Date</th>-->
+<!--                <th>N° Carte</th>-->
+<!--                <th>Réseau</th>-->
+<!--                <th class="no-sort">Devise</th>-->
+<!--                <th>Montant</th>-->
+<!--                <th>Libellé impayé</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!---->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
 
-        <label for="fin">Au</label>
-        <input type="date" name="fin" id="fin"  <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
-
-        <input type="submit">
-    </form>
-
-    <?php
-    echo "
-        <ul>
-                <li>Début : $debut</li>
-                <li>Fin : $fin</li>
-        </ul>";
-
-    if($debut > $fin  && $fin != null){
-        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
-        exit;
-    }
-    $title = "LISTE DES IMPAYES DE L ENTREPRISE $_SESSION[raisonSociale] N° SIREN $_SESSION[numSiren]";
-    ?>
-    <br/>
-    <div class="table-responsive">
-        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">
-            <thead class="thead-dark">
-            <tr>
-                <th>Dossier impayé</th>
-                <th class="no-sort">N° SIREN</th>
-                <th>Date</th>
-                <th>N° Carte</th>
-                <th>Réseau</th>
-                <th class="no-sort">Devise</th>
-                <th>Montant</th>
-                <th>Libellé impayé</th>
-            </tr>
-            </thead>
-
-        </table>
-    </div>
-</div>
-<br />
-<br />
+    <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
+    <script src="Js/impaye.js"></script>
 </body>
 </html>
 
