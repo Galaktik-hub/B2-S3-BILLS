@@ -90,14 +90,14 @@ if(isset($_POST['login'])){
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/"
 
         <!-- Custom styles for this template -->
-        <link href="../Css/Connexion.css" rel="stylesheet">
-        <link rel="preload" href="../Image/fond_accueil.jpg" as="image">
+        <link href="../css/connexion.css" rel="stylesheet">
+        <link rel="preload" href="../image/fond_accueil.jpg" as="image">
 
         <title>Connexion</title>
     </head>
     <body>
 
-        <?php head_C()?>
+        <?php head_login()?>
         <div class="text_center">
             <form class="form-signin" action="index.php" method="post">
                 <h1 class="petit_titre">Connexion</h1>
@@ -117,7 +117,7 @@ if(isset($_POST['login'])){
             </form>
         </div>
 
-        <script src="../Js/oeil.js"></script>
+        <script src="../js/oeil.js"></script>
 
         <footer>
             <div class='contains d-flex justify-content-around align-items-center'>

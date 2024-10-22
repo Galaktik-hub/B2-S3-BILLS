@@ -12,7 +12,7 @@ checkIsUser();
     <meta charset="UTF-8">
     <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Css/home.css">
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -73,6 +73,7 @@ checkIsUser();
 <br />
 </body>
 </html>
+<!--
 <script type="text/javascript" language="javascript">
     $(document).ready(function() {
         // Initialiser le DataTable pour le tableau principal
@@ -84,7 +85,7 @@ checkIsUser();
             searching: false,
             bInfo: false,
             "ajax": {
-                url: 'Data/fetchHome.php',
+                url: '../data/fetchHome.php',
                 type: "POST"
             },
             columnDefs: [{
@@ -144,4 +145,6 @@ checkIsUser();
         table.buttons().container().appendTo('#buttons-container');
     });
 </script>
+-->
+
 

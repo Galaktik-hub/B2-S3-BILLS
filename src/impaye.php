@@ -3,7 +3,7 @@ session_start();
 include('function.php');
 include('connexion.php');
 include("navbar.php");
-checkIsPO();
+checkIsUser();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ checkIsPO();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Css/Accueil_A.css">
+    <link rel="stylesheet" type="text/css" href="../css/impayes_u.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -28,96 +28,85 @@ checkIsPO();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 
-
-    <title>Espace Product Owner</title>
+    <title>Espace Utilisateur</title>
 </head>
 <body>
-<?php head_A(1);
+<?php //head();
 ?>
 
-
-<h3 class="titre">Remises</h3>
-
 <?php
-    if(isset($_POST['numSiren'])) {
-        $_SESSION['numSiren'] = $_POST['numSiren'];
-        $numSiren = $_SESSION['numSiren'];
-    }
-    else {
-        unset($_SESSION['numSiren']);
-        $numSiren = "";
-    }
 
     if(isset($_POST['debut'])){
-        $_SESSION['debut.date'] = $_POST['debut'];
-        $debut = $_SESSION['debut.date'];
+        $_SESSION['impaye.debut'] = $_POST['debut'];
+        $debut = $_SESSION['impaye.debut'];
     }
     else {
         //$debut = date('Y-m-d');
-        unset($_SESSION['debut.date']);
+        unset($_SESSION['impaye.debut']);
         $debut = "";
     }
 
     if(isset($_POST['fin'])){
-        $_SESSION['fin.date'] = $_POST['fin'];
-        $fin = $_SESSION['fin.date'];
+        $_SESSION['impaye.fin'] = $_POST['fin'];
+        $fin = $_SESSION['impaye.fin'];
     }
     else {
         //$fin = date('Y-m-d');
-        unset($_SESSION['fin.date']);
+        unset($_SESSION['impaye.fin']);
         $fin = "";
     }
-?>
-
-<div class="container box">
-    <form action="productOwnerRemise.php" method="POST" class="imp">
-        <label for="numSiren">Numéro SIREN</label>
-        <input type="text" name="numSiren" id="numSiren">
-
-        <label for="debut">Du</label>
-        <input type="date" name="debut" id="debut" <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
-
-        <label for="fin">Au</label>
-        <input type="date" name="fin" id="fin" <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
-
-        <input type="submit">
-    </form>
-
-    <?php
-    echo "
-        <ul>
-                <li>Numéro SIREN : $numSiren</li>
-                <li>Début : $debut</li>
-                <li>Fin : $fin</li>
-        </ul>";
-
-    if($debut > $fin && $fin != null){
-        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
-        exit;
-    }
-
     ?>
-    <br/>
-    <div class="table-responsive">
-        <table id="remise_data" class="table table-bordered" data-stripe-classes="[]">
-            <thead class="thead-dark">
-            <tr>
-                <th>N° Siren</th>
-                <th>Numéro de Remise</th>
-                <th>Date de la remise</th>
-                <th>Raison Sociale</th>
-                <th>Nombre de Transactions</th>
-                <th>Montant Total</th>
-                <th class="no-sort">Devise</th>
-            </tr>
-            </thead>
+<h3 class="titre">Impayés</h3>
 
-        </table>
-    </div>
-</div>
-<br />
-<br />
+
+<!--<div class="container box">-->
+<!--    <form action="impaye.php" method="POST">-->
+<!--        <label for="debut">Du</label>-->
+<!--        <input type="date" name="debut" id="debut"  --><?php //echo "value='".$debut."' max='".date('Y-m-d')."'";  ?><!--
+<!---->
+<!--        <label for="fin">Au</label>-->
+<!--        <input type="date" name="fin" id="fin"  --><?php //echo "value='".$fin."' max='".date('Y-m-d')."'";  ?><!--
+<!---->
+<!--        <input type="submit">-->
+<!--    </form>-->
+<!---->
+<!--    --><?php
+//    echo "
+//        <ul>
+//                <li>Début : $debut</li>
+//                <li>Fin : $fin</li>
+//        </ul>";
+//
+//    if($debut > $fin  && $fin != null){
+//        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
+//        exit;
+//    }
+//    $title = "LISTE DES IMPAYES DE L ENTREPRISE $_SESSION[raisonSociale] N° SIREN $_SESSION[numSiren]";
+//    ?>
+<!--    <br/>-->
+<!--    <div class="table-responsive">-->
+<!--        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">-->
+<!--            <thead class="thead-dark">-->
+<!--            <tr>-->
+<!--                <th>Dossier impayé</th>-->
+<!--                <th class="no-sort">N° SIREN</th>-->
+<!--                <th>Date</th>-->
+<!--                <th>N° Carte</th>-->
+<!--                <th>Réseau</th>-->
+<!--                <th class="no-sort">Devise</th>-->
+<!--                <th>Montant</th>-->
+<!--                <th>Libellé impayé</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!---->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+    <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
+    <script src="../js/impaye.js"></script>
 </body>
 </html>
 
@@ -126,7 +115,7 @@ checkIsPO();
     $(document).ready(function(){
 
 
-        $('#remise_data').DataTable({
+        $('#impaye_data').DataTable({
             "processing" : true,
             "serverSide" : true,
             paging: true,
@@ -134,7 +123,7 @@ checkIsPO();
             searching: true,
             bInfo: true,
             "ajax" : {
-                url:'Data/fetchRemisePO.php',
+                url:'../data/fetchImpaye.php',
                 type:"POST"
             },
 
@@ -164,8 +153,17 @@ checkIsPO();
             },
 
             "createdRow": function( row, data, dataIndex) {
-                if (data[5] < 0) {
-                    $(row).css('background-color','#FF513E');
+                if(data[6] > -10){
+                    $(row).css('background-color','white');
+                }
+                else if(data[6] > -100){
+                    $(row).css('background-color','rgba(255,255,0,0.50)');
+                }
+                else if(data[6] > -1000){
+                    $(row).css('background-color','rgba(255,165,0,0.50)');
+                }
+                else {
+                    $(row).css('background-color','rgba(255,0,0,0.50)');
                 }
             },
 
@@ -174,16 +172,16 @@ checkIsPO();
             buttons: [
                 {
                     extend: 'csvHtml5',
-                    title: 'EXTRAIT DE REMISE PO '
+                    title: "<?php echo $title; ?>"
 
                 },
                 {
                     extend: 'excelHtml5',
-                    title: 'EXTRAIT DE REMISE PO '
+                    title: "<?php echo $title; ?>"
                 },
                 {
                     extend: 'pdfHtml5',
-                    title: 'EXTRAIT DE REMISE PO '
+                    title: "<?php echo $title; ?>"
                 }
             ],
             "lengthMenu": [ [10, 25, 50], [10, 25, 50] ]

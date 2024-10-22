@@ -1,17 +1,17 @@
 <?php
-session_start();
-include('function.php');
-include('connexion.php');
-include("navbar.php");
-checkIsPO();
+    session_start();
+    include('function.php');
+    include('connexion.php');
+    include("navbar.php");
+    checkIsPO();
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
+    <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Css/Accueil_A.css">
+    <link rel="stylesheet" type="text/css" href="../css/accueil_a.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -28,75 +28,68 @@ checkIsPO();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-
-
-</head>
-<body>
-<?php head_A(1);
-?>
-
-
-<h3 class="titre">Impayés</h3>
-
-
-<div class="container box">
-    <form action="productOwnerImpaye.php" method="POST" class="imp">
-        <label for="numSiren">Numéro SIREN</label>
-        <input type="text" name="numSiren" id="numSiren">
-
-        <input type="submit">
-    </form>
+        <title>Espace Product Owner</title>
+    </head>
+    <body>
     <?php
-
-    if(isset($_POST['numSiren'])) {
-        $_SESSION['numSiren'] = $_POST['numSiren'];
-        $numSiren = $_SESSION['numSiren'];
+    if(isset($_POST['date'])){
+        $_SESSION['home.datePO'] = $_POST['date'];
+        $date = $_SESSION['home.datePO'];
     }
     else {
-        unset($_SESSION['numSiren']);
-        $numSiren = "";
+        unset($_SESSION['home.datePO']);
+        $date = date('Y-m-d');
     }
-
-    echo "
-        <ul>
-                <li>Numéro SIREN : $numSiren</li>
-        </ul>";
+    setlocale (LC_TIME, 'fr_FR.utf8','fra');
+    echo "<h3 class='titre'>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h3>";
 
     ?>
-    <br/>
-    <div class="table-responsive">
-        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">
-            <thead class="thead-dark">
-            <tr>
-                <th>N° SIREN</th>
-                <th>Raison sociale</th>
-                <th>Montant total</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-</div>
-<br />
-<br />
-</body>
-</html>
 
+
+    <div class="container box">
+        <form action="productOwner.php" method="POST" class="imp">
+            <input type="date" name="date"  <?php echo "value='".$date."' max='".date('Y-m-d')."'";  ?>>
+            <input type="submit">
+        </form>
+        <br/>
+        <div class="table-responsive">
+            <table id="customer_data" class="table table-bordered" data-stripe-classes="[]">
+                 <thead class="thead-dark">
+                <tr>
+                    <th>N° Siren</th>
+                    <th>Raison Sociale</th>
+                    <th>Nombre de Remises</th>
+                    <th class="no-sort">Devise</th>
+                    <th>Montant Total</th>
+                </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    </body>
+</html>
+<!--
 <script type="text/javascript" language="javascript" >
 
     $(document).ready(function(){
 
 
-        $('#impaye_data').DataTable({
+        $('#customer_data').DataTable({
             "processing" : true,
             "serverSide" : true,
-            paging: true,
-            ordering:  true,
-            searching: true,
-            bInfo: true,
+            searching:false,
             "ajax" : {
-                url:'Data/fetchImpayePO.php',
+                url:'../data/fetchHomePO.php',
                 type:"POST"
             },
+
+            columnDefs: [{
+                orderable: false,
+                targets: "no-sort"
+            }],
 
             "language": {
                 "emptyTable": "Pas de donnée",
@@ -119,35 +112,25 @@ checkIsPO();
             },
 
             "createdRow": function( row, data, dataIndex) {
-                if(data[2] > -100){
-                    $(row).css('background-color','white');
-                }
-                else if(data[2] > -1000){
-                    $(row).css('background-color','rgba(255,255,0,0.50)');
-                }
-                else if(data[2] > -10000){
-                    $(row).css('background-color','rgba(255,165,0,0.50)');
-                }
-                else {
-                    $(row).css('background-color','rgba(255,0,0,0.50)');
+                if (data[4] < 0) {
+                    $(row).css('background-color','#FF513E');
                 }
             },
-
 
             dom: 'lBfrtip',
             buttons: [
                 {
                     extend: 'csvHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE TRESORERIE DU ' + '<?php echo $date; ?>'
 
                 },
                 {
                     extend: 'excelHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE TRESORERIE DU ' + '<?php echo $date; ?>'
                 },
                 {
                     extend: 'pdfHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE TRESORERIE DU ' + '<?php echo $date; ?>'
                 }
             ],
             "lengthMenu": [ [10, 25, 50], [10, 25, 50] ]
@@ -156,3 +139,5 @@ checkIsPO();
     });
 
 </script>
+-->
+
