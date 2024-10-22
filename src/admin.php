@@ -7,14 +7,12 @@
     checkIsAdmin();
 
     $query = "
-        SELECT numSiren as 'N° Siren', 
-                raisonSociale 'Raison Sociale', 
-        (SELECT devise FROM remise WHERE numClient=1 LIMIT 1) as Devise,
-        COUNT(numRemise) AS 'Nombre de Remises', 
-        COALESCE(SUM(montantTotal), 0) AS 'Montant Total'
-        FROM remise RIGHT JOIN client 
-            ON remise.numClient = client.numClient 
-        GROUP BY client.numClient" ;
+        SELECT 
+            numClient as 'N° Client', 
+            numSiren as 'N° Siren', 
+            raisonSociale as 'Raison Sociale', 
+            loginClient as 'Identifiant' 
+        FROM client";
 
     $stmt = $dbh->prepare($query);
     $stmt->execute();
