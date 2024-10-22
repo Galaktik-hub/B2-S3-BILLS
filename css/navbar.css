@@ -5,6 +5,7 @@ body {
     padding: 0;
     display: flex;
     font-family: "Sora", sans-serif; /* La font peut se globaliser sur tout le site */
+    font-size: 0.9rem;
 }
 
 nav.vertical-navigation {
