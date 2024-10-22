@@ -16,7 +16,7 @@ checkIsUser();
 
     <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 
-    <title>Espace Utilisateur</title>
+    <title>Espace Client</title>
 </head>
 <body>
 

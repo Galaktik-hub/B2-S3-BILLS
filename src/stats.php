@@ -13,7 +13,7 @@
 
     <link href="../css/statistiques_u.css" rel="stylesheet">
     <script src="../js/graph.js"> </script>
-    <title>Statistiques</title>
+    <title>Espace Client</title>
 </head>
 <body>
     <h3 class="titre">Statistiques</h3>
