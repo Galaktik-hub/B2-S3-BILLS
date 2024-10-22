@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
 <div class="form-container">
-    <h1>Ajouter/Modifier Client</h1>
+    <h1>Compte Client</h1>
 
     <form method="POST" action="">
         <div class="form-group">

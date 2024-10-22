@@ -8,7 +8,7 @@
 <body>
     <nav class="vertical-navigation">
         <div class="titleName">
-            <p>
+            <p title="Bilan des Impayés et Lettres de Licences avec Statistiques">
                 B.I.L.L.S.
             </p>
         </div>
