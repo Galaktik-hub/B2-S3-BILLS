@@ -24,43 +24,58 @@ try {
     echo "Erreur SQL : " . $e->getMessage();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $siren = !empty($_POST['siren']) ? $_POST['siren'] : null;
-    $raisonSociale = !empty($_POST['raisonSociale']) ? $_POST['raisonSociale'] : null;
-    $identifiant = !empty($_POST['identifiant']) ? $_POST['identifiant'] : null;
-    $motDePasse = !empty($_POST['motDePasse']) ? $_POST['motDePasse'] : null;
-    $repeatMotDePasse = !empty($_POST['repeatMotDePasse']) ? $_POST['repeatMotDePasse'] : null;
+$successMsg = $errorMsg = "";
 
-    // Validation des mots de passe
-    if ($motDePasse !== $repeatMotDePasse) {
-        echo "<p class='error'>Les mots de passe ne correspondent pas.</p>";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $mail = !empty($_POST['mail']) ? $_POST['mail'] : null;
+    $identifiant = !empty($_POST['identifiant']) ? $_POST['identifiant'] : null;
+    $mdp = !empty($_POST['mdp']) ? $_POST['mdp'] : null;
+    $repeatmdp = !empty($_POST['repeatmdp']) ? $_POST['repeatmdp'] : null;
+
+    if ($mdp !== $repeatmdp) {
+        $errorMsg = "<p class='error'>Les mots de passe ne correspondent pas.</p>";
     } else {
-        // Mise à jour ou ajout du client dans la base de données selon les champs remplis
-        $query = "UPDATE clients SET ";
+        $query = "UPDATE client SET ";
         $fields = [];
 
-        if ($siren) {
-            $fields[] = "siren = '$siren'";
+        if ($mail) {
+            $fields[] = "mail = :mail";
         }
         if ($raisonSociale) {
-            $fields[] = "raison_sociale = '$raisonSociale'";
+            $fields[] = "raisonSociale = :raisonSociale";
         }
         if ($identifiant) {
-            $fields[] = "identifiant = '$identifiant'";
+            $fields[] = "loginClient = :loginClient";
         }
-        if ($motDePasse) {
-            $hashed_password = password_hash($motDePasse, PASSWORD_DEFAULT);
-            $fields[] = "mot_de_passe = '$hashed_password'";
+        if ($mdp) {
+            $hashed_password = hash('sha256', $mdp);
+            $fields[] = "passwordClient = :mdp";
         }
 
         if (!empty($fields)) {
-            $query .= implode(', ', $fields) . " WHERE client_id = ".$_SESSION['client_id'];
-            $result = mysqli_query($conn, $query);
+            $query .= implode(', ', $fields) . " WHERE numClient = :numClient";
+            $stmt = $dbh->prepare($query);
 
-            if ($result) {
-                echo "<p class='success'>Informations mises à jour avec succès.</p>";
+            // Lier les valeurs aux paramètres de la requête
+            if ($mail) {
+                $stmt->bindParam(':mail', $mail);
+            }
+            if ($raisonSociale) {
+                $stmt->bindParam(':raisonSociale', $raisonSociale);
+            }
+            if ($identifiant) {
+                $stmt->bindParam(':loginClient', $identifiant);
+            }
+            if ($mdp) {
+                $stmt->bindParam(':mdp', $hashed_password);
+            }
+
+            $stmt->bindParam(':numClient', $_SESSION['numClient'], PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                $successMsg = "<p class='success'>Informations mises à jour avec succès.</p>";
             } else {
-                echo "<p class='error'>Erreur lors de la mise à jour des informations.</p>";
+                $errorMsg = "<p class='error'>Erreur lors de la mise à jour des informations.</p>";
             }
         }
     }
@@ -102,16 +117,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form-group">
-            <label for="motDePasse">Mot de passe</label>
-            <input type="password" id="motDePasse" name="motDePasse" placeholder="Entrer le mot de passe">
+            <label for="mdp">Mot de passe</label>
+            <input type="password" id="mdp" name="mdp" placeholder="Entrer le mot de passe">
         </div>
 
         <div class="form-group">
-            <label for="repeatMotDePasse">Confirmer le mot de passe</label>
-            <input type="password" id="repeatMotDePasse" name="repeatMotDePasse" placeholder="Répéter le mot de passe">
+            <label for="repeatmdp">Confirmer le mot de passe</label>
+            <input type="password" id="repeatmdp" name="repeatmdp" placeholder="Répéter le mot de passe">
         </div>
 
         <button type="submit" class="btn-submit">Mettre à jour</button>
+        <?php
+        if (!empty($errorMsg)) {
+            echo $errorMsg;
+        }
+
+        if (!empty($successMsg)) {
+            echo $successMsg;
+        }
+        ?>
     </form>
 </div>
 
