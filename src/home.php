@@ -1,10 +1,34 @@
 <?php
-session_start();
-include('function.php');
-include('connexion.php');
-include('navbar.php');
-include('links.php');
-checkIsUser();
+    session_start();
+    include('function.php');
+    include('connexion.php');
+    include('navbar.php');
+    include('links.php');
+    checkIsUser();
+
+    $numClient = $_SESSION['numClient'];
+    $date = date('Y-m-d');
+
+    $query = "
+        SELECT 
+            (SELECT numSiren FROM client WHERE numClient = :numClient) as 'N° Siren', 
+            (SELECT raisonSociale FROM client WHERE numClient = :numClient) as 'Raison Sociale', 
+            (SELECT devise FROM remise WHERE numClient = :numClient LIMIT 1) as Devise,
+            COUNT(numRemise) AS 'Nombre de Remises', 
+            COALESCE(SUM(montantTotal), 0) AS 'Montant total' 
+        FROM remise 
+        WHERE numClient = :numClient";
+
+
+    $stmt = $dbh->prepare($query);
+    $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
+    $stmt->execute();
+    $remises = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $columns = array_keys($remises[0]);
+
+    $remises_json = json_encode($remises);
+    $columns_json = json_encode($columns);
 ?>
 
 <!DOCTYPE html>
@@ -17,30 +41,34 @@ checkIsUser();
 
     <title>Espace Client</title>
 </head>
-<body>
-<div class="page-top">
-    <h1>Bonjour <?php echo $_SESSION['raisonSociale']?> </h1>
-    <?php
+    <body>
+        <div class="page-top">
+            <h1>Bonjour <?php echo $_SESSION['raisonSociale']?> </h1>
+            <?php
 
-    if(isset($_POST['date'])){
-        $_SESSION['home.date'] = $_POST['date'];
-        $date = $_SESSION['home.date'];
-    }
-    else {
-        $date = date('Y-m-d');
-        unset($_SESSION['home.date']);
-    }
-    setlocale (LC_TIME, 'fr_FR.utf8','fra');
-    echo "<h2>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h2>";
+            if(isset($_POST['date'])){
+                $_SESSION['home.date'] = $_POST['date'];
+                $date = $_SESSION['home.date'];
+            }
+            else {
+                $date = date('Y-m-d');
+                unset($_SESSION['home.date']);
+            }
+            setlocale (LC_TIME, 'fr_FR.utf8','fra');
+            echo "<h2>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h2>";
 
-    ?>
-</div>
+            ?>
+        </div>
 
-<div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; max-width: 100%; font-size: 15px"></div>
+        <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; max-width: 100%; font-size: 15px"></div>
 
 
-<script src="../js/user/home.js"></script>
-</body>
+        <script>
+            const data = <?php echo $remises_json; ?>;
+            const columnNames = <?php echo $columns_json; ?>;
+        </script>
+        <script src="../js/constructor_agGrid.js"></script>
+    </body>
 </html>
 
 
