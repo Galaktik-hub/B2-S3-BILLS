@@ -106,7 +106,7 @@ checkIsUser();
 <!--</div>-->
 
     <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
-    <script src="../js/impaye.js"></script>
+    <script src="../Js/user/impaye.js"></script>
 </body>
 </html>
 

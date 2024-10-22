@@ -120,7 +120,7 @@ checkIsUser();
 
 <!--<div>Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
 
-<script src="../js/remise.js"></script>
+<script src="../Js/user/remise.js"></script>
 </body>
 </html>
 

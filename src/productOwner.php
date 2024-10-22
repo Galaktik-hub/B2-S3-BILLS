@@ -28,6 +28,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
         <title>Espace Product Owner</title>
     </head>
     <body>
@@ -46,29 +48,31 @@
     ?>
 
 
-    <div class="container box">
-        <form action="productOwner.php" method="POST" class="imp">
-            <input type="date" name="date"  <?php echo "value='".$date."' max='".date('Y-m-d')."'";  ?>>
-            <input type="submit">
-        </form>
-        <br/>
-        <div class="table-responsive">
-            <table id="customer_data" class="table table-bordered" data-stripe-classes="[]">
-                 <thead class="thead-dark">
-                <tr>
-                    <th>N° Siren</th>
-                    <th>Raison Sociale</th>
-                    <th>Nombre de Remises</th>
-                    <th class="no-sort">Devise</th>
-                    <th>Montant Total</th>
-                </tr>
-                </thead>
+<!--    <div class="container box">-->
+<!--        <form action="productOwner.php" method="POST" class="imp">-->
+<!--            <input type="date" name="date"  --><?php //echo "value='".$date."' max='".date('Y-m-d')."'";  ?>
+<!--            <input type="submit">-->
+<!--        </form>-->
+<!--        <br/>-->
+<!--        <div class="table-responsive">-->
+<!--            <table id="customer_data" class="table table-bordered" data-stripe-classes="[]">-->
+<!--                 <thead class="thead-dark">-->
+<!--                <tr>-->
+<!--                    <th>N° Siren</th>-->
+<!--                    <th>Raison Sociale</th>-->
+<!--                    <th>Nombre de Remises</th>-->
+<!--                    <th class="no-sort">Devise</th>-->
+<!--                    <th>Montant Total</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!---->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
 
-            </table>
-        </div>
-    </div>
-    <br />
-    <br />
+
+        <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; font-size: 15px"></div>
+        <script src="../Js/admin/productOwner.js"></script>
     </body>
 </html>
 <!--
