@@ -11,7 +11,7 @@ checkIsUser();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Css/Remise_U.css">
+    <link rel="stylesheet" type="text/css" href="../css/remise_u.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -120,7 +120,7 @@ checkIsUser();
 
 <!--<div>Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
 
-<script src="Js/remise.js"></script>
+<script src="../js/remise.js"></script>
 </body>
 </html>
 

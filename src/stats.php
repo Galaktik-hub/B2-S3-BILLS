@@ -22,8 +22,8 @@
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 		
-    <link href="Css/Statistiques_U.css" rel="stylesheet">
-    <script src="Js/graph.js"> </script>
+    <link href="../css/statistiques_u.css" rel="stylesheet">
+    <script src="../js/graph.js"> </script>
     <title>Statistiques</title>
 </head>
 <body>

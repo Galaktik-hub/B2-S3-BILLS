@@ -9,9 +9,9 @@ checkIsPO();
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Css/Accueil_A.css">
+    <link rel="stylesheet" type="text/css" href="../css/accueil_a.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -30,24 +30,14 @@ checkIsPO();
 
 
 
+    <title>Espace Product Owner</title>
 </head>
 <body>
-<?php //head_A(1);
-?>
 
 
-<h3 class="titre">Impayés</h3>
+<h3 class="titre">Remises</h3>
 
-
-<div class="container box">
-    <form action="productOwnerImpaye.php" method="POST" class="imp">
-        <label for="numSiren">Numéro SIREN</label>
-        <input type="text" name="numSiren" id="numSiren">
-
-        <input type="submit">
-    </form>
-    <?php
-
+<?php
     if(isset($_POST['numSiren'])) {
         $_SESSION['numSiren'] = $_POST['numSiren'];
         $numSiren = $_SESSION['numSiren'];
@@ -57,22 +47,70 @@ checkIsPO();
         $numSiren = "";
     }
 
+    if(isset($_POST['debut'])){
+        $_SESSION['debut.date'] = $_POST['debut'];
+        $debut = $_SESSION['debut.date'];
+    }
+    else {
+        //$debut = date('Y-m-d');
+        unset($_SESSION['debut.date']);
+        $debut = "";
+    }
+
+    if(isset($_POST['fin'])){
+        $_SESSION['fin.date'] = $_POST['fin'];
+        $fin = $_SESSION['fin.date'];
+    }
+    else {
+        //$fin = date('Y-m-d');
+        unset($_SESSION['fin.date']);
+        $fin = "";
+    }
+?>
+
+<div class="container box">
+    <form action="productOwnerRemise.php" method="POST" class="imp">
+        <label for="numSiren">Numéro SIREN</label>
+        <input type="text" name="numSiren" id="numSiren">
+
+        <label for="debut">Du</label>
+        <input type="date" name="debut" id="debut" <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
+
+        <label for="fin">Au</label>
+        <input type="date" name="fin" id="fin" <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
+
+        <input type="submit">
+    </form>
+
+    <?php
     echo "
         <ul>
                 <li>Numéro SIREN : $numSiren</li>
+                <li>Début : $debut</li>
+                <li>Fin : $fin</li>
         </ul>";
+
+    if($debut > $fin && $fin != null){
+        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
+        exit;
+    }
 
     ?>
     <br/>
     <div class="table-responsive">
-        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">
+        <table id="remise_data" class="table table-bordered" data-stripe-classes="[]">
             <thead class="thead-dark">
             <tr>
-                <th>N° SIREN</th>
-                <th>Raison sociale</th>
-                <th>Montant total</th>
+                <th>N° Siren</th>
+                <th>Numéro de Remise</th>
+                <th>Date de la remise</th>
+                <th>Raison Sociale</th>
+                <th>Nombre de Transactions</th>
+                <th>Montant Total</th>
+                <th class="no-sort">Devise</th>
             </tr>
             </thead>
+
         </table>
     </div>
 </div>
@@ -86,7 +124,7 @@ checkIsPO();
     $(document).ready(function(){
 
 
-        $('#impaye_data').DataTable({
+        $('#remise_data').DataTable({
             "processing" : true,
             "serverSide" : true,
             paging: true,
@@ -94,9 +132,14 @@ checkIsPO();
             searching: true,
             bInfo: true,
             "ajax" : {
-                url:'Data/fetchImpayePO.php',
+                url:'../data/fetchRemisePO.php',
                 type:"POST"
             },
+
+            columnDefs: [{
+                orderable: false,
+                targets: "no-sort"
+            }],
 
             "language": {
                 "emptyTable": "Pas de donnée",
@@ -119,17 +162,8 @@ checkIsPO();
             },
 
             "createdRow": function( row, data, dataIndex) {
-                if(data[2] > -100){
-                    $(row).css('background-color','white');
-                }
-                else if(data[2] > -1000){
-                    $(row).css('background-color','rgba(255,255,0,0.50)');
-                }
-                else if(data[2] > -10000){
-                    $(row).css('background-color','rgba(255,165,0,0.50)');
-                }
-                else {
-                    $(row).css('background-color','rgba(255,0,0,0.50)');
+                if (data[5] < 0) {
+                    $(row).css('background-color','#FF513E');
                 }
             },
 
@@ -138,16 +172,16 @@ checkIsPO();
             buttons: [
                 {
                     extend: 'csvHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE REMISE PO '
 
                 },
                 {
                     extend: 'excelHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE REMISE PO '
                 },
                 {
                     extend: 'pdfHtml5',
-                    title: "EXTRAIT D IMPAYES PO "
+                    title: 'EXTRAIT DE REMISE PO '
                 }
             ],
             "lengthMenu": [ [10, 25, 50], [10, 25, 50] ]

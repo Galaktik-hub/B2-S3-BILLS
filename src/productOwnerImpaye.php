@@ -3,15 +3,15 @@ session_start();
 include('function.php');
 include('connexion.php');
 include("navbar.php");
-checkIsUser();
+checkIsPO();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Css/Impayes_U.css">
+    <link rel="stylesheet" type="text/css" href="../css/accueil_a.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -28,85 +28,53 @@ checkIsUser();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 
-    <title>Espace Utilisateur</title>
+
 </head>
 <body>
-<?php //head();
-?>
 
-<?php
-
-    if(isset($_POST['debut'])){
-        $_SESSION['impaye.debut'] = $_POST['debut'];
-        $debut = $_SESSION['impaye.debut'];
-    }
-    else {
-        //$debut = date('Y-m-d');
-        unset($_SESSION['impaye.debut']);
-        $debut = "";
-    }
-
-    if(isset($_POST['fin'])){
-        $_SESSION['impaye.fin'] = $_POST['fin'];
-        $fin = $_SESSION['impaye.fin'];
-    }
-    else {
-        //$fin = date('Y-m-d');
-        unset($_SESSION['impaye.fin']);
-        $fin = "";
-    }
-    ?>
 <h3 class="titre">Impayés</h3>
 
 
-<!--<div class="container box">-->
-<!--    <form action="impaye.php" method="POST">-->
-<!--        <label for="debut">Du</label>-->
-<!--        <input type="date" name="debut" id="debut"  --><?php //echo "value='".$debut."' max='".date('Y-m-d')."'";  ?><!--
-<!---->
-<!--        <label for="fin">Au</label>-->
-<!--        <input type="date" name="fin" id="fin"  --><?php //echo "value='".$fin."' max='".date('Y-m-d')."'";  ?><!--
-<!---->
-<!--        <input type="submit">-->
-<!--    </form>-->
-<!---->
-<!--    --><?php
-//    echo "
-//        <ul>
-//                <li>Début : $debut</li>
-//                <li>Fin : $fin</li>
-//        </ul>";
-//
-//    if($debut > $fin  && $fin != null){
-//        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
-//        exit;
-//    }
-//    $title = "LISTE DES IMPAYES DE L ENTREPRISE $_SESSION[raisonSociale] N° SIREN $_SESSION[numSiren]";
-//    ?>
-<!--    <br/>-->
-<!--    <div class="table-responsive">-->
-<!--        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">-->
-<!--            <thead class="thead-dark">-->
-<!--            <tr>-->
-<!--                <th>Dossier impayé</th>-->
-<!--                <th class="no-sort">N° SIREN</th>-->
-<!--                <th>Date</th>-->
-<!--                <th>N° Carte</th>-->
-<!--                <th>Réseau</th>-->
-<!--                <th class="no-sort">Devise</th>-->
-<!--                <th>Montant</th>-->
-<!--                <th>Libellé impayé</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!---->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="container box">
+    <form action="productOwnerImpaye.php" method="POST" class="imp">
+        <label for="numSiren">Numéro SIREN</label>
+        <input type="text" name="numSiren" id="numSiren">
 
-    <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
-    <script src="Js/impaye.js"></script>
+        <input type="submit">
+    </form>
+    <?php
+
+    if(isset($_POST['numSiren'])) {
+        $_SESSION['numSiren'] = $_POST['numSiren'];
+        $numSiren = $_SESSION['numSiren'];
+    }
+    else {
+        unset($_SESSION['numSiren']);
+        $numSiren = "";
+    }
+
+    echo "
+        <ul>
+                <li>Numéro SIREN : $numSiren</li>
+        </ul>";
+
+    ?>
+    <br/>
+    <div class="table-responsive">
+        <table id="impaye_data" class="table table-bordered" data-stripe-classes="[]">
+            <thead class="thead-dark">
+            <tr>
+                <th>N° SIREN</th>
+                <th>Raison sociale</th>
+                <th>Montant total</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<br />
+<br />
 </body>
 </html>
 
@@ -123,14 +91,9 @@ checkIsUser();
             searching: true,
             bInfo: true,
             "ajax" : {
-                url:'Data/fetchImpaye.php',
+                url:'../data/fetchImpayePO.php',
                 type:"POST"
             },
-
-            columnDefs: [{
-                orderable: false,
-                targets: "no-sort"
-            }],
 
             "language": {
                 "emptyTable": "Pas de donnée",
@@ -153,13 +116,13 @@ checkIsUser();
             },
 
             "createdRow": function( row, data, dataIndex) {
-                if(data[6] > -10){
+                if(data[2] > -100){
                     $(row).css('background-color','white');
                 }
-                else if(data[6] > -100){
+                else if(data[2] > -1000){
                     $(row).css('background-color','rgba(255,255,0,0.50)');
                 }
-                else if(data[6] > -1000){
+                else if(data[2] > -10000){
                     $(row).css('background-color','rgba(255,165,0,0.50)');
                 }
                 else {
@@ -172,16 +135,16 @@ checkIsUser();
             buttons: [
                 {
                     extend: 'csvHtml5',
-                    title: "<?php echo $title; ?>"
+                    title: "EXTRAIT D IMPAYES PO "
 
                 },
                 {
                     extend: 'excelHtml5',
-                    title: "<?php echo $title; ?>"
+                    title: "EXTRAIT D IMPAYES PO "
                 },
                 {
                     extend: 'pdfHtml5',
-                    title: "<?php echo $title; ?>"
+                    title: "EXTRAIT D IMPAYES PO "
                 }
             ],
             "lengthMenu": [ [10, 25, 50], [10, 25, 50] ]
