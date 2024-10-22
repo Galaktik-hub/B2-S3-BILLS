@@ -73,6 +73,7 @@ checkIsUser();
 <br />
 </body>
 </html>
+<!--
 <script type="text/javascript" language="javascript">
     $(document).ready(function() {
         // Initialiser le DataTable pour le tableau principal
@@ -144,4 +145,6 @@ checkIsUser();
         table.buttons().container().appendTo('#buttons-container');
     });
 </script>
+-->
+
 
