@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : mar. 15 déc. 2020 à 11:15
--- Version du serveur :  5.7.24
--- Version de PHP : 7.2.19
+-- Hôte : 127.0.0.1
+-- Généré le : mar. 22 oct. 2024 à 19:53
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database de données : `banque`
+-- Base de données : `banque`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `passwordAdmin` varchar(75) NOT NULL,
   `isProductOwner` tinyint(1) NOT NULL,
   `nameAdmin` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `admin`
@@ -53,17 +53,19 @@ CREATE TABLE `client` (
   `numSiren` char(9) NOT NULL,
   `loginClient` varchar(50) NOT NULL,
   `passwordClient` varchar(75) NOT NULL,
-  `raisonSociale` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `raisonSociale` varchar(20) NOT NULL,
+  `mail` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, `raisonSociale`) VALUES
-(1, '123456789', 'client', '948fe603f61dc036b5c596dc09fe3ce3f3d30dc90f024c85f3c82db2ccab679d', 'Carrefour'),
-(3, '987654321', 'auchan', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'Auchan'),
-(4, '123456789', 'aa', '961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506', 'leclerc');
+INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, `raisonSociale`, `mail`) VALUES
+(1, '123456789', 'client', '948fe603f61dc036b5c596dc09fe3ce3f3d30dc90f024c85f3c82db2ccab679d', 'Carrefour', 'carrefour.direction@gmail.com'),
+(3, '987654321', 'auchan', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'Auchan', ''),
+(4, '123456789', 'aa', '961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506', 'leclerc', 'auchan.test@auchan.fr'),
+(5, '050505050', 'inter', 'c84c8016356014e02b049ff270c079dd03ab5c5d44a120bee60242782b234ddd', 'Intermarché', 'interdirection@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -74,7 +76,7 @@ INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, 
 CREATE TABLE `codeimpaye` (
   `codeImpaye` char(2) NOT NULL,
   `libelleImpaye` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `codeimpaye`
@@ -100,7 +102,7 @@ CREATE TABLE `impaye` (
   `numTransaction` int(11) NOT NULL,
   `numDossierImpaye` char(5) NOT NULL,
   `codeImpaye` char(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `impaye`
@@ -134,9 +136,9 @@ CREATE TABLE `remise` (
   `nbrTransaction` int(11) NOT NULL,
   `montantTotal` int(11) NOT NULL,
   `devise` char(3) NOT NULL,
-  `dateRemise` timestamp NOT NULL,
+  `dateRemise` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `numClient` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `remise`
@@ -188,7 +190,7 @@ CREATE TABLE `transaction` (
   `numAutorisation` char(6) DEFAULT NULL,
   `reseau` char(5) NOT NULL,
   `numRemise` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `transaction`
@@ -297,7 +299,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `remise`
