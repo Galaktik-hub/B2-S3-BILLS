@@ -32,7 +32,6 @@
     </head>
     <body>
     <?php
-    head_A(1);
     if(isset($_POST['date'])){
         $_SESSION['home.datePO'] = $_POST['date'];
         $date = $_SESSION['home.datePO'];

@@ -97,7 +97,7 @@ if(isset($_POST['login'])){
     </head>
     <body>
 
-        <?php head_C()?>
+        <?php head_login()?>
         <div class="text_center">
             <form class="form-signin" action="index.php" method="post">
                 <h1 class="petit_titre">Connexion</h1>

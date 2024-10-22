@@ -24,7 +24,6 @@
         else{
             $po=1;
         }
-         head_A($po);
          ?>
          <h3 class="titre">Insérer un client</h3>
          <div class="client">

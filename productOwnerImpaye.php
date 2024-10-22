@@ -32,7 +32,7 @@ checkIsPO();
 
 </head>
 <body>
-<?php head_A(1);
+<?php //head_A(1);
 ?>
 
 

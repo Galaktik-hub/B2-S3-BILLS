@@ -18,50 +18,7 @@ function checkIsPO(){
     }
 }
 
-function head(){
-
-    $forPO = (isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'])? "<a href='productOwnerToClient.php'><button type='button' class='retour' ><p class='texte'>Espace Product Owner</p></button></a>" :"";
-    echo "<header>
-        <div class='superieur'>
-            Bonjour ".$_SESSION['raisonSociale'].
-
-        "$forPO
-            <a href='deconnexion.php'><button type='button' class='deconnexion' ><p class='texte'>Déconnexion</p></button></a>
-        </div>
-        <div class='inferieur'>
-            <a href='home.php' class='direction'><button type='button' class='nav'><p class='texte'>Accueil</p></button></a>
-            <a href='remise.php' class='direction'><button type='button' class='nav'><p class='texte'>Remises</p></button></a>
-            <a href='impaye.php' class='direction'><button type='button' class='nav'><p class='texte'>Impayés</p></button></a>
-            <a href='stats.php' class='direction'><button type='button' class='nav'><p class='texte'>Statistiques</p></button></a>
-        </div>
-        <hr>
-    </header>";
-}
-
-function head_A($po){
-    echo "<header>
-        <div class='superieur'>
-            Bonjour ".$_SESSION['raisonSociale']. "
-            <a href='deconnexion.php'><button type='button' class='deconnexion' ><p class='texte'>Déconnexion</p></button></a>
-        </div>
-        <div class='inferieur'>
-            <a href='admin.php' class='direction'><button type='button' class='nav'><p class='texte'>Administration</p></button></a>
-                
-            <a href='insertClient.php' class='direction'><button type='button' class='nav'><p class='texte'>Insérer un nouveau client</p></button></a>";
-
-            if($po==1){
-                echo "
-            <a href='productOwner.php' class='direction'><button type='button' class='nav'><p class='texte'>Trésorerie</p></button></a>
-            <a href='productOwnerRemise.php' class='direction'><button type='button' class='nav'><p class='texte'>Remises</p></button></a>
-            <a href='productOwnerImpaye.php' class='direction'><button type='button' class='nav'><p class='texte'>Impayés</p></button></a>";
-            }
-            echo"
-            </div>
-        <hr>
-    </header>";
-}
-
-function head_C(){
+function head_login(){
     echo "
         <header class='superieur'>
             <h2 class='titre_h'> B.I.L.L.S. <h2>
@@ -98,7 +55,7 @@ function nav_client() {
                     <p>Statistiques</p>
                 </li>
             </a>
-            <a href='#' class='nav-item " . ($currentPage == '#' ? 'active' : '') . "'>
+            <a href='account.php' class='nav-item " . ($currentPage == 'account.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../Image/compte.svg' alt='Icone Compte' class='icon'>
                     <p>Compte</p>

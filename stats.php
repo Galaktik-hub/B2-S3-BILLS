@@ -27,8 +27,6 @@
     <title>Statistiques</title>
 </head>
 <body>
-    <?php head();
-    ?>
     <h3 class="titre">Statistiques</h3>
     <?php
         if(isset($_GET['date'])&&isset($_GET['graph'])){

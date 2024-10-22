@@ -33,8 +33,6 @@ checkIsUser();
     <title>Espace Utilisateur</title>
 </head>
 <body>
-<?php //head();
-//?>
 
 
 <h3 class="titre">Remises</h3>

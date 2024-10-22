@@ -33,8 +33,6 @@ checkIsPO();
     <title>Espace Product Owner</title>
 </head>
 <body>
-<?php head_A(1);
-?>
 
 
 <h3 class="titre">Remises</h3>
