@@ -124,6 +124,6 @@
 
         <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
 
-        <script src="../js/admin.js"></script>
+        <script src="../Js/admin/admin.js"></script>
     </body>
 </html>

@@ -28,7 +28,7 @@ checkIsPO();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 
     <title>Espace Product Owner</title>
 </head>
@@ -97,25 +97,26 @@ checkIsPO();
 
     ?>
     <br/>
-    <div class="table-responsive">
-        <table id="remise_data" class="table table-bordered" data-stripe-classes="[]">
-            <thead class="thead-dark">
-            <tr>
-                <th>N° Siren</th>
-                <th>Numéro de Remise</th>
-                <th>Date de la remise</th>
-                <th>Raison Sociale</th>
-                <th>Nombre de Transactions</th>
-                <th>Montant Total</th>
-                <th class="no-sort">Devise</th>
-            </tr>
-            </thead>
-
-        </table>
-    </div>
+<!--    <div class="table-responsive">-->
+<!--        <table id="remise_data" class="table table-bordered" data-stripe-classes="[]">-->
+<!--            <thead class="thead-dark">-->
+<!--            <tr>-->
+<!--                <th>N° Siren</th>-->
+<!--                <th>Numéro de Remise</th>-->
+<!--                <th>Date de la remise</th>-->
+<!--                <th>Raison Sociale</th>-->
+<!--                <th>Nombre de Transactions</th>-->
+<!--                <th>Montant Total</th>-->
+<!--                <th class="no-sort">Devise</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!---->
+<!--        </table>-->
+<!--    </div>-->
 </div>
-<br />
-<br />
+
+<div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; font-size: 15px"></div>
+<script src="../Js/admin/productOwnerRemise.js"></script>
 </body>
 </html>
 <!--
