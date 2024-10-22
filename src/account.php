@@ -24,7 +24,6 @@ try {
     echo "Erreur SQL : " . $e->getMessage();
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $siren = !empty($_POST['siren']) ? $_POST['siren'] : null;
     $raisonSociale = !empty($_POST['raisonSociale']) ? $_POST['raisonSociale'] : null;
