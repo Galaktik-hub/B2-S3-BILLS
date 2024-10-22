@@ -6,8 +6,8 @@
     include('links.php');
     checkIsAdmin();
 
-    $query =
-        "SELECT numSiren as 'N° Siren', 
+    $query = "
+        SELECT numSiren as 'N° Siren', 
                 raisonSociale 'Raison Sociale', 
         (SELECT devise FROM remise WHERE numClient=1 LIMIT 1) as Devise,
         COUNT(numRemise) AS 'Nombre de Remises', 
