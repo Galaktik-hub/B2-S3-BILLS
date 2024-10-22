@@ -5,6 +5,26 @@ include('connexion.php');
 include('navbar.php');
 checkIsUser();
 
+try {
+    $req = $dbh->prepare('SELECT numSiren, raisonSociale, loginClient, mail FROM client WHERE numClient = :numClient');
+
+    $req->bindParam(':numClient', $_SESSION['numClient'], PDO::PARAM_INT);
+    $req->execute();
+    $client = $req->fetch(PDO::FETCH_ASSOC);
+
+    if($client) {
+        $siren = $client['numSiren'];
+        $raisonSociale = $client['raisonSociale'];
+        $loginClient = $client['loginClient'];
+        $mail = $client['mail'];
+    } else {
+        echo "Erreur : Impossible de récupérer les informations du compte.";
+    }
+} catch (Exception $e) {
+    echo "Erreur SQL : " . $e->getMessage();
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $siren = !empty($_POST['siren']) ? $_POST['siren'] : null;
     $raisonSociale = !empty($_POST['raisonSociale']) ? $_POST['raisonSociale'] : null;
@@ -63,27 +83,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <form method="POST" action="">
         <div class="form-group">
-            <label for="siren">Siren :</label>
-            <input type="text" id="siren" name="siren" placeholder="Entrer le Siren">
+            <label for="siren">Siren</label>
+            <input type="text" id="siren" name="siren" value="<?php echo $siren ?>" placeholder="Entrer le Siren" disabled>
         </div>
 
         <div class="form-group">
-            <label for="raisonSociale">Raison Sociale :</label>
-            <input type="text" id="raisonSociale" name="raisonSociale" placeholder="Entrer la Raison Sociale">
+            <label for="raisonSociale">Raison Sociale</label>
+            <input type="text" id="raisonSociale" name="raisonSociale" value="<?php echo $raisonSociale ?>" placeholder="Entrer la Raison Sociale" disabled>
         </div>
 
         <div class="form-group">
-            <label for="identifiant">Identifiant :</label>
-            <input type="text" id="identifiant" name="identifiant" placeholder="Entrer l'Identifiant">
+            <label for="identifiant">Identifiant</label>
+            <input type="text" id="identifiant" name="identifiant" value="<?php echo $loginClient ?>" placeholder="Entrer l'Identifiant" disabled>
         </div>
 
         <div class="form-group">
-            <label for="motDePasse">Mot de passe :</label>
+            <label for="mail">Adresse mail</label>
+            <input type="text" id="mail" name="mail" value="<?php echo $mail ?>" placeholder="Entrer votre adresse mail">
+        </div>
+
+        <div class="form-group">
+            <label for="motDePasse">Mot de passe</label>
             <input type="password" id="motDePasse" name="motDePasse" placeholder="Entrer le mot de passe">
         </div>
 
         <div class="form-group">
-            <label for="repeatMotDePasse">Répéter le mot de passe :</label>
+            <label for="repeatMotDePasse">Confirmer le mot de passe</label>
             <input type="password" id="repeatMotDePasse" name="repeatMotDePasse" placeholder="Répéter le mot de passe">
         </div>
 
