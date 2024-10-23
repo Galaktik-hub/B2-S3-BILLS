@@ -80,16 +80,18 @@
                     <input type="password" id="repeatmdp" name="repeatmdp" placeholder="Répéter le mot de passe">
                 </div>
 
-                <button type="submit" class="btn-submit">Mettre à jour</button>
+                <p class='error'>Les mots de passe ne correspondent pas.</p>
                 <?php
-                if (!empty($errorMsg)) {
-                    echo $errorMsg;
-                }
+                    if (!empty($errorMsg)) {
+                        echo $errorMsg;
+                    }
 
-                if (!empty($successMsg)) {
-                    echo $successMsg;
-                }
+                    if (!empty($successMsg)) {
+                        echo $successMsg;
+                    }
                 ?>
+                <button type="submit" class="btn-submit">Mettre à jour</button>
+
             </form>
         </div>
 
