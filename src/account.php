@@ -67,7 +67,7 @@
 
                 <div class="form-group">
                     <label for="mail">Adresse mail</label>
-                    <input type="text" id="mail" name="mail" value="<?php echo $mail ?>" placeholder="Entrer votre adresse mail">
+                    <input type="email" id="mail" name="mail" value="<?php echo $mail ?>" placeholder="Entrer votre adresse mail">
                 </div>
 
                 <div class="form-group">
