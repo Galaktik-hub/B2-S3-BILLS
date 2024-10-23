@@ -5,6 +5,7 @@
     include("navbar.php");
     include('links.php');
     checkIsPO();
+    include('../data/fetchTreasuryPO.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,22 +18,27 @@
         <title>Espace Product Owner</title>
     </head>
     <body>
-    <?php
-    if(isset($_POST['date'])){
-        $_SESSION['home.datePO'] = $_POST['date'];
-        $date = $_SESSION['home.datePO'];
-    }
-    else {
-        unset($_SESSION['home.datePO']);
-        $date = date('Y-m-d');
-    }
-    setlocale (LC_TIME, 'fr_FR.utf8','fra');
-    echo "<h3 class='titre'>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h3>";
+        <?php
+        if(isset($_POST['date'])){
+            $_SESSION['home.datePO'] = $_POST['date'];
+            $date = $_SESSION['home.datePO'];
+        }
+        else {
+            unset($_SESSION['home.datePO']);
+            $date = date('Y-m-d');
+        }
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        echo "<h3 class='titre'>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h3>";
 
-    ?>
+        ?>
 
         <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; font-size: 15px"></div>
-        <script src="../js/admin/productOwner.js"></script>
+
+        <script>
+            const data = <?php echo $clients_json; ?>;
+            const columnNames = <?php echo $columns_json; ?>;
+        </script>
+        <script src="../js/constructor_agGrid.js"></script>
     </body>
 </html>
 
