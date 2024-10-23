@@ -26,7 +26,10 @@
 
                 function checkForChanges() {
                     const mailChanged = mailField.value !== initialMail;
-                    const passwordEntered = newMdpField.value !== "" && repeatMdpField.value !== "";
+                    const passwordEntered =
+                        newMdpField.value === repeatMdpField.value &&
+                        newMdpField.value !== "" &&
+                        newMdpField.value !== "";
 
                     if (mailChanged || passwordEntered) {
                         updateButton.disabled = false;
