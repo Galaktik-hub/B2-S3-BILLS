@@ -1,0 +1,88 @@
+td.details-control {
+    background: url('../image/plus.png') no-repeat center center;
+    cursor: pointer;
+    width: 48px;
+
+}
+tr.shown td.details-control {
+    background: url('../image/cancel.png') no-repeat center center;
+    width: 48px;
+}
+
+/*Partie Header*/
+.superieur{
+    width: 100%;
+    background-color: #1d4851;
+    padding: 2%;
+    color: white;
+}
+
+.retour{
+    margin-left: 1%;
+    width: auto;
+    background: white; 
+    color: #1d4851;
+    border-radius: 7%;
+    font-size: 100%;
+    border: none;
+}
+
+.deconnexion{
+    width: 10%;
+    background: white; 
+    color: #1d4851;
+    float: right;
+    border-radius: 7%;
+    font-size: 100%;
+    border: none;
+}
+
+.inferieur{
+    width: 100%;
+    padding: 1%;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.direction{
+    width: 10%;
+    margin-right: 8%;
+    text-align: center;
+    margin-bottom: -16px;
+}
+.direction:link{
+    text-decoration: none;
+}
+
+.direction :hover{
+    color: orange;
+    transition: linear 0.2s;
+}
+
+.nav{
+    color: white;
+    transition: linear 0.2s;
+    width: 100%;
+    background: #1d4851; 
+    border-radius: 7%;
+    border: none;
+}
+
+.texte{
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 100%;
+}
+
+/*Partie Centrale*/
+.titre{
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.imp{
+    margin-bottom: 2%;
+}

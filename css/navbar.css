@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: "Sora", sans-serif; /* La font peut se globaliser sur tout le site */
+    font-size: 0.9rem;
+}
+
+nav.vertical-navigation {
+    background-color: #FAFBFC;
+    width: 200px;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    border-right: 2px solid #01B8E3;
+}
+
+nav.vertical-navigation div.titleName {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 150px;
+}
+
+nav.vertical-navigation .titleName p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+
+nav.vertical-navigation ul.navigation-items {
+    list-style-type: none;
+    padding: 0;
+    flex: 2;
+    margin: 0 10px 0 30px;
+}
+
+nav.vertical-navigation ul.navigation-items a {
+    text-decoration: none;
+}
+
+nav.vertical-navigation ul.navigation-items a.active li.item {
+    background-color: #eaeffa;
+}
+
+nav.vertical-navigation ul.navigation-items a.active li.item p {
+    background: linear-gradient(to right, #3E79E5, #01B8E3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+nav.vertical-navigation ul.navigation-items li.item {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    transition: background-color 0.3s;
+    color: black;
+}
+
+nav.vertical-navigation ul.navigation-items li.item p {
+    margin: 0;
+}
+
+nav.vertical-navigation ul.navigation-items li.item:hover {
+    background-color: #D3E1F5;
+}
+
+nav.vertical-navigation ul.navigation-items li.item .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+nav.vertical-navigation .deconnect {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav.vertical-navigation .deconnect-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+nav.vertical-navigation .deconnect-link:hover {
+    background-color: #D3E1F5;
+}
+
+nav.vertical-navigation .deconnect-link .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+nav.vertical-navigation .deconnect p {
+    margin: 0;
+}
