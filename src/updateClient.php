@@ -1,5 +1,6 @@
 <?php
 
+global $dbh;
 session_start();
 include("function.php");
 checkIsAdmin();

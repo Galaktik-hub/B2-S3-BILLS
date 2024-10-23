@@ -23,6 +23,7 @@
                 const repeatMdpField = document.getElementById("repeatmdp");
                 const updateButton = document.querySelector(".btn-submit");
                 const initialMail = "<?php echo $mail ?>";
+                const errorMsg = document.querySelector('.error');
 
                 function checkForChanges() {
                     const mailChanged = mailField.value !== initialMail;
@@ -38,9 +39,28 @@
                     }
                 }
 
+                function checkPasswordsMatch() {
+                    if (newMdpField.value !== "" && newMdpField.value === repeatMdpField.value) {
+                        repeatMdpField.style.borderColor = "green";
+                        errorMsg.hidden = true;
+                    } else if (repeatMdpField.value !== "") {
+                        repeatMdpField.style.borderColor = "red";
+                        errorMsg.hidden = false;
+                    } else {
+                        repeatMdpField.style.borderColor = "";
+                        errorMsg.hidden = true;
+                    }
+                }
+
                 mailField.addEventListener("input", checkForChanges);
-                newMdpField.addEventListener("input", checkForChanges);
-                repeatMdpField.addEventListener("input", checkForChanges);
+                newMdpField.addEventListener("input", () => {
+                    checkForChanges();
+                    checkPasswordsMatch();
+                });
+                repeatMdpField.addEventListener("input", () => {
+                    checkForChanges();
+                    checkPasswordsMatch();
+                });
 
                 updateButton.disabled = true;
             });
@@ -80,7 +100,7 @@
                     <input type="password" id="repeatmdp" name="repeatmdp" placeholder="Répéter le mot de passe">
                 </div>
 
-                <p class='error'>Les mots de passe ne correspondent pas.</p>
+                <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
                 <?php
                     if (!empty($errorMsg)) {
                         echo $errorMsg;
