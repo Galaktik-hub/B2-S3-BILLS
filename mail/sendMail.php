@@ -22,7 +22,7 @@ try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->isSMTP();
-    $mail->Host       = 'mail.infomaniak.com';                     //Set the SMTP server to send through
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = $mailsae;                     //SMTP username
     $mail->Password   = $mdp;                               //SMTP password
@@ -30,8 +30,8 @@ try {
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('bills.sae@ikmail.com', 'Mailer');
-    $mail->addAddress('tellealexis@gmail.com', 'Alexis');     //Add a recipient
+    $mail->setFrom($mailsae, 'B.I.L.L.S');
+    //$mail->addAddress('mail@example.com', 'Name');     //Add a recipient
     //$mail->addAddress('ellen@example.com');               //Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -39,12 +39,12 @@ try {
 
     //Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+    //$mail->addAttachment('../image/slah-cracking.gif');    //Optional name
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Here is the test subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->Subject = 'CA MARCHE';
+    $mail->Body    = 'J\'AI ENFIN RÉUSSI. <b>JE SUIS LE GOAT!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
