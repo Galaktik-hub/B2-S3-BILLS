@@ -1,4 +1,8 @@
 <?php
+
+global $mailsae;
+global $mdp;
+
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,19 +15,22 @@ require 'vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
+//Mail adress and password
+include '../credentials/mailcredentials.php';
+
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->isSMTP();
-    $mail->Host       = 'smtp.aol.com';                     //Set the SMTP server to send through
+    $mail->Host       = 'mail.infomaniak.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = '';                     //SMTP username
-    $mail->Password   = '';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Username   = $mailsae;                     //SMTP username
+    $mail->Password   = $mdp;                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit SSL encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('bills-sae@aol.com', 'Mailer');
+    $mail->setFrom('bills.sae@ikmail.com', 'Mailer');
     $mail->addAddress('tellealexis@gmail.com', 'Alexis');     //Add a recipient
     //$mail->addAddress('ellen@example.com');               //Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
