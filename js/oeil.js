@@ -1,16 +1,24 @@
-var oeil = document.getElementById("oeil")
-var inputPassword = document.getElementById("inputPassword")
+var inputPassword = document.getElementById("inputPassword");
+var inputNewPwd = document.getElementById("new_mdp");
+var inputRepeatPwd = document.getElementById("repeatmdp");
 
+var oeilLogin = document.querySelector(".oeil-login");
+var oeilNew = document.querySelector(".oeil-new");
+var oeilRepeat = document.querySelector(".oeil-repeat");
 
-oeil.addEventListener("click", function(){
+if (oeilLogin && inputPassword) {
+    oeilLogin.addEventListener("click", function () {
+        inputPassword.type = (inputPassword.type === "password") ? "text" : "password";
+    });
+}
+if (oeilNew && inputNewPwd) {
+    oeilNew.addEventListener("click", function() {
+        inputNewPwd.type = (inputNewPwd.type === "password") ? "text" : "password";
+    });
+}
 
-    if(inputPassword.type == "password"){
-        inputPassword.type = "text";
-    }
-    else{
-        inputPassword.type = "password";
-    }
-    
-})
-
-console.log(inputPassword)
+if (oeilRepeat && inputRepeatPwd) {
+    oeilRepeat.addEventListener("click", function() {
+        inputRepeatPwd.type = (inputRepeatPwd.type === "password") ? "text" : "password";
+    });
+}

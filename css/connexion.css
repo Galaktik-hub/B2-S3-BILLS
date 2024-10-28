@@ -88,7 +88,7 @@ body:before {
     display: flex;
 }
 
-#inputPassword{
+#inputPassword, #new_mdp, #repeatmdp{
     position:relative;
     z-index: 1;
 }
