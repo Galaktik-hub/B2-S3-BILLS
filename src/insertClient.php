@@ -1,9 +1,11 @@
 <?php
-    session_start();
-    include('function.php');
-    include('connexion.php');
-    include("navbar.php");
-    checkIsAdmin();
+global $dbh;
+session_start();
+include('function.php');
+include('connexion.php');
+include("navbar.php");
+include("../mail/sendMail.php");
+checkIsAdmin();
 ?>
 
 <!DOCTYPE html>
@@ -41,8 +43,8 @@
                         <td><input type="text" name="loginClient" maxlength="50" required></td>
                     </tr>
                     <tr>
-                        <th>Mot de passe</th>
-                        <td><input type="text" name="passwordClient" maxlength="10" required></td>
+                        <th>E-mail</th>
+                        <td><input type="email" name="mailClient" required></td>
                     </tr>
                     <tr>
                         <td class="lien"><input type="reset" value="Annuler" class="interact"></td>
@@ -55,22 +57,30 @@
 </html>
 
 <?php
-  if (isset($_POST['numSiren']) && isset($_POST['raisonSociale']) && isset($_POST['loginClient']) && isset($_POST['passwordClient'])) {
+if (isset($_POST['numSiren']) && isset($_POST['raisonSociale']) && isset($_POST['loginClient']) && isset($_POST['mailClient'])) {
     $siret = $_POST['numSiren'];
     $rs = $_POST['raisonSociale'];
     $login = $_POST['loginClient'];
-    $pw = hash('sha256', $_POST['passwordClient']);
+    $email = $_POST['mailClient'];
+    $random_mdp = create_random_password();
+    $pw = hash('sha256', $random_mdp);
 
+    // Préparation de l'insertion dans la table client
+    $insert = $dbh->prepare("INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, `raisonSociale`, `mail`) VALUES (NULL, :usiret, :ulogin, :upw, :urs, :umail);");
 
-    $insert = $dbh->prepare("INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, `raisonSociale`) VALUES (:unumclient, :usiret,  :ulogin, :upw, :urs);");
+    try {
+        if ($insert->execute(array(':usiret' => $siret, ':ulogin' => $login, ':upw' => $pw, ':urs' => $rs, ':umail' => $email))) {
+            $numClient = $dbh->lastInsertId();
 
-    try{
-      if($insert->execute(array(':unumclient' => NULL, ':usiret' => $siret, ':ulogin'=> $login, ':upw'=> $pw, ':urs'=> $rs))){
-        echo "<div class='alert alert-success w-25' role='alert'>Insertion du client réussi</div>";
-      }
+            $insert_mdp_temp = $dbh->prepare("INSERT INTO `mdptemp` (`numClient`, `mail`, `pw`) VALUES (:unumclient, :umail, :upw);");
+            $insert_mdp_temp->execute(array(':unumclient' => $numClient, ':umail' => $email, ':upw' => $pw));
+
+            sendmail($email, subjectCreationMdp(), bodyCreationMdp($pw));
+
+            echo "<div class='alert alert-success w-25' role='alert'>Insertion du client réussi</div>";
+        }
+    } catch (Exception $e) {
+        echo "<p>" . $e->getMessage() . "</p>";
     }
-    catch(Exception $e){
-      echo "<p>" . $e->getMessage() . "</p>";
-    }
-  }
+}
 ?>

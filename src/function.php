@@ -128,4 +128,35 @@ function footer(){
     </footer>";
 }
 
-?>
+function create_random_password(): string {
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    $password = '';
+
+    for ($i = 0; $i < 100; $i++) {
+        $password .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $password;
+}
+
+function subjectCreationMdp(): string {
+    return "BIENVENUE: Création d'un compte chez B.I.L.L.S";
+}
+
+function bodyCreationMdp($pw) : string {
+     return <<<HTML
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="utf-8">
+                </head>
+                <body>
+                    <h1>Un compte a été créé pour vous.</h1>
+                    <br>
+                    <p>Nous vous informons qu'un compte vous a été créé par un administrateur de B.I.L.L.S.</p>
+                    <p>Afin d'accéder à votre compte, veuillez changer dès à présent votre mot de passe <a href="http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw">ici</a></p>
+                </body>
+            </html>
+            HTML;
+}
+

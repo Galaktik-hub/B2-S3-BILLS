@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 22 oct. 2024 à 19:53
+-- Généré le : dim. 27 oct. 2024 à 00:05
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -52,9 +52,9 @@ CREATE TABLE `client` (
   `numClient` int(11) NOT NULL,
   `numSiren` char(9) NOT NULL,
   `loginClient` varchar(50) NOT NULL,
-  `passwordClient` varchar(75) NOT NULL,
+  `passwordClient` varchar(150) NOT NULL,
   `raisonSociale` varchar(20) NOT NULL,
-  `mail` varchar(50) NOT NULL
+  `mail` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, `raisonSociale`, `mail`) VALUES
 (1, '123456789', 'client', '948fe603f61dc036b5c596dc09fe3ce3f3d30dc90f024c85f3c82db2ccab679d', 'Carrefour', 'carrefour.direction@gmail.com'),
-(3, '987654321', 'auchan', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'Auchan', ''),
+(3, '987654321', 'auchan', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'Auchan', 'auchan@auchan.fr'),
 (4, '123456789', 'aa', '961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506', 'leclerc', 'auchan.test@auchan.fr'),
 (5, '050505050', 'inter', 'c84c8016356014e02b049ff270c079dd03ab5c5d44a120bee60242782b234ddd', 'Intermarché', 'interdirection@gmail.com');
 
@@ -124,6 +124,18 @@ INSERT INTO `impaye` (`numTransaction`, `numDossierImpaye`, `codeImpaye`) VALUES
 (43, '8', '01'),
 (45, '9', '01'),
 (50, '10', '02');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `mdptemp`
+--
+
+CREATE TABLE `mdptemp` (
+  `numClient` int(11) NOT NULL,
+  `mail` varchar(200) NOT NULL,
+  `pw` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -278,6 +290,12 @@ ALTER TABLE `impaye`
   ADD KEY `codeImpaye` (`codeImpaye`);
 
 --
+-- Index pour la table `mdptemp`
+--
+ALTER TABLE `mdptemp`
+  ADD PRIMARY KEY (`numClient`);
+
+--
 -- Index pour la table `remise`
 --
 ALTER TABLE `remise`
@@ -299,7 +317,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `remise`
@@ -323,6 +341,12 @@ ALTER TABLE `transaction`
 ALTER TABLE `impaye`
   ADD CONSTRAINT `impaye_ibfk_1` FOREIGN KEY (`numTransaction`) REFERENCES `transaction` (`numTransaction`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `impaye_ibfk_2` FOREIGN KEY (`codeImpaye`) REFERENCES `codeimpaye` (`codeImpaye`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `mdptemp`
+--
+ALTER TABLE `mdptemp`
+  ADD CONSTRAINT `mdptemp_ibfk_1` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `remise`
