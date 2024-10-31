@@ -16,6 +16,9 @@ const gridOptions = {
     rowData: data,
     columnDefs: createDynamicColumns(columnNames),
     domLayout: 'autoHeight',
+    rowClassRules: {
+        'row-red': params => params.data['Montant Total'] < 0 || params.data['Montant'] < 0 // Add this class to the
+    },
 };
 
 const myGridElement = document.querySelector('#myGrid');
