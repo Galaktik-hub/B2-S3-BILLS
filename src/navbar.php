@@ -17,7 +17,7 @@
 
         <div class="deconnect">
             <a href="deconnexion.php" class="deconnect-link">
-                <img src="../Image/deconnect.svg" alt="Icone Paramètres" class="icon">
+                <img src="../image/deconnect.svg" alt="Icone Paramètres" class="icon">
                 <p>Déconnexion</p>
             </a>
         </div>

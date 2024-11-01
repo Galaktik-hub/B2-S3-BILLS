@@ -1,4 +1,58 @@
-.row-red {
+:root {
+    --header-bg-color: #3e79e5; /* The color for the head of the grid */
+    --row-red-bg-color-0: #c93b3b; /* Amount between 0 and -100 */
+    --row-red-bg-color-1: #b83030; /* Amount between -100 and -200 */
+    --row-red-bg-color-2: #a72626; /* Amount between -200 and -300 */
+    --row-red-bg-color-3: #961d1d; /* Amount between -300 and -400 */
+    --row-red-bg-color-4: #851414; /* Amount between -400 and -500 */
+    --row-red-bg-color-5: #750000; /* Amount lower than -500 */
+}
+
+/* The style for the head of the grid */
+.ag-header {
+    background-color: var(--header-bg-color);
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* The style for the text and the icons in the head of the grid */
+.ag-header-cell, .ag-icon {
     color: white;
-    background-color: #dc3d4b !important;
+}
+
+/* The style for the pagination part of the grid */
+.ag-paging-panel, .ag-paging-panel .ag-icon{
+    color: var(--header-bg-color);
+}
+
+/* A background color for each negative amount range */
+.row-red-0 {
+    background-color: var(--row-red-bg-color-0) !important;
+    color: white;
+}
+
+.row-red-1 {
+    background-color: var(--row-red-bg-color-1) !important;
+    color: white;
+}
+
+.row-red-2 {
+    background-color: var(--row-red-bg-color-2) !important;
+    color: white;
+}
+
+.row-red-3 {
+    background-color: var(--row-red-bg-color-3) !important;
+    color: white;
+}
+
+.row-red-4 {
+    background-color: var(--row-red-bg-color-4) !important;
+    color: white;
+}
+
+.row-red-5 {
+    background-color: var(--row-red-bg-color-5) !important;
+    color: white;
 }
