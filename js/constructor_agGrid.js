@@ -34,7 +34,11 @@ const gridOptions = {
         'row-red-2': params => getAmountValue(params) < -200 && getAmountValue(params) >= -300,
         'row-red-3': params => getAmountValue(params) < -300 && getAmountValue(params) >= -400,
         'row-red-4': params => getAmountValue(params) < -400 && getAmountValue(params) >= -500,
-        'row-red-5': params => getAmountValue(params) < -500,
+        'row-red-5': params => getAmountValue(params) < -500 && getAmountValue(params) >= -600,
+        'row-red-6': params => getAmountValue(params) < -600 && getAmountValue(params) >= -700,
+        'row-red-7': params => getAmountValue(params) < -700 && getAmountValue(params) >= -800,
+        'row-red-8': params => getAmountValue(params) < -800 && getAmountValue(params) >= -900,
+        'row-red-9': params => getAmountValue(params) < -900
     },
 };
 

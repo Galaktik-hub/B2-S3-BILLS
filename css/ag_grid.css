@@ -1,11 +1,15 @@
 :root {
     --header-bg-color: #3e79e5; /* The color for the head of the grid */
     --row-red-bg-color-0: #e8b822; /* Amount between 0 and -100 */
-    --row-red-bg-color-1: #e1911b; /* Amount between -100 and -200 */
-    --row-red-bg-color-2: #ff7043; /* Amount between -200 and -300 */
-    --row-red-bg-color-3: #f4511e; /* Amount between -300 and -400 */
-    --row-red-bg-color-4: #e53935; /* Amount between -400 and -500 */
-    --row-red-bg-color-5: #b71c1c; /* Amount lower than -500 */
+    --row-red-bg-color-1: #e1a71f; /* Amount between -100 and -200 */
+    --row-red-bg-color-2: #db961c; /* Amount between -200 and -300 */
+    --row-red-bg-color-3: #e1911b; /* Amount between -300 and -400 */
+    --row-red-bg-color-4: #d67b1b; /* Amount between -400 and -500 */
+    --row-red-bg-color-5: #ff7043; /* Amount between -500 and -600 */
+    --row-red-bg-color-6: #f4511e; /* Amount between -600 and -700 */
+    --row-red-bg-color-7: #e53935; /* Amount between -700 and -800 */
+    --row-red-bg-color-8: #c62828; /* Amount between -800 and -900 */
+    --row-red-bg-color-9: #b71c1c; /* Amount lower than -900 */
 }
 
 /* The style for the head of the grid */
@@ -54,5 +58,25 @@
 
 .row-red-5 {
     background-color: var(--row-red-bg-color-5) !important;
+    color: white;
+}
+
+.row-red-6 {
+    background-color: var(--row-red-bg-color-6) !important;
+    color: white;
+}
+
+.row-red-7 {
+    background-color: var(--row-red-bg-color-7) !important;
+    color: white;
+}
+
+.row-red-8 {
+    background-color: var(--row-red-bg-color-8) !important;
+    color: white;
+}
+
+.row-red-9 {
+    background-color: var(--row-red-bg-color-9) !important;
     color: white;
 }
