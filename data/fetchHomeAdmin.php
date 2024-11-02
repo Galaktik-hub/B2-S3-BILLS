@@ -13,7 +13,10 @@
     $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
     $stmt->execute();
     $client = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    if(empty($client)){
+        header("Location: admin.php");
+        exit();
+    }
     $column = array_keys($client[0]);
 
     $client_json = json_encode($client);
