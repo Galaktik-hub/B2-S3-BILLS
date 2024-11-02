@@ -139,3 +139,16 @@
     display: inline-block;
     margin-left: 40px;
 }
+.button {
+    display: inline-block;
+    max-width: 200px;
+    background: linear-gradient(to right, #3E79E5, #01B8E3);
+    border: 0px solid transparent;
+    border-radius: 10px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
