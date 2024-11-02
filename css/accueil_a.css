@@ -134,3 +134,8 @@
     color: black;
     transition: linear 0.2s;
 }
+
+.body{
+    display: inline-block;
+    margin-left: 40px;
+}
