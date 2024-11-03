@@ -20,9 +20,6 @@
     <body>
     <div class="body" >
         <h1> Détails des comptes clients </h1>
-        <form action="insertClient.php">
-            <button class="button" type="submit">Créer un client</button>
-        </form>
         <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
         <script>
             // Recupere les données de fetchHomePO.php

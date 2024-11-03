@@ -6,6 +6,7 @@ include("navbar.php");
 include('links.php');
 checkIsAdmin();
 include('../data/fetchHomeAdmin.php');
+$numClient = $_GET["numClient"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,11 @@ include('../data/fetchHomeAdmin.php');
 <body>
 <div class="page">
     <h1> Détails du client </h1>
-    <button class="button" type="button"> Demande de suppression du compte client  </button>
+    <form action="deleteClient.php" method="get">
+        <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
+        <button class="button" type="submit">Demande de suppression du compte client</button>
+    </form>
+
     <button class="button" type="button"> Annulation de la demande de suppression du compte client </button>
     <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
     <script>
