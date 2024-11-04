@@ -81,13 +81,17 @@ function nav_admin($po) {
                     <img src='../image/plus.svg' alt='Icone Ajouter Client' class='icon'>
                     <p>Nouveau client</p>
                 </li>
-            </a>
+            </a>";
+
+    if ($po == 0) {
+        echo "
             <a href='deleteClientHome.php' class='nav-item " . ($currentPage == 'deleteClientHome.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/cross_mark.svg' alt='Icone Suppression Clients' class='icon'>
                     <p>Suppressions</p>
                 </li>
             </a>";
+    }
 
     if ($po == 1) {
         echo "
