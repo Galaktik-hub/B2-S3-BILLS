@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 27 oct. 2024 à 00:05
+-- Généré le : lun. 04 nov. 2024 à 10:01
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -191,6 +191,25 @@ INSERT INTO `remise` (`numRemise`, `nbrTransaction`, `montantTotal`, `devise`, `
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `suppression`
+--
+
+CREATE TABLE `suppression` (
+  `numClient` int(11) NOT NULL,
+  `dateDemande` date NOT NULL,
+  `justificatif` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `suppression`
+--
+
+INSERT INTO `suppression` (`numClient`, `dateDemande`, `justificatif`) VALUES
+(3, '2024-11-04', 'Ce compte est inactif depuis plus de 6 mois.');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `transaction`
 --
 
@@ -303,6 +322,12 @@ ALTER TABLE `remise`
   ADD KEY `REMISE_CLIENT_FK` (`numClient`);
 
 --
+-- Index pour la table `suppression`
+--
+ALTER TABLE `suppression`
+  ADD PRIMARY KEY (`numClient`,`dateDemande`);
+
+--
 -- Index pour la table `transaction`
 --
 ALTER TABLE `transaction`
@@ -317,7 +342,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `remise`
@@ -353,6 +378,12 @@ ALTER TABLE `mdptemp`
 --
 ALTER TABLE `remise`
   ADD CONSTRAINT `REMISE_CLIENT_FK` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `suppression`
+--
+ALTER TABLE `suppression`
+  ADD CONSTRAINT `fk_suppression_client` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `transaction`
