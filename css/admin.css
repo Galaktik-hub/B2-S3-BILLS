@@ -1,6 +1,6 @@
 .page{
     display: inline-block;
-    margin-left: 45px;
+    margin-left: 50px;
 }
 h1 {
     font-size: 30px;
@@ -17,10 +17,5 @@ h1 {
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 30px;
-    margin-left:45px;
     padding: 10px;
-
-    :first-of-type{
-    margin-left: 0px;
-}
 }

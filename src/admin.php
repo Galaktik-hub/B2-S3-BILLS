@@ -18,7 +18,7 @@
         <title>Espace Admin</title>
     </head>
     <body>
-    <div class="body" >
+    <div class="body_admin" >
         <h1> Détails des comptes clients </h1>
         <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
         <script>

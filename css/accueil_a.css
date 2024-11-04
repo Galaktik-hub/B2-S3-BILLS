@@ -135,7 +135,8 @@
     transition: linear 0.2s;
 }
 
-.body{
+/* Pour la page admin  */
+.body_admin{
     display: inline-block;
-    margin-left: 40px;
+    margin-left: 50px;
 }
