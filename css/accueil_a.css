@@ -134,3 +134,9 @@
     color: black;
     transition: linear 0.2s;
 }
+
+/* Pour la page admin  */
+.body_admin{
+    display: inline-block;
+    margin-left: 50px;
+}

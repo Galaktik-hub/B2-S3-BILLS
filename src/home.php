@@ -35,7 +35,6 @@
             echo "<h2>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h2>";
 
             ?>
-        </div>
 
         <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; max-width: 100%; font-size: 15px"></div>
 
@@ -45,6 +44,7 @@
             const columnNames = <?php echo $columns_json; ?>;
         </script>
         <script src="../js/constructor_agGrid.js"></script>
+        </div>
     </body>
 </html>
 
