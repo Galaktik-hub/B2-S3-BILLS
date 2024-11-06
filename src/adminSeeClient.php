@@ -13,10 +13,12 @@ include('../data/fetchDeleteClient.php');
 if(!empty($clients)){
     $clientDetailsSupression = $clients[0];
 }
-if(isset($_GET['check'])){
+if(isset($_POST['check'])){
     include('connexion.php');
-    $request = "Delete From client where numClient=$numClient";
-    $dbh->exec($request);
+    $request = "DELETE FROM client WHERE numClient = :numClient";
+    $stmt = $dbh->prepare($request);
+    $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
+    $stmt->execute();
     header('Location: deleteClientHome.php?numClient=' . $numClient);
     exit;
 }
@@ -92,7 +94,10 @@ if(isset($_GET['check'])){
                             <p>En cliquant sur "Oui", vous affirmez avoir l'accord du P.O.</p>
                         </div>
                         <div class="modal-footer">
-                            <a href="adminSeeClient.php?numClient=<?= htmlspecialchars($numClient) ?>&check=true" class="btn btn-primary">Oui</a>
+                            <form action="adminSeeClient.php?numClient=<?= htmlspecialchars($numClient) ?>" method="POST">
+                                <input type="hidden" name="check" value="true">
+                                <button type="submit" class="btn btn-primary">Oui</button>
+                            </form>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
                         </div>
                     </div>
@@ -103,7 +108,7 @@ if(isset($_GET['check'])){
     } else {
         ?>
         <div class="formulaire">
-            <form action="deleteClient.php" class="button_center" method="get">
+            <form action="#" class="button_center" method="get">
                 <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
                 <button class="button_disabled" type="submit" disabled >Suppression du compte client</button>
             </form>
