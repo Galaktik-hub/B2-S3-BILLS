@@ -25,13 +25,7 @@
             const data = <?php echo $clients_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
         </script>
-        <?php
-            if (!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']) {
-                echo '<script src="../js/constructor_agGrid.js"></script>';
-            } else {
-                echo '<script src="../js/constructor_agGrid_admin.js"></script>';
-            }
-        ?>
+        <script src="../js/constructor_agGrid_admin.js"></script>
     </div>
     </body>
 </html>

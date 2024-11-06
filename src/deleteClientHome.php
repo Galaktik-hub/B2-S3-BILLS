@@ -19,6 +19,7 @@
 </head>
     <body>
     <div class="body_admin" >
+
         <h1> Liste des demandes de suppression de comptes </h1>
         <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
         <script>
@@ -26,6 +27,13 @@
             const columnNames = <?php echo $columns_json; ?>;
         </script>
         <script src="../js/constructor_agGrid_admin.js"></script>
+        <?php
+        if(isset($_GET['numClient'])){
+            $numClient = $_GET["numClient"];
+            include('connexion.php');
+            echo "Le client N° $numClient a bien été supprimé.";
+        }
+        ?>
     </div>
     </body>
 </html>

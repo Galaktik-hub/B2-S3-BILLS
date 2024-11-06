@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-family: "Sora", sans-serif; /* La font peut se globaliser sur tout le site */
-    font-size: 0.9rem;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    font-family: "Sora", sans-serif !important; /* La font peut se globaliser sur tout le site */
+    font-size: 0.9rem !important;
+}
+
+/* Contourne les propriétés Bootstrap qui modifie la navbar */
+*, ::after, ::before {
+    box-sizing: content-box !important;
 }
 
 nav.vertical-navigation {
@@ -18,6 +23,7 @@ nav.vertical-navigation {
     align-content: center;
     flex-direction: column;
     border-right: 2px solid #01B8E3;
+    position: fixed;
 }
 
 nav.vertical-navigation div.titleName {
@@ -52,6 +58,7 @@ nav.vertical-navigation ul.navigation-items a {
 
 nav.vertical-navigation ul.navigation-items a.active li.item {
     background-color: #eaeffa;
+    box-sizing: content-box;
 }
 
 nav.vertical-navigation ul.navigation-items a.active li.item p {
