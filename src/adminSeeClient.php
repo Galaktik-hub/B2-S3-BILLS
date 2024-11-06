@@ -9,8 +9,16 @@ include('../data/fetchHomeAdmin.php');
 $numClient = $_GET["numClient"];
 $clientDetails = $client[0];
 include('../data/fetchDeleteClient.php');
+
 if(!empty($clients)){
     $clientDetailsSupression = $clients[0];
+}
+if(isset($_GET['check'])){
+    include('connexion.php');
+    $request = "Delete From client where numClient=$numClient";
+    $dbh->exec($request);
+    header('Location: deleteClientHome.php?numClient=' . $numClient);
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -19,6 +27,7 @@ if(!empty($clients)){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/admin.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <title>Espace Admin</title>
 </head>
@@ -63,10 +72,32 @@ if(!empty($clients)){
     if (isset($clientDetailsSupression['Date de la demande']) && isset($clientDetailsSupression['Justificatif'])) {
         ?>
         <div class="formulaire">
-            <form action="deleteClient.php" class="button_center" method="get">
-                <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
-                <button class="button" type="submit" >Suppression du compte client</button>
-            </form>
+            <!-- Button pour ouvrir le modal -->
+            <button type="button" class="button" data-toggle="modal" data-target="#exampleModal">
+                Supprimer le client
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Êtes-vous sûr de vouloir supprimer le client n°<?= htmlspecialchars($numClient) ?> ?<br>
+                                Vous devez avoir l'autorisation du Product Owner.</p>
+                            <p>En cliquant sur "Oui", vous affirmez avoir l'accord du P.O.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="adminSeeClient.php?numClient=<?= htmlspecialchars($numClient) ?>&check=true" class="btn btn-primary">Oui</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <?php
     } else {
@@ -82,5 +113,9 @@ if(!empty($clients)){
     }
     ?>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
