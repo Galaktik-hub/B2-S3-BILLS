@@ -9,7 +9,7 @@
             (SELECT raisonSociale FROM client WHERE numClient = :numClient) as 'Raison Sociale', 
             (SELECT devise FROM remise WHERE numClient = :numClient LIMIT 1) as Devise,
             COUNT(numRemise) AS 'Nombre de Remises', 
-            COALESCE(SUM(montantTotal), 0) AS 'Montant total' 
+            COALESCE(SUM(montantTotal), 0) AS 'Montant Total' 
         FROM remise 
         WHERE numClient = :numClient";
 
