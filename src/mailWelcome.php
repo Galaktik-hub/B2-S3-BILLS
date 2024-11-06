@@ -26,19 +26,22 @@
         }
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 1.6rem;
         }
         .content {
             padding: 20px;
         }
         .content h2 {
             color: #3e79e5;
+            font-size: 1.3rem;
         }
         .content p {
             margin: 10px 0;
+            font-size: 1rem;
         }
         .content a {
             color: #ffffff;
+            font-size: 1rem;
         }
         .button {
             display: inline-block;
@@ -49,10 +52,11 @@
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
+            font-size: 1rem;
         }
         .footer {
             margin-top: 20px;
-            font-size: 12px;
+            font-size: 0.8rem;
             text-align: center;
             color: #777;
         }
