@@ -29,7 +29,6 @@ function head_login(){
 function nav_client() {
     $currentPage = basename($_SERVER['SCRIPT_NAME']);
     echo "
-    <nav class='vertical-navigation'>
         <ul class='navigation-items'>
             <a href='home.php' class='nav-item " . ($currentPage == 'home.php' ? 'active' : '') . "'>
                 <li class='item'>
@@ -61,8 +60,7 @@ function nav_client() {
                     <p>Compte</p>
                 </li>
             </a>
-        </ul>
-    </nav>";
+        </ul>";
 }
 
 function nav_admin($po) {
