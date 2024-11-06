@@ -5,10 +5,42 @@ include('function.php');
 include('connexion.php');
 include('navbar.php');
 checkIsUser();
+
+$date = isset($_GET['date']) ? $_GET['date'] : date('Y');
+$graph = isset($_GET['graph']) ? $_GET['graph'] : "bar";
+
+// Requête pour obtenir la trésorerie (montant total) par mois pour l'année sélectionnée
+$queryTreasury = "
+    SELECT MONTH(dateRemise) AS month, 
+           COALESCE(SUM(montantTotal), 0) AS total_tresorerie
+    FROM remise 
+    WHERE YEAR(dateRemise) = ?
+    GROUP BY MONTH(dateRemise)
+    ORDER BY month
+";
+$stmt = $dbh->prepare($queryTreasury);
+$stmt->execute([$date]);
+$tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Extraction des données pour le graphique
+$months = array_map(fn($d) => $d['month'], $tresorerieData);
+$totals = array_map(fn($d) => $d['total_tresorerie'], $tresorerieData);
+
+// Requête pour les motifs d'impayés
+$queryMotifs = "
+    SELECT ci.libelleImpaye AS motif, COUNT(i.numTransaction) AS count 
+    FROM impaye i
+    JOIN codeimpaye ci ON i.codeImpaye = ci.codeImpaye
+    JOIN remise r ON i.numTransaction = r.numRemise
+    WHERE YEAR(r.dateRemise) = ?
+    GROUP BY ci.libelleImpaye
+";
+$stmtMotifs = $dbh->prepare($queryMotifs);
+$stmtMotifs->execute([$date]);
+$motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-
 <html lang="fr">
     <head>
         <meta charset='utf-8'>
@@ -19,92 +51,48 @@ checkIsUser();
     </head>
     <body>
         <div class="container">
-            <?php
-                if(isset($_GET['date']) && isset($_GET['graph'])){
-                    $date=$_GET['date'];
-                    $graph=$_GET['graph'];
-                }
-                else if(isset($_GET['date'])){
-                    $date=$_GET['date'];
-                    $graph="bar";
-                }
-                else if(isset($_GET['graph'])){
-                    $date=date('Y');
-                    $graph=$_GET['graph'];
-                }
-                else{
-                    $date=date('Y');
-                    $graph="bar";
-                }
-
-                $numClient = $_SESSION['numClient'];
-                $somme_impaye=array();
-                $somme_total=array();
-                $liste_libelle=array();
-                $nombre_impaye=array();
-                $color_list=array();
-                $count=0;
-
-                for($i=1;$i<13;$i++){
-                    $temp=date('Y-m');
-                    if($i<10){
-                        $temp=$date."-0".$i;
-                    }
-                    else{
-                        $temp=$date."-".$i;
-                    }
-
-                    $request = "Select sum(montant) as somme from transaction,remise where transaction.numRemise=remise.numRemise and montant<0 and DATE_FORMAT(dateRemise, '%Y-%m') = '".$temp."' and numClient=$numClient";
-                    $result = $dbh->query($request);
-                    $ligne=$result->fetch();
-                    array_push($somme_impaye,abs(intval($ligne['somme'])));
-
-                    $request = "Select COALESCE(SUM(montant), 0) as somme from transaction,remise where transaction.numRemise=remise.numRemise and DATE_FORMAT(dateRemise, '%Y-%m') = '".$temp."' and numClient=$numClient";
-                    $result = $dbh->query($request);
-                    $ligne = $result->fetch();
-                    array_push($somme_total,intval($ligne['somme']));
-                }
-
-                $request = "Select libelleImpaye from codeimpaye";
-                $result = $dbh->query($request);
-                while($ligne = $result->fetch()){
-                    array_push($liste_libelle,$ligne['libelleImpaye']);
-                }
-
-                foreach($liste_libelle as $i){
-                    $request = "Select count(*) as imp from impaye,codeimpaye,remise,transaction where impaye.codeImpaye=codeimpaye.codeImpaye and libelleImpaye='$i' and impaye.numTransaction=transaction.numTransaction and transaction.numRemise=remise.numRemise and DATE_FORMAT(dateRemise, '%Y') = '".$date."'and numClient=$numClient";
-                    $result = $dbh->query($request);
-                    while($ligne = $result->fetch()){
-                        if($ligne['imp']=="0"){
-                            array_push($nombre_impaye,0);
-                            $count+=1;
-                        }
-                        else{
-                            array_push($nombre_impaye,$ligne['imp']);
-                        }
-                    }
-                    $rand1=rand(50,200);
-                    $rand2=rand(50,200);
-                    $rand3=rand(50,200);
-                    $color="rgba($rand1,$rand2,$rand3)";
-                    array_push($color_list,$color);
-                }?>
             <h1 class="title">Statistiques de votre compte</h1>
 
+            <!-- Formulaire de sélection d'année et de type de graphique -->
             <form method='get' action='stats.php'>
-                <p>Choix de l'année  <select name="date">
-                        <?php for($i=1950;$i<date('Y')+1;$i++){
-                            if($i==$date){
-                                echo "<option selected='on'>$i</option>";
-                            }
-                            else{
-                                echo "<option>$i</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                    <input type="submit" value="Valider" class="grp"> </p>
+                <div class="choice">
+                    <label>Choix de l'année :
+                        <select name="date">
+                            <?php for($i = 1950; $i <= date('Y'); $i++): ?>
+                                <option value="<?= $i ?>" <?= $i == $date ? 'selected' : '' ?>><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </label>
+                </div>
+                <p class="separator">|</p>
+                <div class="choice">
+                    <label>Type de graphique :
+                        <select name="graph">
+                            <option value="bar" <?= $graph === "bar" ? 'selected' : '' ?>>Histogramme</option>
+                            <option value="line" <?= $graph === "line" ? 'selected' : '' ?>>Courbe</option>
+                        </select>
+                    </label>
+                </div>
+
+                <input type="submit" value="Valider" class="button">
             </form>
+
+            <!-- Conteneurs pour les graphiques -->
+            <div class="container-graph">
+                <div id="graphTresorerie"></div>
+
+                <!-- Vérification de motifs d'impayés -->
+                <?php
+                    if (!empty($motifsData)) {
+                        echo "<div id=\"graphMotifs\"></div>";
+                    } else {
+                        echo "<p id=\"noDataMessage\"> Aucun impayé n'a été trouvé pour l'année $date.</p>";
+                    }
+                ?>
+            </div>
+
+            <!-- Exportation en PDF -->
+            <button id="exportPdf" class="button">Exporter en PDF</button>
         </div>
     </body>
 </html>
