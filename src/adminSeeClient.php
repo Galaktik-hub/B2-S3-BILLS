@@ -62,10 +62,12 @@ if(!empty($clients)){
     <?php
     if (isset($clientDetailsSupression['Date de la demande']) && isset($clientDetailsSupression['Justificatif'])) {
         ?>
-        <form action="deleteClient.php" class="button_center" method="get">
-            <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
-            <button class="button" type="submit">Suppression du compte client</button>
-        </form>
+        <div class="formulaire">
+            <form action="deleteClient.php" class="button_center" method="get">
+                <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
+                <button class="button" type="submit" >Suppression du compte client</button>
+            </form>
+        </div>
         <?php
     } else {
         ?>
