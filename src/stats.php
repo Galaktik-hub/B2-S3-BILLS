@@ -9,6 +9,13 @@ checkIsUser();
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y');
 $graph = isset($_GET['graph']) ? $_GET['graph'] : "bar";
 
+// Récupération de la raison sociale du client connecté
+$queryClient = "SELECT raisonSociale FROM client WHERE numClient = ?";
+$stmtClient = $dbh->prepare($queryClient);
+$stmtClient->execute([$_SESSION['numClient']]);
+$clientData = $stmtClient->fetch(PDO::FETCH_ASSOC);
+$raisonSociale = $clientData['raisonSociale'];
+
 // Requête pour obtenir la trésorerie (montant total) par mois pour l'année sélectionnée
 $queryTreasury = "
     SELECT MONTH(dateRemise) AS month, 
@@ -94,5 +101,41 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
             <!-- Exportation en PDF -->
             <button id="exportPdf" class="button">Exporter en PDF</button>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+        <script>
+            // Données pour la trésorerie mensuelle
+            var traceTresorerie = {
+                x: [<?= implode(',', array_map(fn($m) => "'".date('F', mktime(0, 0, 0, $m))."'", $months)) ?>],
+                y: [<?= implode(',', $totals) ?>],
+                type: '<?= $graph ?>',
+                name: 'Trésorerie'
+            };
+
+            // Affichage du graphique de trésorerie
+            Plotly.newPlot('graphTresorerie', [traceTresorerie], {title: 'Trésorerie Mensuelle'});
+
+            // Données pour les motifs d'impayés (camembert)
+            var traceMotifs = {
+                labels: [<?= implode(',', array_map(fn($m) => "'".$m['motif']."'", $motifsData)) ?>],
+                values: [<?= implode(',', array_map(fn($m) => $m['count'], $motifsData)) ?>],
+                type: 'pie',
+                name: 'Motifs d\'Impayés'
+            };
+            Plotly.newPlot('graphMotifs', [traceMotifs], {title: 'Motifs d’Impayés'});
+
+            // Fonction d'exportation en PDF
+            document.getElementById("exportPdf").onclick = function() {
+                html2canvas(document.querySelector(".container-graph")).then(canvas => {
+                    const imgData = canvas.toDataURL("image/png");
+                    const pdf = new jspdf.jsPDF("landscape", "mm", "a4");
+                    pdf.addImage(imgData, "SVG", 0, 0, 250, 190);
+                    const fileName = `Statistiques_${'<?= $raisonSociale ?>'}_${'<?= $date ?>'}.pdf`;
+                    pdf.save(fileName);
+                });
+            };
+        </script>
     </body>
 </html>
