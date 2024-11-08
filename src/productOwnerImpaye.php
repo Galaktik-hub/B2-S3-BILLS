@@ -18,38 +18,13 @@
     <title>Espace Product Owner</title>
 </head>
     <body>
+        <div class="page-container">
+            <div class="page-content">
+                <h1 class="titre">Impayés</h1>
 
-        <h3 class="titre">Impayés</h3>
-
-        <div class="container box">
-            <form action="productOwnerImpaye.php" method="POST" class="imp">
-                <label for="numSiren">Numéro SIREN</label>
-                <input type="text" name="numSiren" id="numSiren">
-
-                <input type="submit">
-            </form>
-            <?php
-
-            if(isset($_POST['numSiren'])) {
-                $_SESSION['numSiren'] = $_POST['numSiren'];
-                $numSiren = $_SESSION['numSiren'];
-            }
-            else {
-                unset($_SESSION['numSiren']);
-                $numSiren = "";
-            }
-
-            echo "
-                <ul>
-                        <li>Numéro SIREN : $numSiren</li>
-                </ul>";
-
-            ?>
-            <br/>
+                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
+            </div>
         </div>
-
-        <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; max-width: 100%; font-size: 15px"></div>
-
         <script>
             const data = <?php echo $impayes_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
