@@ -33,6 +33,35 @@ form {
     font-size: 30px;
 }
 
+.select-wrapper {
+    background: linear-gradient(to right, #3E79E5, #01B8E3);
+    padding: 2px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.select-list {
+    border: none;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: black;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.select-list:hover {
+    cursor: pointer;
+}
+
+.select-list:focus {
+    box-shadow: 0 0 5px rgba(62, 121, 229, 1);
+}
+
 .button {
     display: inline-block;
     max-width: 200px;
