@@ -53,36 +53,6 @@
                     }
                 ?>
 
-                <div class="container box">
-                    <form action="productOwnerRemise.php" method="POST" class="imp">
-                        <label for="numSiren">Numéro SIREN</label>
-                        <input type="text" name="numSiren" id="numSiren">
-
-                        <label for="debut">Du</label>
-                        <input type="date" name="debut" id="debut" <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
-
-                        <label for="fin">Au</label>
-                        <input type="date" name="fin" id="fin" <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
-
-                        <input type="submit">
-                    </form>
-
-                    <?php
-                    echo "
-                        <ul>
-                                <li>Numéro SIREN : $numSiren</li>
-                                <li>Début : $debut</li>
-                                <li>Fin : $fin</li>
-                        </ul>";
-
-                    if($debut > $fin && $fin != null){
-                        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
-                        exit;
-                    }
-
-                    ?>
-                </div>
-
                 <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
             </div>
         </div>

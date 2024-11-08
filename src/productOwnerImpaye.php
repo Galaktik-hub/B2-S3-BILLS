@@ -22,33 +22,6 @@
             <div class="page-content">
                 <h1 class="titre">Impayés</h1>
 
-                <div class="container box">
-                    <form action="productOwnerImpaye.php" method="POST" class="imp">
-                        <label for="numSiren">Numéro SIREN</label>
-                        <input type="text" name="numSiren" id="numSiren">
-
-                        <input type="submit">
-                    </form>
-                    <?php
-
-                    if(isset($_POST['numSiren'])) {
-                        $_SESSION['numSiren'] = $_POST['numSiren'];
-                        $numSiren = $_SESSION['numSiren'];
-                    }
-                    else {
-                        unset($_SESSION['numSiren']);
-                        $numSiren = "";
-                    }
-
-                    echo "
-                        <ul>
-                                <li>Numéro SIREN : $numSiren</li>
-                        </ul>";
-
-                    ?>
-                    <br/>
-                </div>
-
                 <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
             </div>
         </div>
