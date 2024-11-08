@@ -27,7 +27,7 @@
             const columnNames = <?php echo $columns_json; ?>;
         </script>
         <?php
-            // Si l'utilisateur est PO, on utilise le script PO
+            // Si l'user est PO, on utilise le script PO
             if(isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner']){
                 echo "<script src=\"../js/constructor_agGrid_PO.js\"></script>";
             } else {
