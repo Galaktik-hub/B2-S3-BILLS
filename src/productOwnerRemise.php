@@ -18,71 +18,74 @@
     <title>Espace Product Owner</title>
 </head>
     <body>
+        <div class="page-container">
+            <div class="page-content">
+                <h1 class="titre">Remises</h1>
 
-        <h3 class="titre">Remises</h3>
+                <?php
+                    if(isset($_POST['numSiren'])) {
+                        $_SESSION['numSiren'] = $_POST['numSiren'];
+                        $numSiren = $_SESSION['numSiren'];
+                    }
+                    else {
+                        unset($_SESSION['numSiren']);
+                        $numSiren = "";
+                    }
 
-        <?php
-            if(isset($_POST['numSiren'])) {
-                $_SESSION['numSiren'] = $_POST['numSiren'];
-                $numSiren = $_SESSION['numSiren'];
-            }
-            else {
-                unset($_SESSION['numSiren']);
-                $numSiren = "";
-            }
+                    if(isset($_POST['debut'])){
+                        $_SESSION['debut.date'] = $_POST['debut'];
+                        $debut = $_SESSION['debut.date'];
+                    }
+                    else {
+                        //$debut = date('Y-m-d');
+                        unset($_SESSION['debut.date']);
+                        $debut = "";
+                    }
 
-            if(isset($_POST['debut'])){
-                $_SESSION['debut.date'] = $_POST['debut'];
-                $debut = $_SESSION['debut.date'];
-            }
-            else {
-                //$debut = date('Y-m-d');
-                unset($_SESSION['debut.date']);
-                $debut = "";
-            }
+                    if(isset($_POST['fin'])){
+                        $_SESSION['fin.date'] = $_POST['fin'];
+                        $fin = $_SESSION['fin.date'];
+                    }
+                    else {
+                        //$fin = date('Y-m-d');
+                        unset($_SESSION['fin.date']);
+                        $fin = "";
+                    }
+                ?>
 
-            if(isset($_POST['fin'])){
-                $_SESSION['fin.date'] = $_POST['fin'];
-                $fin = $_SESSION['fin.date'];
-            }
-            else {
-                //$fin = date('Y-m-d');
-                unset($_SESSION['fin.date']);
-                $fin = "";
-            }
-        ?>
+                <div class="container box">
+                    <form action="productOwnerRemise.php" method="POST" class="imp">
+                        <label for="numSiren">Numéro SIREN</label>
+                        <input type="text" name="numSiren" id="numSiren">
 
-        <div class="container box">
-            <form action="productOwnerRemise.php" method="POST" class="imp">
-                <label for="numSiren">Numéro SIREN</label>
-                <input type="text" name="numSiren" id="numSiren">
+                        <label for="debut">Du</label>
+                        <input type="date" name="debut" id="debut" <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
 
-                <label for="debut">Du</label>
-                <input type="date" name="debut" id="debut" <?php echo "value='".$debut."' max='".date('Y-m-d')."'";  ?>>
+                        <label for="fin">Au</label>
+                        <input type="date" name="fin" id="fin" <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
 
-                <label for="fin">Au</label>
-                <input type="date" name="fin" id="fin" <?php echo "value='".$fin."' max='".date('Y-m-d')."'";  ?>>
+                        <input type="submit">
+                    </form>
 
-                <input type="submit">
-            </form>
+                    <?php
+                    echo "
+                        <ul>
+                                <li>Numéro SIREN : $numSiren</li>
+                                <li>Début : $debut</li>
+                                <li>Fin : $fin</li>
+                        </ul>";
 
-            <?php
-            echo "
-                <ul>
-                        <li>Numéro SIREN : $numSiren</li>
-                        <li>Début : $debut</li>
-                        <li>Fin : $fin</li>
-                </ul>";
+                    if($debut > $fin && $fin != null){
+                        echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
+                        exit;
+                    }
 
-            if($debut > $fin && $fin != null){
-                echo "<div class='alert alert-danger' role='alert'>La date de début doit être inférieure à la date de fin</div>";
-                exit;
-            }
+                    ?>
+                </div>
 
-            ?>
+                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
+            </div>
         </div>
-
-        <div id="myGrid" class="ag-theme-quartz" style="width: 1400px; margin: auto; font-size: 15px"></div>
 
         <script>
             const data = <?php echo $remises_json; ?>;
