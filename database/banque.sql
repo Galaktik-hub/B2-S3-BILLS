@@ -31,16 +31,16 @@ CREATE TABLE `admin` (
   `loginAdmin` varchar(50) NOT NULL,
   `passwordAdmin` varchar(75) NOT NULL,
   `isProductOwner` tinyint(1) NOT NULL,
-  `nameAdmin` varchar(20) NOT NULL
+  `mail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `admin`
 --
 
-INSERT INTO `admin` (`loginAdmin`, `passwordAdmin`, `isProductOwner`, `nameAdmin`) VALUES
-('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 'Je suis l\'admin'),
-('po', '6199aecf23aba7e87b2dafb8b4915260da85e3cf53568197b7e451982392fb8e', 1, 'Je suis le PO');
+INSERT INTO `admin` (`loginAdmin`, `passwordAdmin`, `isProductOwner`, `mail`) VALUES
+('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 'admin.bills@bills.fr'),
+('po', '6199aecf23aba7e87b2dafb8b4915260da85e3cf53568197b7e451982392fb8e', 1, 'po.bills@bills.fr');
 
 -- --------------------------------------------------------
 
