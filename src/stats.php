@@ -21,12 +21,12 @@ $queryTreasury = "
     SELECT MONTH(dateRemise) AS month, 
            COALESCE(SUM(montantTotal), 0) AS total_tresorerie
     FROM remise 
-    WHERE YEAR(dateRemise) = ?
+    WHERE YEAR(dateRemise) = ? AND numClient = ?
     GROUP BY MONTH(dateRemise)
     ORDER BY month
 ";
 $stmt = $dbh->prepare($queryTreasury);
-$stmt->execute([$date]);
+$stmt->execute([$date, $_SESSION['numClient']]);
 $tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Extraction des données pour le graphique
@@ -39,11 +39,11 @@ $queryMotifs = "
     FROM impaye i
     JOIN codeimpaye ci ON i.codeImpaye = ci.codeImpaye
     JOIN remise r ON i.numTransaction = r.numRemise
-    WHERE YEAR(r.dateRemise) = ?
+    WHERE YEAR(r.dateRemise) = ? AND r.numClient = ?
     GROUP BY ci.libelleImpaye
 ";
 $stmtMotifs = $dbh->prepare($queryMotifs);
-$stmtMotifs->execute([$date]);
+$stmtMotifs->execute([$date, $_SESSION['numClient']]);
 $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
