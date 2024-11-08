@@ -64,20 +64,24 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
             <form method='get' action='stats.php'>
                 <div class="choice">
                     <label>Choix de l'année :
-                        <select name="date">
-                            <?php for($i = 1950; $i <= date('Y'); $i++): ?>
-                                <option value="<?= $i ?>" <?= $i == $date ? 'selected' : '' ?>><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
+                        <div class="select-wrapper">
+                            <select class="select-list" name="date">
+                                <?php for ($i = date('Y'); $i >= 1980; $i--) : ?>
+                                    <option value="<?= $i ?>" <?= $i == $date ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
                     </label>
                 </div>
                 <p class="separator">|</p>
                 <div class="choice">
                     <label>Type de graphique :
-                        <select name="graph">
-                            <option value="bar" <?= $graph === "bar" ? 'selected' : '' ?>>Histogramme</option>
-                            <option value="line" <?= $graph === "line" ? 'selected' : '' ?>>Courbe</option>
-                        </select>
+                        <div class="select-wrapper">
+                            <select class="select-list" name="graph">
+                                <option value="bar" <?= $graph === "bar" ? 'selected' : '' ?>>Histogramme</option>
+                                <option value="line" <?= $graph === "line" ? 'selected' : '' ?>>Courbe</option>
+                            </select>
+                        </div>
                     </label>
                 </div>
 
