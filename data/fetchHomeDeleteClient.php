@@ -11,10 +11,15 @@ $query = "
 $stmt = $dbh->prepare($query);
 $stmt->execute();
 $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if(empty($clients)){
+    $columns = '';
+    $clients_json = json_encode($clients);
+    $columns_json = json_encode($columns);
+}else{
+    $columns = array_keys($clients[0]);
 
-$columns = array_keys($clients[0]);
-
-$clients_json = json_encode($clients);
-$columns_json = json_encode($columns);
+    $clients_json = json_encode($clients);
+    $columns_json = json_encode($columns);
+}
 
 ?>
