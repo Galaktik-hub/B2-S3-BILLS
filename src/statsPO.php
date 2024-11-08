@@ -33,7 +33,7 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <div class="container">
-    <h1 class="title">Statistiques de votre compte</h1>
+    <h1 class="title">Statistiques des impayés de tous les utilisateurs</h1>
 
     <!-- Formulaire de sélection d'année et de type de graphique -->
     <form method='get' action='statsPO.php'>
