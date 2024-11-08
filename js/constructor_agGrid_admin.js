@@ -46,8 +46,8 @@ const gridOptions = {
     onRowClicked: event => {
         // Récupérer le numClient
         const numClient = event.data["N° Client"];
-        // Redirection
-        if (isProductOwner){
+
+        if (typeof isProductOwner !== 'undefined' && isProductOwner) {
             window.location.href = `productOwnerSeeClient.php?numClient=${numClient}`;
         } else {
             window.location.href = `adminSeeClient.php?numClient=${numClient}`;
