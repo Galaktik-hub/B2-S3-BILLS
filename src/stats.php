@@ -131,7 +131,7 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
                 html2canvas(document.querySelector(".container-graph")).then(canvas => {
                     const imgData = canvas.toDataURL("image/png");
                     const pdf = new jspdf.jsPDF("landscape", "mm", "a4");
-                    pdf.addImage(imgData, "SVG", 0, 0, 250, 190);
+                    pdf.addImage(imgData, "SVG", 0, 0, 300, 190);
                     const fileName = `Statistiques_${'<?= $raisonSociale ?>'}_${'<?= $date ?>'}.pdf`;
                     pdf.save(fileName);
                 });
