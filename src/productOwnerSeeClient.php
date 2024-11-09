@@ -7,6 +7,7 @@ include("navbar.php");
 include('links.php');
 checkIsPO();
 include('../data/fetchHomeAdmin.php');
+include("../mail/sendMail.php");
 
 $numClient = $_GET["numClient"];
 $clientDetails = $client[0];
@@ -43,6 +44,14 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
     $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
     $stmt->bindParam(':justificatif', $justificatif);
     $stmt->execute();
+
+    $loginAdmin = 'admin';
+    $stmtMail = $dbh->prepare("SELECT mail FROM admin WHERE loginAdmin = :loginAdmin");
+    $stmtMail->execute(['loginAdmin' => $loginAdmin]);
+
+    $adminMail = $stmtMail->fetch(PDO::FETCH_ASSOC);
+
+    sendmail($adminMail['mail'], subjectDeletionClient(), bodyDeletionClient($numClient));
 
     // Redirige pour vider les données POST et afficher la demande de suppression
     header("Location: productOwnerSeeClient.php?numClient=" . $numClient . "&deleteSuccess=1");
