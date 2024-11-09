@@ -18,10 +18,14 @@
     <title>Espace Admin</title>
 </head>
     <body>
-    <div class="body_admin" >
+        <div class="page-container" >
+            <div class="page-content">
+                <h1> Liste des demandes de suppression de comptes </h1>
 
-        <h1> Liste des demandes de suppression de comptes </h1>
-        <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
+                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+            </div>
+        </div>
+
         <script>
             const data = <?php echo $clients_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
@@ -34,6 +38,5 @@
             echo "Le client N° $numClient a bien été supprimé.";
         }
         ?>
-    </div>
     </body>
 </html>
