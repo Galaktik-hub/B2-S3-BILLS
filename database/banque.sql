@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 04 nov. 2024 à 10:01
+-- Généré le : sam. 09 nov. 2024 à 15:27
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `loginAdmin` varchar(50) NOT NULL,
-  `passwordAdmin` varchar(75) NOT NULL,
-  `isProductOwner` tinyint(1) NOT NULL,
-  `mail` varchar(255) NOT NULL
+    `loginAdmin` varchar(50) NOT NULL,
+    `passwordAdmin` varchar(75) NOT NULL,
+    `isProductOwner` tinyint(1) NOT NULL,
+    `mail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -39,8 +39,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`loginAdmin`, `passwordAdmin`, `isProductOwner`, `mail`) VALUES
-('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 'admin.bills@bills.fr'),
-('po', '6199aecf23aba7e87b2dafb8b4915260da85e3cf53568197b7e451982392fb8e', 1, 'po.bills@bills.fr');
+('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 'julien.synaeve@gmail.com'),
+('po', '6199aecf23aba7e87b2dafb8b4915260da85e3cf53568197b7e451982392fb8e', 1, 'synaevej@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -49,12 +49,12 @@ INSERT INTO `admin` (`loginAdmin`, `passwordAdmin`, `isProductOwner`, `mail`) VA
 --
 
 CREATE TABLE `client` (
-  `numClient` int(11) NOT NULL,
-  `numSiren` char(9) NOT NULL,
-  `loginClient` varchar(50) NOT NULL,
-  `passwordClient` varchar(150) NOT NULL,
-  `raisonSociale` varchar(20) NOT NULL,
-  `mail` varchar(200) NOT NULL
+    `numClient` int(11) NOT NULL,
+    `numSiren` char(9) NOT NULL,
+    `loginClient` varchar(50) NOT NULL,
+    `passwordClient` varchar(150) NOT NULL,
+    `raisonSociale` varchar(20) NOT NULL,
+    `mail` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -65,7 +65,8 @@ INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, 
 (1, '123456789', 'client', '948fe603f61dc036b5c596dc09fe3ce3f3d30dc90f024c85f3c82db2ccab679d', 'Carrefour', 'carrefour.direction@gmail.com'),
 (3, '987654321', 'auchan', '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'Auchan', 'auchan@auchan.fr'),
 (4, '123456789', 'aa', '961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506', 'leclerc', 'auchan.test@auchan.fr'),
-(5, '050505050', 'inter', 'c84c8016356014e02b049ff270c079dd03ab5c5d44a120bee60242782b234ddd', 'Intermarché', 'interdirection@gmail.com');
+(5, '050505050', 'inter', 'c84c8016356014e02b049ff270c079dd03ab5c5d44a120bee60242782b234ddd', 'Intermarché', 'interdirection@gmail.com'),
+(25, '894986465', 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Test', 'julien.synaeve@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -74,8 +75,8 @@ INSERT INTO `client` (`numClient`, `numSiren`, `loginClient`, `passwordClient`, 
 --
 
 CREATE TABLE `codeimpaye` (
-  `codeImpaye` char(2) NOT NULL,
-  `libelleImpaye` varchar(60) NOT NULL
+    `codeImpaye` char(2) NOT NULL,
+    `libelleImpaye` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -83,14 +84,14 @@ CREATE TABLE `codeimpaye` (
 --
 
 INSERT INTO `codeimpaye` (`codeImpaye`, `libelleImpaye`) VALUES
-('01', 'Fraude à la carte'),
-('02', 'Compte à découvert'),
-('03', 'Compte clôturé'),
-('04', 'Compte bloqué'),
-('05', 'Provision insuffisante'),
-('06', 'Opération contestée par le débiteur'),
-('07', 'Titulaire décédé'),
-('08', 'Raison non communiquée, contactez la banque du client');
+    ('01', 'Fraude à la carte'),
+    ('02', 'Compte à découvert'),
+    ('03', 'Compte clôturé'),
+    ('04', 'Compte bloqué'),
+    ('05', 'Provision insuffisante'),
+    ('06', 'Opération contestée par le débiteur'),
+    ('07', 'Titulaire décédé'),
+    ('08', 'Raison non communiquée, contactez la banque du client');
 
 -- --------------------------------------------------------
 
@@ -99,9 +100,9 @@ INSERT INTO `codeimpaye` (`codeImpaye`, `libelleImpaye`) VALUES
 --
 
 CREATE TABLE `impaye` (
-  `numTransaction` int(11) NOT NULL,
-  `numDossierImpaye` char(5) NOT NULL,
-  `codeImpaye` char(2) NOT NULL
+    `numTransaction` int(11) NOT NULL,
+    `numDossierImpaye` char(5) NOT NULL,
+    `codeImpaye` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -109,21 +110,21 @@ CREATE TABLE `impaye` (
 --
 
 INSERT INTO `impaye` (`numTransaction`, `numDossierImpaye`, `codeImpaye`) VALUES
-(6, '1', '08'),
-(7, '1', '08'),
-(12, '2', '01'),
-(13, '2', '01'),
-(14, '2', '01'),
-(19, '3', '05'),
-(20, '3', '05'),
-(27, '4', '08'),
-(28, '4', '08'),
-(30, '5', '04'),
-(34, '6', '05'),
-(39, '7', '08'),
-(43, '8', '01'),
-(45, '9', '01'),
-(50, '10', '02');
+    (6, '1', '08'),
+    (7, '1', '08'),
+    (12, '2', '01'),
+    (13, '2', '01'),
+    (14, '2', '01'),
+    (19, '3', '05'),
+    (20, '3', '05'),
+    (27, '4', '08'),
+    (28, '4', '08'),
+    (30, '5', '04'),
+    (34, '6', '05'),
+    (39, '7', '08'),
+    (43, '8', '01'),
+    (45, '9', '01'),
+    (50, '10', '02');
 
 -- --------------------------------------------------------
 
@@ -132,9 +133,9 @@ INSERT INTO `impaye` (`numTransaction`, `numDossierImpaye`, `codeImpaye`) VALUES
 --
 
 CREATE TABLE `mdptemp` (
-  `numClient` int(11) NOT NULL,
-  `mail` varchar(200) NOT NULL,
-  `pw` varchar(150) NOT NULL
+    `numClient` int(11) NOT NULL,
+    `mail` varchar(200) NOT NULL,
+    `pw` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -144,12 +145,12 @@ CREATE TABLE `mdptemp` (
 --
 
 CREATE TABLE `remise` (
-  `numRemise` int(11) NOT NULL,
-  `nbrTransaction` int(11) NOT NULL,
-  `montantTotal` int(11) NOT NULL,
-  `devise` char(3) NOT NULL,
-  `dateRemise` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `numClient` int(11) NOT NULL
+    `numRemise` int(11) NOT NULL,
+    `nbrTransaction` int(11) NOT NULL,
+    `montantTotal` int(11) NOT NULL,
+    `devise` char(3) NOT NULL,
+    `dateRemise` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `numClient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -195,17 +196,10 @@ INSERT INTO `remise` (`numRemise`, `nbrTransaction`, `montantTotal`, `devise`, `
 --
 
 CREATE TABLE `suppression` (
-  `numClient` int(11) NOT NULL,
-  `dateDemande` date NOT NULL,
-  `justificatif` text NOT NULL
+    `numClient` int(11) NOT NULL,
+    `dateDemande` date NOT NULL,
+    `justificatif` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `suppression`
---
-
-INSERT INTO `suppression` (`numClient`, `dateDemande`, `justificatif`) VALUES
-(3, '2024-11-04', 'Ce compte est inactif depuis plus de 6 mois.');
 
 -- --------------------------------------------------------
 
@@ -214,13 +208,13 @@ INSERT INTO `suppression` (`numClient`, `dateDemande`, `justificatif`) VALUES
 --
 
 CREATE TABLE `transaction` (
-  `numTransaction` int(11) NOT NULL,
-  `montant` int(11) NOT NULL,
-  `devise` char(3) NOT NULL,
-  `numCarte` char(16) NOT NULL,
-  `numAutorisation` char(6) DEFAULT NULL,
-  `reseau` char(5) NOT NULL,
-  `numRemise` int(11) NOT NULL
+    `numTransaction` int(11) NOT NULL,
+    `montant` int(11) NOT NULL,
+    `devise` char(3) NOT NULL,
+    `numCarte` char(16) NOT NULL,
+    `numAutorisation` char(6) DEFAULT NULL,
+    `reseau` char(5) NOT NULL,
+    `numRemise` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -287,52 +281,54 @@ INSERT INTO `transaction` (`numTransaction`, `montant`, `devise`, `numCarte`, `n
 -- Index pour la table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`loginAdmin`);
+    ADD PRIMARY KEY (`loginAdmin`);
 
 --
 -- Index pour la table `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`numClient`);
+    ADD PRIMARY KEY (`numClient`);
 
 --
 -- Index pour la table `codeimpaye`
 --
 ALTER TABLE `codeimpaye`
-  ADD PRIMARY KEY (`codeImpaye`);
+    ADD PRIMARY KEY (`codeImpaye`);
 
 --
 -- Index pour la table `impaye`
 --
 ALTER TABLE `impaye`
-  ADD PRIMARY KEY (`numTransaction`),
-  ADD KEY `codeImpaye` (`codeImpaye`);
+    ADD PRIMARY KEY (`numTransaction`),
+    ADD KEY `codeImpaye` (`codeImpaye`);
 
 --
 -- Index pour la table `mdptemp`
 --
 ALTER TABLE `mdptemp`
-  ADD PRIMARY KEY (`numClient`);
+    ADD PRIMARY KEY (`numClient`),
+    ADD UNIQUE KEY `unique_numClient` (`numClient`);
 
 --
 -- Index pour la table `remise`
 --
 ALTER TABLE `remise`
-  ADD PRIMARY KEY (`numRemise`),
-  ADD KEY `REMISE_CLIENT_FK` (`numClient`);
+    ADD PRIMARY KEY (`numRemise`),
+    ADD KEY `REMISE_CLIENT_FK` (`numClient`);
 
 --
 -- Index pour la table `suppression`
 --
 ALTER TABLE `suppression`
-  ADD PRIMARY KEY (`numClient`,`dateDemande`);
+    ADD PRIMARY KEY (`numClient`,`dateDemande`),
+    ADD UNIQUE KEY `unique_numClient` (`numClient`);
 
 --
 -- Index pour la table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`numTransaction`),
-  ADD KEY `TRANSACTION_REMISE_FK` (`numRemise`);
+    ADD PRIMARY KEY (`numTransaction`),
+    ADD KEY `TRANSACTION_REMISE_FK` (`numRemise`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -342,19 +338,19 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+    MODIFY `numClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `remise`
 --
 ALTER TABLE `remise`
-  MODIFY `numRemise` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+    MODIFY `numRemise` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `numTransaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+    MODIFY `numTransaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Contraintes pour les tables déchargées
@@ -364,32 +360,32 @@ ALTER TABLE `transaction`
 -- Contraintes pour la table `impaye`
 --
 ALTER TABLE `impaye`
-  ADD CONSTRAINT `impaye_ibfk_1` FOREIGN KEY (`numTransaction`) REFERENCES `transaction` (`numTransaction`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `impaye_ibfk_2` FOREIGN KEY (`codeImpaye`) REFERENCES `codeimpaye` (`codeImpaye`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `impaye_ibfk_1` FOREIGN KEY (`numTransaction`) REFERENCES `transaction` (`numTransaction`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `impaye_ibfk_2` FOREIGN KEY (`codeImpaye`) REFERENCES `codeimpaye` (`codeImpaye`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `mdptemp`
 --
 ALTER TABLE `mdptemp`
-  ADD CONSTRAINT `mdptemp_ibfk_1` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `mdptemp_ibfk_1` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `remise`
 --
 ALTER TABLE `remise`
-  ADD CONSTRAINT `REMISE_CLIENT_FK` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `REMISE_CLIENT_FK` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `suppression`
 --
 ALTER TABLE `suppression`
-  ADD CONSTRAINT `fk_suppression_client` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE;
+    ADD CONSTRAINT `fk_suppression_client` FOREIGN KEY (`numClient`) REFERENCES `client` (`numClient`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `TRANSACTION_REMISE_FK` FOREIGN KEY (`numRemise`) REFERENCES `remise` (`numRemise`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `TRANSACTION_REMISE_FK` FOREIGN KEY (`numRemise`) REFERENCES `remise` (`numRemise`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
