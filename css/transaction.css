@@ -1,0 +1,32 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-left: 10rem;
+    width: 100%;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content h1 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.back-container {
+    width: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    padding: 10px 12px;
+    background: linear-gradient(to right, #3E79E5, #01B8E3);
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}

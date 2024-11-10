@@ -30,6 +30,6 @@
             const data = <?php echo $remises_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
         </script>
-        <script src="../js/constructor_agGrid.js"></script>
+        <script src="../js/constructor_agGrid_remise.js"></script>
     </body>
 </html>
