@@ -21,8 +21,13 @@
         <div class="page-container">
             <div class="page-content">
                 <h1 class="titre">Impayés</h1>
-
-                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+                <?php
+                if (empty($impayes)) {
+                    echo "Il n'y a pas d'impayés enregistrés pour ce compte.";
+                } else {
+                    echo '<div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';
+                }
+                ?>
             </div>
         </div>
 

@@ -21,8 +21,12 @@
         <div class="page-container">
             <div class="page-content">
                 <h1 class="titre">Remises</h1>
-
-                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+                <?php
+                if (empty($remises)) {
+                    echo "Il n'y a pas de remises enregistrées pour ce compte.";
+                }
+                    echo '<div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';
+                ?>
             </div>
         </div>
 

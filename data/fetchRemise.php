@@ -21,9 +21,13 @@
     $stmt->execute();
     $remises = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $columns = array_keys($remises[0]);
-
-    $remises_json = json_encode($remises);
-    $columns_json = json_encode($columns);
-
+    if(empty($remises)){
+        $columns = '';
+        $remises_json = json_encode($remises);
+        $columns_json = json_encode($columns);
+    } else{
+        $columns = array_keys($remises[0]);
+        $remises_json = json_encode($remises);
+        $columns_json = json_encode($columns);
+    }
 ?>
