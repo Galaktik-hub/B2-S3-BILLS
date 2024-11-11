@@ -70,8 +70,7 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
     <title>Espace PO - Détails du client</title>
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Détails du client</h1>
+<div class="container">
 
     <!-- Afficher une alerte de succès si les informations ont été mises à jour -->
     <?php if (isset($_GET['updateSuccess']) && $_GET['updateSuccess'] == 1): ?>
@@ -94,26 +93,44 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
         </div>
     <?php endif; ?>
 
-    <!-- Formulaire de mise à jour du client -->
-    <form id="updateForm" method="POST" action="productOwnerSeeClient.php?numClient=<?php echo htmlspecialchars($numClient); ?>" onsubmit="return confirmUpdate()">
-        <div class="mb-3">
-            <label for="numClient" class="form-label">Numéro de Client</label>
-            <input type="text" class="form-control" id="numClient" value="<?php echo htmlspecialchars($clientDetails['N° Client']); ?>" readonly>
-        </div>
-        <div class="mb-3">
-            <label for="numSiren" class="form-label">Numéro Siren</label>
-            <input type="text" class="form-control" id="numSiren" name="numSiren" value="<?php echo htmlspecialchars($clientDetails['N° Siren']); ?>">
-        </div>
-        <div class="mb-3">
-            <label for="raisonSociale" class="form-label">Raison Sociale</label>
-            <input type="text" class="form-control" id="raisonSociale" name="raisonSociale" value="<?php echo htmlspecialchars($clientDetails['Raison Sociale']); ?>">
-        </div>
-        <div class="mb-3">
-            <label for="loginClient" class="form-label">Identifiant</label>
-            <input type="text" class="form-control" id="loginClient" name="loginClient" value="<?php echo htmlspecialchars($clientDetails['Identifiant']); ?>">
-        </div>
-        <button type="submit" name="updateClient" class="btn btn-primary">Confirmer les modifications</button>
-    </form>
+    <div class="form-container">
+        <h1 class="form-title">Détails du client</h1>
+
+        <form id="updateForm" method="POST" action="productOwnerSeeClient.php?numClient=<?php echo htmlspecialchars($numClient); ?>" onsubmit="return confirmUpdate()">
+            <div class="form-group">
+                <label for="id_client">N° Client</label>
+                <input type="text" id="id_client" name="id_client" value="<?php echo htmlspecialchars($clientDetails['N° Client']); ?>" placeholder="Numéro Client" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="siren">Siren</label>
+                <input type="text" id="numSiren" name="numSiren" minlength="9" maxlength="9" value="<?php echo htmlspecialchars($clientDetails['N° Siren']); ?>" placeholder="Entrer le Siren">
+            </div>
+
+            <div class="form-group">
+                <label for="raisonSociale">Raison Sociale</label>
+                <input type="text" id="raisonSociale" name="raisonSociale" value="<?php echo htmlspecialchars($clientDetails['Raison Sociale']); ?>" placeholder="Entrer la Raison Sociale">
+            </div>
+
+            <div class="form-group">
+                <label for="identifiant">Identifiant</label>
+                <input type="text" id="loginClient" name="loginClient" value="<?php echo htmlspecialchars($clientDetails['Identifiant']); ?>" placeholder="Entrer l'Identifiant">
+            </div>
+
+            <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
+            <?php
+            if (!empty($errorMsg)) {
+                echo $errorMsg;
+            }
+
+            if (!empty($successMsg)) {
+                echo $successMsg;
+            }
+            ?>
+            <button type="submit" name="updateClient" class="btn-submit">Mettre à jour</button>
+
+        </form>
+    </div>
 
     <?php if (isset($clientDetailsSuppression['Date de la demande']) && isset($clientDetailsSuppression['Justificatif'])): ?>
         <p class="mt-4 text-danger"> <?php
