@@ -69,57 +69,82 @@ if(isset($_POST['check'])){
                 <td><?php echo htmlspecialchars($clientDetailsSupression['Justificatif']); ?></td>
             </tr>
             <?php
-            }
-            ?>
-        </table>
-        <?php
-        if (isset($clientDetailsSupression['Date de la demande']) && isset($clientDetailsSupression['Justificatif'])) {
-            ?>
-            <div class="formulaire">
-                <!-- Button pour ouvrir le modal -->
-                <button type="button" class="button" data-toggle="modal" data-target="#exampleModal">
-                    Supprimer le client
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Êtes-vous sûr de vouloir supprimer le client n°<?= htmlspecialchars($numClient) ?> ?<br>
-                                    Vous devez avoir l'autorisation du Product Owner.</p>
-                                <p>En cliquant sur "Oui", vous affirmez avoir l'accord du P.O.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <form action="adminSeeClient.php?numClient=<?= htmlspecialchars($numClient) ?>" method="POST">
-                                    <input type="hidden" name="check" value="true">
-                                    <button type="submit" class="btn btn-primary">Oui</button>
-                                </form>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                            </div>
+        }
+        ?>
+    </table>
+    <?php
+    if (isset($clientDetailsSupression['Date de la demande']) && isset($clientDetailsSupression['Justificatif'])) {
+        ?>
+        <div class="formulaire">
+            <!-- Button pour ouvrir le modal -->
+            <button type="button" class="button" data-toggle="modal" data-target="#exampleModal">
+                Supprimer le client
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <?php
+                        if (!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']) {
+                            echo '
+                                <div class="modal-body">
+                                <p>Êtes-vous sûr de vouloir supprimer le client n°' . htmlspecialchars($numClient) . ' ?<br>
+                                    Vous devez avoir l\'autorisation du Product Owner.</p>
+                                    <p>En cliquant sur "Oui", vous affirmez avoir l\'accord du P.O.</p>
+                                </div>
+                                ';
+                        } else {
+                            echo '
+                                <div class="modal-body">
+                                <p>Êtes-vous sûr de vouloir supprimer le client n°' . htmlspecialchars($numClient) . ' ?<br>
+                                    Une demande de suppression va être envoyée à l\'administrateur</p>
+                                </div>
+                                ';
+                        }
+                        ?>
+                        <div class="modal-footer">
+                            <form action="adminSeeClient.php?numClient=<?= htmlspecialchars($numClient) ?>" method="POST">
+                                <input type="hidden" name="check" value="true">
+                                <button type="submit" class="btn btn-primary">Oui</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php
-        } else {
-            ?>
-            <div class="formulaire">
-                <form action="#" class="button_center" method="get">
-                    <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
-                    <button class="button_disabled" type="submit" disabled >Suppression du compte client</button>
-                </form>
-                <p>Vous ne pouvez pas supprimer un utilisateur sans demande préalable du PO.</p>
-            </div>
+        </div>
         <?php
-        }
+    } else {
         ?>
-</div>
+        <div class="formulaire">
+            <?php
+            if (!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']) {
+                echo '
+                    <form action="deleteClient.php" class="button_center" method="get">
+                        <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
+                        <button class="button_disabled" type="submit" disabled>Suppression du compte client</button>
+                    </form>
+                    <p>Vous ne pouvez pas supprimer un utilisateur sans demande préalable du PO.</p>
+                    ';
+            } else {
+                echo '
+                    <form action="deleteClient.php" class="button_center" method="get">
+                        <input type="hidden" name="numClient" value="<?php echo htmlspecialchars($numClient); ?>">
+                        <button class="button" type="submit">Suppression du compte client</button>
+                    </form>
+                    ';
+            }
+            ?>
+        </div>
+        <?php
+    }
+    ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

@@ -21,11 +21,6 @@
     <div class="body_admin" >
 
         <h1> Liste des demandes de suppression de comptes </h1>
-        <?php
-        if(empty($clients)){
-            echo " Il n'y a pas de demande de suppression de comptes !";
-        }
-        ?>
         <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>
         <script>
             const data = <?php echo $clients_json; ?>;

@@ -1,65 +1,18 @@
-.page-top {
-    display: inline-block;
-    margin-left: 50px;
+.page-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-left: 10rem;
+    width: 100%;
+}
 
+.page-top {
     h1 {
-        font-size: 30px;
-        margin-bottom: 50px;
+        font-size: 2rem;
+        margin-bottom: 3rem;
     }
     h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
-    .card-solde {
-        background-color: #FAFBFC;
-        border-radius: 10px;
-        border: 2px solid #01B8E3;
-
-        th {
-            color: #A4B4CB;
-            font-size: 17px;
-            padding-left: 20px;
-            padding-right: 50px;
-            padding-top: 7px;
-            margin-bottom: 0px;
-        }
-        td {
-            color: black;
-            font-size: 17px;
-            padding-left: 20px;
-            padding-right: 50px;
-            padding-top: 7px;
-            margin-bottom: 0px;
-        }
-
-
-    }
-    .button {
-        background: linear-gradient(to right, #3E79E5, #01B8E3);
-        border: 0px solid transparent;
-        border-radius: 10px;
-        color: #ffffff;
-        margin-top: 20px;
-        padding-right: 10px;
-        padding-left: 10px;
-        padding-top: 2px;
-        font-size: 14px;
-        cursor: pointer;
-        margin-bottom: 30px;
-
-        p {
-            display: inline-block;
-            text-align: center;
-        }
-
-    }
-    .button:hover {
-        background: linear-gradient(to right, #2d5fae, #0191b0);
-    }
-
-    .date {
-        border-radius: 10px;
-        border: 2px solid #01B8E3;
-        font-size: 15px;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
     }
 }

@@ -12,47 +12,51 @@
         }
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 38rem;
             margin: auto;
-            padding: 20px;
+            padding: 1.25rem;
             border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .header {
             background-color: #3e79e5;
-            padding: 10px 0;
+            padding: 0.7rem;
             text-align: center;
             color: #ffffff;
         }
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 1.6rem;
         }
         .content {
-            padding: 20px;
+            padding: 1.5rem;
         }
         .content h2 {
             color: #3e79e5;
+            font-size: 1.3rem;
         }
         .content p {
-            margin: 10px 0;
+            margin: 0.7rem 0;
+            font-size: 1rem;
         }
         .content a {
             color: #ffffff;
+            font-size: 1rem;
         }
         .button {
             display: inline-block;
-            padding: 10px 15px;
-            margin-top: 15px;
+            padding: 0.7rem 1rem;
+            margin-top: 1rem;
             color: #ffffff;
             background-color: #3e79e5;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 0.25rem;
             font-weight: bold;
+            font-size: 1rem;
         }
         .footer {
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             text-align: center;
             color: #777;
         }
@@ -78,7 +82,7 @@
     </div>
     <div class="note">
         <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller ce lien suivant dans votre navigateur :</p>
-        <p><a href="http://localhost:63342/banque-tran/src/changePassword.php?pw=<?= $nC ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
+        <p><a href="http://localhost:63342/banque-tran/src/adminSeeClient.php?numClient=<?= $nC ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
     </div>
     <div class="footer">
         <p>&copy; B.I.L.L.S - Bilan des Impayés et Lettres de Licences avec Statistiques</p>
