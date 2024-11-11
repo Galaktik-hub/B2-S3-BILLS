@@ -1,3 +1,5 @@
+// console.log(isProductOwner);
+
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
     return columnNames.map(name => ({
@@ -23,6 +25,7 @@ function getAmountValue(params) {
 const gridOptions = {
     pagination: true,
     paginationPageSize: 10,
+    paginationPageSizeSelector: [10, 20, 50, 100],
     rowData: data,
     columnDefs: createDynamicColumns(columnNames),
     domLayout: 'autoHeight',
@@ -43,8 +46,12 @@ const gridOptions = {
     onRowClicked: event => {
         // Récupérer le numClient
         const numClient = event.data["N° Client"];
-        // Redirection
-        window.location.href = `adminSeeClient.php?numClient=${numClient}`;
+
+        if (typeof isProductOwner !== 'undefined' && isProductOwner) {
+            window.location.href = `productOwnerSeeClient.php?numClient=${numClient}`;
+        } else {
+            window.location.href = `adminSeeClient.php?numClient=${numClient}`;
+        }
     }
 };
 

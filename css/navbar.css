@@ -9,7 +9,7 @@ body {
 }
 
 /* Contourne les propriétés Bootstrap qui modifie la navbar */
-*, ::after, ::before {
+.vertical-navigation, .vertical-navigation * {
     box-sizing: content-box !important;
 }
 

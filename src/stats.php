@@ -21,12 +21,12 @@ $queryTreasury = "
     SELECT MONTH(dateRemise) AS month, 
            COALESCE(SUM(montantTotal), 0) AS total_tresorerie
     FROM remise 
-    WHERE YEAR(dateRemise) = ?
+    WHERE YEAR(dateRemise) = ? AND numClient = ?
     GROUP BY MONTH(dateRemise)
     ORDER BY month
 ";
 $stmt = $dbh->prepare($queryTreasury);
-$stmt->execute([$date]);
+$stmt->execute([$date, $_SESSION['numClient']]);
 $tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Extraction des données pour le graphique
@@ -39,11 +39,11 @@ $queryMotifs = "
     FROM impaye i
     JOIN codeimpaye ci ON i.codeImpaye = ci.codeImpaye
     JOIN remise r ON i.numTransaction = r.numRemise
-    WHERE YEAR(r.dateRemise) = ?
+    WHERE YEAR(r.dateRemise) = ? AND r.numClient = ?
     GROUP BY ci.libelleImpaye
 ";
 $stmtMotifs = $dbh->prepare($queryMotifs);
-$stmtMotifs->execute([$date]);
+$stmtMotifs->execute([$date, $_SESSION['numClient']]);
 $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -64,20 +64,24 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
             <form method='get' action='stats.php'>
                 <div class="choice">
                     <label>Choix de l'année :
-                        <select name="date">
-                            <?php for($i = 1950; $i <= date('Y'); $i++): ?>
-                                <option value="<?= $i ?>" <?= $i == $date ? 'selected' : '' ?>><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
+                        <div class="select-wrapper">
+                            <select class="select-list" name="date">
+                                <?php for ($i = date('Y'); $i >= 1980; $i--) : ?>
+                                    <option value="<?= $i ?>" <?= $i == $date ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
                     </label>
                 </div>
                 <p class="separator">|</p>
                 <div class="choice">
                     <label>Type de graphique :
-                        <select name="graph">
-                            <option value="bar" <?= $graph === "bar" ? 'selected' : '' ?>>Histogramme</option>
-                            <option value="line" <?= $graph === "line" ? 'selected' : '' ?>>Courbe</option>
-                        </select>
+                        <div class="select-wrapper">
+                            <select class="select-list" name="graph">
+                                <option value="bar" <?= $graph === "bar" ? 'selected' : '' ?>>Histogramme</option>
+                                <option value="line" <?= $graph === "line" ? 'selected' : '' ?>>Courbe</option>
+                            </select>
+                        </div>
                     </label>
                 </div>
 
@@ -131,7 +135,7 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
                 html2canvas(document.querySelector(".container-graph")).then(canvas => {
                     const imgData = canvas.toDataURL("image/png");
                     const pdf = new jspdf.jsPDF("landscape", "mm", "a4");
-                    pdf.addImage(imgData, "SVG", 0, 0, 250, 190);
+                    pdf.addImage(imgData, "SVG", 0, 0, 300, 190);
                     const fileName = `Statistiques_${'<?= $raisonSociale ?>'}_${'<?= $date ?>'}.pdf`;
                     pdf.save(fileName);
                 });
