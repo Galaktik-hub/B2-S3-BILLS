@@ -56,3 +56,57 @@ const gridOptions = {
 
 const myGridElement = document.querySelector('#myGrid');
 new agGrid.Grid(myGridElement, gridOptions);
+
+function exportFile() {
+    const format = document.getElementById('format').value;
+    if (format === 'csv') {
+        exportFileCsv();
+    } else if (format === 'xls') {
+        exportFileXls();
+    } else {
+        exportFilePdf();
+    }
+}
+
+function exportFileCsv() {
+    gridOptions.api.exportDataAsCsv({
+        fileName: fileName,
+        columnSeparator: ','
+    });
+}
+
+function exportFileXls() {
+    // Récupère les données de la grille en format JSON
+    const rowData = [];
+    gridOptions.api.forEachNode(node => rowData.push(node.data));
+
+    // Convertit les données en une feuille Excel
+    const worksheet = XLSX.utils.json_to_sheet(rowData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Données");
+
+    // Génère le fichier Excel
+    XLSX.writeFile(workbook, fileName + ".xlsx");
+}
+
+function exportFilePdf() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape');
+
+    // Récupérer les données de la grille et les colonnes
+    const rowData = [];
+    gridOptions.api.forEachNode(node => rowData.push(node.data));
+
+    const columnNames = gridOptions.columnDefs.map(colDef => colDef.headerName);
+
+    // jspdf-autotable pour générer le tableau
+    doc.autoTable({
+        head: [columnNames],
+        body: rowData.map(row => columnNames.map(col => row[col])),
+        startY: 10,
+    });
+
+    doc.save(fileName + ".pdf");
+}
+
+document.getElementById('exportButton').addEventListener('click', exportFile);
