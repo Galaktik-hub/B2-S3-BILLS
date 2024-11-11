@@ -19,7 +19,7 @@ $stmt->execute();
 
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (empty($transactions)) {
-    header("Location: remise.php");
+    header("Location: productOwnerRemise.php");
     exit();
 }
 
