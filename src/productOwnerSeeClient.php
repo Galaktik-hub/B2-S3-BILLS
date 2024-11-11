@@ -104,7 +104,7 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
 
             <div class="form-group">
                 <label for="siren">Siren</label>
-                <input type="text" id="siren" name="siren" value="<?php echo htmlspecialchars($clientDetails['N° Siren']); ?>" placeholder="Entrer le Siren">
+                <input type="text" id="numSiren" name="numSiren" minlength="9" maxlength="9" value="<?php echo htmlspecialchars($clientDetails['N° Siren']); ?>" placeholder="Entrer le Siren">
             </div>
 
             <div class="form-group">
@@ -114,7 +114,7 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
 
             <div class="form-group">
                 <label for="identifiant">Identifiant</label>
-                <input type="text" id="identifiant" name="identifiant" value="<?php echo htmlspecialchars($clientDetails['Identifiant']); ?>" placeholder="Entrer l'Identifiant">
+                <input type="text" id="loginClient" name="loginClient" value="<?php echo htmlspecialchars($clientDetails['Identifiant']); ?>" placeholder="Entrer l'Identifiant">
             </div>
 
             <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
