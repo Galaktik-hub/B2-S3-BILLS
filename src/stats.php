@@ -12,7 +12,18 @@ $graph = isset($_GET['graph']) ? $_GET['graph'] : "bar";
 // Récupération de la raison sociale du client connecté
 $queryClient = "SELECT raisonSociale FROM client WHERE numClient = ?";
 $stmtClient = $dbh->prepare($queryClient);
-$stmtClient->execute([$_SESSION['numClient']]);
+
+
+if (isset($_SESSION['numClient'])){
+    $numClient = $_SESSION['numClient'];
+}
+
+// Si le PO veut voir la page du point de vue d'un client
+if (isset($_SESSION['PO_VIEW_CLIENT'])){
+    $numClient = $_SESSION['PO_VIEW_CLIENT'];
+}
+
+$stmtClient->execute([$numClient]);
 $clientData = $stmtClient->fetch(PDO::FETCH_ASSOC);
 $raisonSociale = $clientData['raisonSociale'];
 
@@ -26,7 +37,7 @@ $queryTreasury = "
     ORDER BY month
 ";
 $stmt = $dbh->prepare($queryTreasury);
-$stmt->execute([$date, $_SESSION['numClient']]);
+$stmt->execute([$date, $numClient]);
 $tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Extraction des données pour le graphique
@@ -43,7 +54,7 @@ $queryMotifs = "
     GROUP BY ci.libelleImpaye
 ";
 $stmtMotifs = $dbh->prepare($queryMotifs);
-$stmtMotifs->execute([$date, $_SESSION['numClient']]);
+$stmtMotifs->execute([$date, $numClient]);
 $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
