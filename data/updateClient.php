@@ -2,7 +2,7 @@
 
 global $dbh;
 session_start();
-include("function.php");
+include("../include/function.php");
 checkIsAdmin();
 
 if (!isset($_POST['numClient'])) {
@@ -10,7 +10,7 @@ if (!isset($_POST['numClient'])) {
     exit;
 }
 
-include('connexion.php');
+include('../include/connexion.php');
 $request = "UPDATE client SET numSiren = '$_POST[numSiren]', loginClient = '$_POST[loginClient]', raisonSociale = '$_POST[raisonSociale]' WHERE numClient = $_POST[numClient]";
 $dbh->exec($request);
 header("Location: admin.php?numClient=$_POST[numClient]");

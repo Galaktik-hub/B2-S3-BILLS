@@ -1,8 +1,8 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
+include('../include/function.php');
+include('../include/connexion.php');
 
 if (isset($_POST['new_mdp']) && isset($_POST['pw'])) {
     $newpw = hash('sha256', $_POST['new_mdp']);
@@ -27,7 +27,8 @@ if (!($req->execute(array(':pw' => $pw)))) {
 ?>
 
 <!DOCTYPE html>
-<html>
+
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

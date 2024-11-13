@@ -1,15 +1,15 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include("navbar.php");
-    include('links.php');
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include("../include/navbar.php");
+    include('../include/links.php');
     checkIsPO();
     include('../data/fetchTreasuryPO.php');
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

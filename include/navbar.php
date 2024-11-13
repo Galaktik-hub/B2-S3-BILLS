@@ -9,6 +9,7 @@ include('../data/fetchHomeDeleteClient.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="icon" href="../image/logo.ico" type="image/x-icon">
+    <title>Navbar</title>
 </head>
 <body>
     <nav class="vertical-navigation">
@@ -21,7 +22,7 @@ include('../data/fetchHomeDeleteClient.php');
         <?php display_navigation(); ?>
 
         <div class="deconnect">
-            <a href="deconnexion.php" class="deconnect-link">
+            <a href="../include/deconnexion.php" class="deconnect-link">
                 <img src="../image/deconnect.svg" alt="Icone Paramètres" class="icon">
                 <p> <?php
                 if (isset($_SESSION['PO_VIEW_CLIENT'])) {

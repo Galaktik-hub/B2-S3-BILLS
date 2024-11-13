@@ -1,9 +1,9 @@
 <?php
 session_start();
-include('function.php');
-include('connexion.php');
-include("navbar.php");
-include('links.php');
+include('../include/function.php');
+include('../include/connexion.php');
+include("../include/navbar.php");
+include('../include/links.php');
 checkIsAdmin();
 include('../data/fetchHomeAdmin.php');
 $numClient = $_GET["numClient"];
@@ -14,7 +14,6 @@ if(!empty($clients)){
     $clientDetailsSupression = $clients[0];
 }
 if(isset($_POST['check'])){
-    include('connexion.php');
     $request = "DELETE FROM client WHERE numClient = :numClient";
     $stmt = $dbh->prepare($request);
     $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
@@ -24,7 +23,8 @@ if(isset($_POST['check'])){
 }
 ?>
 <!DOCTYPE html>
-<html>
+
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

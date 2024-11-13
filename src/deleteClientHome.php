@@ -1,9 +1,9 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include("navbar.php");
-    include('links.php');
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include("../include/navbar.php");
+    include('../include/links.php');
     checkIsAdmin();
     include('../data/fetchHomeDeleteClient.php');
 ?>
@@ -39,7 +39,6 @@
         <?php
         if(isset($_GET['numClient'])){
             $numClient = $_GET["numClient"];
-            include('connexion.php');
             echo "Le client N° $numClient a bien été supprimé.";
         }
         ?>

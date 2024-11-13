@@ -1,9 +1,9 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include('navbar.php');
-    include('links.php');
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include('../include/navbar.php');
+    include('../include/links.php');
     checkIsUser();
     include('../data/fetchHome.php');
 
@@ -30,10 +30,9 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/home.css">
 

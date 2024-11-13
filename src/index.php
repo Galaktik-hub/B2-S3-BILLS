@@ -1,7 +1,7 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
+include('../include/function.php');
 
 if(isset($_SESSION['isAdmin'])){
     if($_SESSION['isAdmin'] && !$_SESSION['isProductOwner']){
@@ -19,7 +19,7 @@ if(isset($_SESSION['isAdmin'])){
 }
 
 if(isset($_POST['login'])){
-    include('connexion.php');
+    include('../include/connexion.php');
     $login = $_POST['login'];
     $password  = $_POST['password'];
     $pwd_hash = hash('sha256',$password);
@@ -75,7 +75,7 @@ if(isset($_POST['login'])){
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
