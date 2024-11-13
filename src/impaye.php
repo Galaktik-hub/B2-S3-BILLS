@@ -49,6 +49,7 @@
         <script>
             const data = <?php echo $impayes_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
+            const fileName = <?php echo json_encode("Impayes_" . $_SESSION['raisonSociale'] . "_" . date('Y_m_j')); ?>;
         </script>
         <script src="../js/constructor_agGrid.js"></script>
     </body>

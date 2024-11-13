@@ -24,7 +24,7 @@
                 <?php
                 if (empty($remises)) {
                     echo "Il n'y a pas de remises enregistrées pour ce compte.";
-                }
+                } else {
                     echo '
                     <section class="export-options">
                         <div class="select-container">
@@ -41,6 +41,7 @@
                     </section>
 
                     <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';
+                }
                 ?>
             </div>
         </div>
