@@ -69,6 +69,16 @@ nav.vertical-navigation ul.navigation-items a.active li.item p {
     color: transparent;
 }
 
+nav.vertical-navigation ul.navigation-items li.item .notification-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 2px;
+    vertical-align: middle;
+}
+
 nav.vertical-navigation ul.navigation-items li.item {
     display: flex;
     align-items: center;
@@ -81,6 +91,7 @@ nav.vertical-navigation ul.navigation-items li.item {
 
 nav.vertical-navigation ul.navigation-items li.item p {
     margin: 0;
+    white-space: nowrap;
 }
 
 nav.vertical-navigation ul.navigation-items li.item:hover {

@@ -73,7 +73,7 @@
         <p>Nous avons le plaisir de vous informer qu'un compte a été créé pour vous sur notre plateforme <strong>B.I.L.L.S</strong> (Bilan des Impayés et Lettres de Licences avec Statistiques)</p>
         <p>Afin d'accéder à votre compte, nous vous invitons à <strong>changer votre mot de passe</strong> en utilisant le lien ci-dessous :</p>
         <p>
-            <a class="button" href="http://localhost:63342/banque-tran/src/changePassword.php?pw=<?= $password ?>">Changer mon mot de passe</a>
+            <a class="button" href="http://julien-synaeve.fr/bills/src/changePassword.php?pw=<?= $password ?>">Changer mon mot de passe</a>
         </p>
         <p>Nous vous recommandons de choisir un mot de passe <strong>sécurisé</strong> et de le garder <strong>confidentiel</strong>.</p>
         <p>Nous restons à votre disposition pour toute question ou assistance.</p>
@@ -82,7 +82,7 @@
     </div>
     <div class="note">
         <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller ce lien suivant dans votre navigateur :</p>
-        <p><a href="http://localhost:63342/banque-tran/src/changePassword.php?pw=<?= $password ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
+        <p><a href="http://julien-synaeve.fr/bills/src/changePassword.php?pw=<?= $password ?>">http://julien-synaeve.fr/bills/src/changePassword.php?pw=<?= $password ?></a></p>
     </div>
     <div class="footer">
         <p>&copy; B.I.L.L.S - Bilan des Impayés et Lettres de Licences avec Statistiques</p>
