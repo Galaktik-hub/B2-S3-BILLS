@@ -58,6 +58,13 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
 
     exit;
 }
+
+// Si l'action est "loginAsClient", définir la variable de session et rediriger
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connectClient'])) {
+    $_SESSION["PO_VIEW_CLIENT"] = $numClient; // Set session variable
+    header("Location: home.php"); // Redirect to home.php
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -187,6 +194,10 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
             </div>
         </div>
     <?php endif; ?>
+
+    <form method="POST" action="">
+        <button type="submit" name="connectClient" class="btn btn-primary mt-4">Se connecter au compte de ce client</button>
+    </form>
 </div>
 
 <!-- Scripts Bootstrap et confirmation de mise à jour -->

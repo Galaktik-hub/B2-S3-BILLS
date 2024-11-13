@@ -12,7 +12,18 @@ $graph = isset($_GET['graph']) ? $_GET['graph'] : "bar";
 // Récupération de la raison sociale du client connecté
 $queryClient = "SELECT raisonSociale FROM client WHERE numClient = ?";
 $stmtClient = $dbh->prepare($queryClient);
-$stmtClient->execute([$_SESSION['numClient']]);
+
+
+if (isset($_SESSION['numClient'])){
+    $numClient = $_SESSION['numClient'];
+}
+
+// Si le PO veut voir la page du point de vue d'un client
+if (isset($_SESSION['PO_VIEW_CLIENT'])){
+    $numClient = $_SESSION['PO_VIEW_CLIENT'];
+}
+
+$stmtClient->execute([$numClient]);
 $clientData = $stmtClient->fetch(PDO::FETCH_ASSOC);
 $raisonSociale = $clientData['raisonSociale'];
 
@@ -26,7 +37,7 @@ $queryTreasury = "
     ORDER BY month
 ";
 $stmt = $dbh->prepare($queryTreasury);
-$stmt->execute([$date, $_SESSION['numClient']]);
+$stmt->execute([$date, $numClient]);
 $tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Extraction des données pour le graphique
@@ -43,7 +54,7 @@ $queryMotifs = "
     GROUP BY ci.libelleImpaye
 ";
 $stmtMotifs = $dbh->prepare($queryMotifs);
-$stmtMotifs->execute([$date, $_SESSION['numClient']]);
+$stmtMotifs->execute([$date, $numClient]);
 $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -58,7 +69,28 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
     </head>
     <body>
         <div class="container">
-            <h1 class="title">Statistiques de votre compte</h1>
+            <?php
+            if (isset($_SESSION['numClient'])){
+                $raison_display = "Statistiques de votre compte";
+            }
+
+            // Si le PO veut voir la page du point de vue d'un client
+            if (isset($_SESSION['PO_VIEW_CLIENT'])){
+                $stmt = $dbh->prepare("SELECT raisonSociale FROM client WHERE numClient = :numClient");
+                $stmt->bindParam(':numClient', $_SESSION['PO_VIEW_CLIENT'], PDO::PARAM_INT);
+                $stmt->execute();
+
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($result) {
+                    $raison_display = htmlspecialchars("Statistiques du compte de ". $result['raisonSociale']);
+                    } else {
+                    // si jamais la requête échoue on garde le numéro
+                    $raison_display = htmlspecialchars("Statistiques du client n°".$_SESSION['PO_VIEW_CLIENT']);
+                }
+            }
+            ?>
+            <h1 class="title"><?php echo $raison_display;?></h1>
 
             <!-- Formulaire de sélection d'année et de type de graphique -->
             <form method='get' action='stats.php'>
