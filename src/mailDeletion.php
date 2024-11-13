@@ -75,14 +75,14 @@
             <strong>Note :</strong> Cette action est irréversible. Assurez-vous de vérifier toutes les informations avant de confirmer la suppression.
         </p>
         <p>
-            <a class="button" href="http://localhost:63342/banque-tran/src/adminSeeClient.php?numClient=<?= $nC ?>">Confirmer la demande</a>
+            <a class="button" href="http://julien-synaeve.fr/bills/src/adminSeeClient.php?numClient=<?= $nC ?>">Confirmer la demande</a>
         </p>
         <p>Cordialement,</p>
         <p>L'équipe B.I.L.L.S.</p>
     </div>
     <div class="note">
         <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller ce lien suivant dans votre navigateur :</p>
-        <p><a href="http://localhost:63342/banque-tran/src/adminSeeClient.php?numClient=<?= $nC ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
+        <p><a href="http://julien-synaeve.fr/bills/src/adminSeeClient.php?numClient=<?= $nC ?>">http://julien-synaeve.fr/bills/src/adminSeeClient.php?numClient=<?= $nC ?></a></p>
     </div>
     <div class="footer">
         <p>&copy; B.I.L.L.S - Bilan des Impayés et Lettres de Licences avec Statistiques</p>
