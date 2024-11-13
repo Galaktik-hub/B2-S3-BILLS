@@ -19,7 +19,12 @@
         <div class="deconnect">
             <a href="deconnexion.php" class="deconnect-link">
                 <img src="../image/deconnect.svg" alt="Icone Paramètres" class="icon">
-                <p>Déconnexion</p>
+                <p> <?php
+                if (isset($_SESSION['PO_VIEW_CLIENT'])) {
+                    echo "Arrêter la visualisation";
+                } else {
+                    echo "Déconnexion";
+                } ?> </p>
             </a>
         </div>
     </nav>

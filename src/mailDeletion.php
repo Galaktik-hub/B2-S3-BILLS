@@ -82,7 +82,7 @@
     </div>
     <div class="note">
         <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller ce lien suivant dans votre navigateur :</p>
-        <p><a href="http://localhost:63342/banque-tran/src/changePassword.php?pw=<?= $nC ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
+        <p><a href="http://localhost:63342/banque-tran/src/adminSeeClient.php?numClient=<?= $nC ?>">http://localhost:63342/banque-tran/src/changePassword.php?pw=$pw</a></p>
     </div>
     <div class="footer">
         <p>&copy; B.I.L.L.S - Bilan des Impayés et Lettres de Licences avec Statistiques</p>

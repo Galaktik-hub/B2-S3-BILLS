@@ -41,21 +41,15 @@ const gridOptions = {
         'row-red-8': params => getAmountValue(params) < -800 && getAmountValue(params) >= -900,
         'row-red-9': params => getAmountValue(params) < -900
     },
+
+    onRowClicked: params => {
+        const numRemise = params.data['N° Remise'];
+        window.location.href = `productOwnerTransaction.php?numRemise=${numRemise}`;
+    }
 };
 
 const myGridElement = document.querySelector('#myGrid');
 new agGrid.Grid(myGridElement, gridOptions);
-
-function exportFile() {
-    const format = document.getElementById('format').value;
-    if (format === 'csv') {
-        exportFileCsv();
-    } else if (format === 'xls') {
-        exportFileXls();
-    } else {
-        exportFilePdf();
-    }
-}
 
 function exportFile() {
     const format = document.getElementById('format').value;

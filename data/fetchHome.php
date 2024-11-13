@@ -1,6 +1,14 @@
 <?php
 
-    $numClient = $_SESSION['numClient'];
+    if (isset($_SESSION['numClient'])){
+        $numClient = $_SESSION['numClient'];
+    }
+
+    // Si le PO veut voir la page du point de vue d'un client
+    if (isset($_SESSION['PO_VIEW_CLIENT'])){
+        $numClient = $_SESSION['PO_VIEW_CLIENT'];
+    }
+
     $date = date('Y-m-d');
 
     $query = "
