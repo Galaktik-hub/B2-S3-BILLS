@@ -1,12 +1,23 @@
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
-    return columnNames.map(name => ({
+    const columns =  columnNames.map(name => ({
         headerName: name.charAt(0).toUpperCase() + name.slice(1),
         field: name,
         sortable: true,
         filter: true,
         flex: 1
     }));
+
+    columns.push({
+        headerName: 'Statut',
+        field: 'creditDebit',
+        valueGetter: params => params.data['Montant'] >= 0 ? 'Crédit' : 'Débit',
+        sortable: true,
+        filter: true,
+        flex: 1
+    });
+
+    return columns;
 }
 
 // The function to get the value amount of the grid
@@ -45,17 +56,6 @@ const gridOptions = {
 
 const myGridElement = document.querySelector('#myGrid');
 new agGrid.Grid(myGridElement, gridOptions);
-
-function exportFile() {
-    const format = document.getElementById('format').value;
-    if (format === 'csv') {
-        exportFileCsv();
-    } else if (format === 'xls') {
-        exportFileXls();
-    } else {
-        exportFilePdf();
-    }
-}
 
 function exportFile() {
     const format = document.getElementById('format').value;

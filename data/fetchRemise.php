@@ -1,6 +1,14 @@
 <?php
 
-    $numClient = $_SESSION['numClient'];
+    if (isset($_SESSION['numClient'])){
+        $numClient = $_SESSION['numClient'];
+    }
+
+    // Si le PO veut voir la page du point de vue d'un client
+    if (isset($_SESSION['PO_VIEW_CLIENT'])){
+        $numClient = $_SESSION['PO_VIEW_CLIENT'];
+    }
+
     $date = date('Y-m-d');
 
     $query = "
@@ -21,13 +29,12 @@
     $stmt->execute();
     $remises = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if(empty($remises)){
-        $columns = '';
-        $remises_json = json_encode($remises);
-        $columns_json = json_encode($columns);
-    } else{
+    if (count($remises) > 0) {
         $columns = array_keys($remises[0]);
         $remises_json = json_encode($remises);
         $columns_json = json_encode($columns);
+    } else {
+        $remises_json = "{}";
+        $columns_json = "{}";
     }
 ?>

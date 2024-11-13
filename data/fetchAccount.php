@@ -1,9 +1,17 @@
 <?php
+    if (isset($_SESSION['numClient'])){
+        $numClient = $_SESSION['numClient'];
+    }
+
+    // Si le PO veut voir la page du point de vue d'un client
+    if (isset($_SESSION['PO_VIEW_CLIENT'])){
+        $numClient = $_SESSION['PO_VIEW_CLIENT'];
+    }
 
     try {
         $req = $dbh->prepare('SELECT numSiren, raisonSociale, loginClient, mail FROM client WHERE numClient = :numClient');
 
-        $req->bindParam(':numClient', $_SESSION['numClient'], PDO::PARAM_INT);
+        $req->bindParam(':numClient', $numClient, PDO::PARAM_INT);
         $req->execute();
         $client = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -51,7 +59,7 @@
                     $stmt->bindParam(':new_mdp', $hashed_password);
                 }
 
-                $stmt->bindParam(':numClient', $_SESSION['numClient'], PDO::PARAM_INT);
+                $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
 
                 if ($stmt->execute()) {
                     $successMsg = "<p class='success'>Informations mises à jour avec succès.</p>";

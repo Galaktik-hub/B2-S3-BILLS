@@ -1,8 +1,10 @@
 <?php
 
 function checkIsUser(){
-    if(!(isset($_SESSION['numClient']))){
-        header('Location: index.php');
+    if (!(isset($_SESSION['PO_VIEW_CLIENT']))) {
+        if(!(isset($_SESSION['numClient']))){
+            header('Location: index.php');
+        }
     }
 }
 
@@ -125,13 +127,18 @@ function nav_admin($po) {
 }
 
 function display_navigation() {
-    if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
-        // Si l'utilisateur est admin, vérifier s'il est PO
-        $po = isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'] ? 1 : 0;
-        nav_admin($po);
-    } else {
-        // Sinon, afficher la navigation utilisateur
+    // Si le PO veut voir la page du point de vue d'un client
+    if (isset($_SESSION['PO_VIEW_CLIENT'])) {
         nav_client();
+    } else {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']) {
+            // Si l'utilisateur est admin, vérifier s'il est PO
+            $po = isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'] ? 1 : 0;
+            nav_admin($po);
+        } else {
+            // Sinon, afficher la navigation utilisateur
+            nav_client();
+        }
     }
 }
 
