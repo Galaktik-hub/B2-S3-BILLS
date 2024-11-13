@@ -34,7 +34,6 @@
 
     if (count($impayes) > 0) {
         $columns = array_keys($impayes[0]);
-
         $impayes_json = json_encode($impayes);
         $columns_json = json_encode($columns);
     } else {

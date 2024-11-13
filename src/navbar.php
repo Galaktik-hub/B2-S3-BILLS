@@ -1,3 +1,7 @@
+<?php
+include('../data/fetchHomeDeleteClient.php');
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +33,14 @@
         </div>
     </nav>
     <script src="../js/navbar.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            <?php if (!empty($clients)): ?>
+            document.getElementById('notificationDot').style.display = 'inline-block';
+            <?php endif; ?>
+        });
+    </script>
+
 
 </body>
 </html>

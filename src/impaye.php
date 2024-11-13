@@ -21,22 +21,28 @@
         <div class="page-container">
             <div class="page-content">
                 <h1 class="titre">Impayés</h1>
-
-                <section class="export-options">
-                    <div class="select-container">
-                        <label for="format">Format d'export :</label>
-                        <div class="select-wrapper">
-                            <select id="format">
-                                <option value="csv">CSV</option>
-                                <option value="xls">XLS</option>
-                                <option value="pdf">PDF</option>
-                            </select>
+                <?php
+                if (empty($impayes)) {
+                    echo "Il n'y a pas d'impayés enregistrés pour ce compte.";
+                } else {
+                    echo '
+                    <section class="export-options">
+                        <div class="select-container">
+                            <label for="format">Format d\'export :</label>
+                            <div class="select-wrapper">
+                                <select id="format">
+                                    <option value="csv">CSV</option>
+                                    <option value="xls">XLS</option>
+                                    <option value="pdf">PDF</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <button id="exportButton">Exporter</button>
-                </section>
+                        <button id="exportButton">Exporter</button>
+                    </section>
 
-                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+                    <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';
+                }
+                ?>
             </div>
         </div>
 

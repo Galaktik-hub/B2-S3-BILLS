@@ -31,7 +31,6 @@
 
     if (count($remises) > 0) {
         $columns = array_keys($remises[0]);
-
         $remises_json = json_encode($remises);
         $columns_json = json_encode($columns);
     } else {

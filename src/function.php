@@ -87,7 +87,10 @@ function nav_admin($po) {
             <a href='deleteClientHome.php' class='nav-item " . ($currentPage == 'deleteClientHome.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/cross_mark.svg' alt='Icone Suppression Clients' class='icon'>
-                    <p>Suppressions</p>
+                    <p>
+                        <span id='notificationDot' class='notification-dot' style='display: none;'></span>
+                        Suppressions
+                    </p>
                 </li>
             </a>";
     }
