@@ -1,9 +1,9 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
-include('navbar.php');
+include('../include/function.php');
+include('../include/connexion.php');
+include('../include/navbar.php');
 checkIsPO();
 
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y');
@@ -33,7 +33,7 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <div class="container">
-    <h1 class="title">Statistiques de votre compte</h1>
+    <h1 class="title">Statistiques des impayés de tous les utilisateurs</h1>
 
     <!-- Formulaire de sélection d'année et de type de graphique -->
     <form method='get' action='statsPO.php'>

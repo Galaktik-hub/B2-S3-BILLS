@@ -32,31 +32,31 @@ function nav_client() {
     $currentPage = basename($_SERVER['SCRIPT_NAME']);
     echo "
         <ul class='navigation-items'>
-            <a href='home.php' class='nav-item " . ($currentPage == 'home.php' ? 'active' : '') . "'>
+            <a href='../src/home.php' class='nav-item " . ($currentPage == 'home.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/accueil.svg' alt='Icone Accueil' class='icon'>
                     <p>Accueil</p>
                 </li>
             </a>
-            <a href='remise.php' class='nav-item " . ($currentPage == 'remise.php' ? 'active' : '') . "'>
+            <a href='../src/remise.php' class='nav-item " . ($currentPage == 'remise.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/remises.svg' alt='Icone Remises' class='icon'>
                     <p>Remises</p>
                 </li>
             </a>
-            <a href='impaye.php' class='nav-item " . ($currentPage == 'impaye.php' ? 'active' : '') . "'>
+            <a href='../src/impaye.php' class='nav-item " . ($currentPage == 'impaye.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/impayés.svg' alt='Icone Impayés' class='icon'>
                     <p>Impayés</p>
                 </li>
             </a>
-            <a href='stats.php' class='nav-item " . ($currentPage == 'stats.php' ? 'active' : '') . "'>
+            <a href='../src/stats.php' class='nav-item " . ($currentPage == 'stats.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/stats.svg' alt='Icone Statistiques' class='icon'>
                     <p>Statistiques</p>
                 </li>
             </a>
-            <a href='account.php' class='nav-item " . ($currentPage == 'account.php' ? 'active' : '') . "'>
+            <a href='../src/account.php' class='nav-item " . ($currentPage == 'account.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/compte.svg' alt='Icone Compte' class='icon'>
                     <p>Compte</p>
@@ -69,13 +69,13 @@ function nav_admin($po) {
     $currentPage = basename($_SERVER['SCRIPT_NAME']);
     echo "
         <ul class='navigation-items'>
-            <a href='admin.php' class='nav-item " . ($currentPage == 'admin.php' ? 'active' : '') . "'>
+            <a href='../src/admin.php' class='nav-item " . ($currentPage == 'admin.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/settings.svg' alt='Icone Admin' class='icon'>
                     <p>Administration</p>
                 </li>
             </a>
-            <a href='insertClient.php' class='nav-item " . ($currentPage == 'insertClient.php' ? 'active' : '') . "'>
+            <a href='../src/insertClient.php' class='nav-item " . ($currentPage == 'insertClient.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/plus.svg' alt='Icone Ajouter Client' class='icon'>
                     <p>Nouveau client</p>
@@ -84,7 +84,7 @@ function nav_admin($po) {
 
     if ($po == 0) {
         echo "
-            <a href='deleteClientHome.php' class='nav-item " . ($currentPage == 'deleteClientHome.php' ? 'active' : '') . "'>
+            <a href='../src/deleteClientHome.php' class='nav-item " . ($currentPage == 'deleteClientHome.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/cross_mark.svg' alt='Icone Suppression Clients' class='icon'>
                     <p>
@@ -97,25 +97,25 @@ function nav_admin($po) {
 
     if ($po == 1) {
         echo "
-            <a href='productOwner.php' class='nav-item " . ($currentPage == 'productOwner.php' ? 'active' : '') . "'>
+            <a href='../src/productOwner.php' class='nav-item " . ($currentPage == 'productOwner.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/trésorerie.svg' alt='Icone Trésorerie' class='icon'>
                     <p>Trésorerie</p>
                 </li>
             </a>
-            <a href='productOwnerRemise.php' class='nav-item " . ($currentPage == 'productOwnerRemise.php' ? 'active' : '') . "'>
+            <a href='../src/productOwnerRemise.php' class='nav-item " . ($currentPage == 'productOwnerRemise.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/remises.svg' alt='Icone Remises' class='icon'>
                     <p>Remises</p>
                 </li>
             </a>
-            <a href='productOwnerImpaye.php' class='nav-item " . ($currentPage == 'productOwnerImpaye.php' ? 'active' : '') . "'>
+            <a href='../src/productOwnerImpaye.php' class='nav-item " . ($currentPage == 'productOwnerImpaye.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/impayés.svg' alt='Icone Impayés' class='icon'>
                     <p>Impayés</p>
                 </li>
             </a>
-            <a href='statsPO.php' class='nav-item " . ($currentPage == 'statsPO.php' ? 'active' : '') . "'>
+            <a href='../src/statsPO.php' class='nav-item " . ($currentPage == 'statsPO.php' ? 'active' : '') . "'>
                 <li class='item'>
                     <img src='../image/stats.svg' alt='Icone Statistiques' class='icon'>
                     <p>Statistiques</p>
@@ -143,13 +143,6 @@ function display_navigation() {
 }
 
 
-function footer(){
-    echo "<footer>
-        <div class='contains'>
-        </div>
-    </footer>";
-}
-
 function create_random_password(): string {
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
     $password = '';
@@ -168,7 +161,7 @@ function subjectCreationMdp(): string {
 function bodyCreationMdp($pw) : string {
     ob_start();
     $password = htmlspecialchars($pw); // sécuriser la variable
-    include 'mailWelcome.php';
+    include '../mail/mailWelcome.php';
     return ob_get_clean();
 }
 
@@ -179,6 +172,6 @@ function subjectDeletionClient(): string {
 function bodyDeletionClient($nC): string {
     ob_start();
     $numClient = htmlspecialchars($nC); // sécuriser la variable
-    include 'mailDeletion.php';
+    include '../mail/mailDeletion.php';
     return ob_get_clean();
 }

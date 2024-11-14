@@ -1,9 +1,9 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include("navbar.php");
-    include('links.php');
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include("../include/navbar.php");
+    include('../include/links.php');
     checkIsUser();
     include('../data/fetchRemise.php');
 ?>
@@ -49,7 +49,8 @@
         <script>
             const data = <?php echo $remises_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
-            const fileName = <?php echo json_encode("Remises_" . $_SESSION['raisonSociale'] . "_" . date('Y_m_j')); ?>;
+            const fileName = <?php echo json_encode("Liste des remises de l'entreprise " . $_SESSION['raisonSociale'] . " N° SIREN "
+                . $_SESSION['numSiren'] ." - Extrait du " . date('Y-m-j')); ?>;
         </script>
         <script src="../js/constructor_agGrid_remise.js"></script>
     </body>

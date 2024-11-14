@@ -5,4 +5,4 @@ credentials/mailcredentials.php
 mail/vendor/
 mail/composer.json
 mail/composer.lock
-src/parametre.php
+include/parametre.php

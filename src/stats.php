@@ -1,9 +1,9 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
-include('navbar.php');
+include('../include/function.php');
+include('../include/connexion.php');
+include('../include/navbar.php');
 checkIsUser();
 
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y');
