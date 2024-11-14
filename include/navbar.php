@@ -9,7 +9,6 @@ include('../data/fetchHomeDeleteClient.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="icon" href="../image/logo.ico" type="image/x-icon">
-    <title>Navbar</title>
 </head>
 <body>
     <nav class="vertical-navigation">
