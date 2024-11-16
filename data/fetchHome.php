@@ -27,6 +27,10 @@
     $stmt->execute();
     $remises = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    if (!empty($remises)) {
+        $_SESSION['numSiren'] = $remises[0]['numSiren'] ?? null;
+    }
+
     $columns = array_keys($remises[0]);
 
     $remises_json = json_encode($remises);
