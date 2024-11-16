@@ -4,7 +4,7 @@ function createDynamicColumns(columnNames) {
         headerName: name.charAt(0).toUpperCase() + name.slice(1),
         field: name,
         sortable: true,
-        filter: true,
+        filter: name === "Date de Remise" ? 'agDateColumnFilter' : true,
         flex: 1
     }));
 }

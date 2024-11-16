@@ -1,12 +1,10 @@
-// console.log(isProductOwner);
-
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
     return columnNames.map(name => ({
         headerName: name.charAt(0).toUpperCase() + name.slice(1),
         field: name,
         sortable: true,
-        filter: true,
+        filter: name === "Date de Remise" ? 'agDateColumnFilter' : true,
         flex: 1
     }));
 }
