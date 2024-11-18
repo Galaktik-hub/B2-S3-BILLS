@@ -158,9 +158,10 @@ function subjectCreationMdp(): string {
     return "Bienvenue chez B.I.L.L.S : Accédez à votre compte dès maintenant";
 }
 
-function bodyCreationMdp($pw) : string {
+function bodyCreationMdp($username ,$pw) : string {
     ob_start();
     $password = htmlspecialchars($pw); // sécuriser la variable
+    $username = htmlspecialchars($username);
     include '../mail/mailWelcome.php';
     return ob_get_clean();
 }
