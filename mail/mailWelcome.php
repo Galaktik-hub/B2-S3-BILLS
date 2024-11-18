@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <style>
@@ -82,6 +82,8 @@
         <h2>Votre compte a été créé avec succès !</h2>
         <p>Bonjour,</p>
         <p>Nous avons le plaisir de vous informer qu'un compte a été créé pour vous sur notre plateforme <strong>B.I.L.L.S</strong> (Bilan des Impayés et Lettres de Licences avec Statistiques)</p>
+        <p>Votre <strong>identifiant</strong> client est le suivant: <?= $username ?></p>
+        <p>Veuillez bien le noter, il vous servira lors de la connexion à votre compte.</p>
         <p>Afin d'accéder à votre compte, nous vous invitons à <strong>changer votre mot de passe</strong> en utilisant le lien ci-dessous :</p>
         <p>
             <a class="button" href="https://julien-synaeve.fr/bills/src/changePassword.php?pw=<?= $password ?>">Changer mon mot de passe</a>
