@@ -54,11 +54,27 @@
             font-weight: bold;
             font-size: 1rem;
         }
+        .guide-utilisateur {
+            margin-top: 2rem;
+        }
+        .guide-utilisateur iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+            border-radius: 0.25rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         .footer {
             margin-top: 1.5rem;
             font-size: 0.8rem;
             text-align: center;
             color: #777;
+        }
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -76,6 +92,11 @@
             <a class="button" href="http://julien-synaeve.fr/bills/src/changePassword.php?pw=<?= $password ?>">Changer mon mot de passe</a>
         </p>
         <p>Nous vous recommandons de choisir un mot de passe <strong>sécurisé</strong> et de le garder <strong>confidentiel</strong>.</p>
+        <div class="guide-utilisateur">
+            <h2>Guide Utilisateur</h2>
+            <p>Visionnez notre guide pour découvrir comment utiliser la plateforme :</p>
+            <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed//WZsEtAbGReo' frameborder='0' allowfullscreen></iframe></div>
+        </div>
         <p>Nous restons à votre disposition pour toute question ou assistance.</p>
         <p>Cordialement,</p>
         <p>L'équipe B.I.L.L.S</p>
