@@ -4,7 +4,7 @@ include('../include/function.php');
 include('../include/connexion.php');
 include("../include/navbar.php");
 include('../include/links.php');
-checkIsAdmin();
+ifAdminNotPO();
 include('../data/fetchHomeAdmin.php');
 $numClient = $_GET["numClient"];
 $clientDetails = $client[0];

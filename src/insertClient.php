@@ -71,7 +71,7 @@ checkIsAdmin();
                                 $insert_mdp_temp = $dbh->prepare("INSERT INTO `mdptemp` (`numClient`, `mail`, `pw`) VALUES (:unumclient, :umail, :upw);");
                                 $insert_mdp_temp->execute(array(':unumclient' => $numClient, ':umail' => $email, ':upw' => $pw));
 
-                                sendmail($email, subjectCreationMdp(), bodyCreationMdp($pw));
+                                sendmail($email, subjectCreationMdp(), bodyCreationMdp($login, $pw));
 
                                 echo "<p class='success'>Insertion du client réussie !</p>";
                             }
