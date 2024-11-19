@@ -4,7 +4,7 @@
     include('../include/connexion.php');
     include("../include/navbar.php");
     include('../include/links.php');
-    checkIsAdmin();
+    ifAdminNotPO();
     include('../data/fetchHomeDeleteClient.php');
 ?>
 

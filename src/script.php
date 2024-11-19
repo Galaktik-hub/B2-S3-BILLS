@@ -13,28 +13,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     while ($remiseData = $stmtRemise->fetch(PDO::FETCH_ASSOC)) {
         $numRemise = $remiseData['numRemise'];
-        echo "Début du traitement de la remise: " . $numRemise ."\n";
+        $dateRemise = $remiseData['dateRemise']; 
+        echo "Début du traitement de la remise: " . $numRemise;
+
         $queryTransac = "SELECT * FROM transaction WHERE numRemise = ?";
         $stmtTransac = $dbh->prepare($queryTransac);
         $stmtTransac->execute([$numRemise]);
+
         $numberTransac = 0;
         $sumTransac = 0;
+
         while ($transacData = $stmtTransac->fetch(PDO::FETCH_ASSOC)) {
             $numberTransac++;
             $sumTransac += $transacData['montant'];
         }
+
         if ($numberTransac == 0){
             $queryDeletedRemise = "DELETE FROM remise WHERE numRemise = ?";
             $stmtDeletedRemise = $dbh->prepare($queryDeletedRemise);
             $stmtDeletedRemise->execute([$numRemise]);
             $numberDeleted++;
-            echo "Une remise vient d'être supprimé: N°" . $numRemise ."\n";
         } else {
-            $queryUpdateRemise = "UPDATE remise SET nbrTransaction = ?, montantTotal = ? WHERE numRemise = ?";
+            $queryUpdateRemise = "UPDATE remise SET nbrTransaction = ?, montantTotal = ?, dateRemise = ? WHERE numRemise = ?";
             $stmtUpdateRemise = $dbh->prepare($queryUpdateRemise);
-            $stmtUpdateRemise->execute([$numberTransac, $sumTransac, $numRemise]);
+            $stmtUpdateRemise->execute([$numberTransac, $sumTransac, $dateRemise, $numRemise]);
             $numberUpdated++;
-            echo "Une remise vient d'être mise à jour: N°" . $numRemise ."\n";
         }
     }
     $message = "La mise à jour a été effectué avec succès.\nNombre d'entrées supprimées: " . $numberDeleted . "\nNombre d'entrées mises à jour: " . $numberUpdated;
@@ -60,4 +63,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 </body>
 </html>
-

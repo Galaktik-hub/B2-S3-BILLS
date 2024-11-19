@@ -20,6 +20,13 @@ function checkIsPO(){
     }
 }
 
+function ifAdminNotPO() {
+    if (!(isset($_SESSION['isAdmin'])) || !$_SESSION['isAdmin'] || (isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'])) {
+        header('Location: admin.php');
+        exit();
+    }
+}
+
 function head_login(){
     echo "
         <header class='superieur'>
