@@ -45,13 +45,14 @@ if (isset($_POST['check']) && isset($_POST['justificatif'])) {
     $stmt->bindParam(':justificatif', $justificatif);
     $stmt->execute();
 
-    $loginAdmin = 'admin';
-    $stmtMail = $dbh->prepare("SELECT mail FROM admin WHERE loginAdmin = :loginAdmin");
-    $stmtMail->execute(['loginAdmin' => $loginAdmin]);
+    $stmtMail = $dbh->prepare("SELECT mail FROM admin WHERE isProductOwner = 0");
+    $stmtMail->execute();
 
-    $adminMail = $stmtMail->fetch(PDO::FETCH_ASSOC);
+    $adminMails = $stmtMail->fetchAll(PDO::FETCH_ASSOC);
 
-    sendmail($adminMail['mail'], subjectDeletionClient(), bodyDeletionClient($numClient));
+    foreach ($adminMails as $admin) {
+        sendmail($admin['mail'], subjectDeletionClient(), bodyDeletionClient($numClient));
+    }
 
     // Redirige pour vider les données POST et afficher la demande de suppression
     header("Location: productOwnerSeeClient.php?numClient=" . $numClient . "&deleteSuccess=1");
