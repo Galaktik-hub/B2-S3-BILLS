@@ -161,7 +161,7 @@ function create_random_password(): string {
     return $password;
 }
 
-function subjectCreationMdp(): string {
+function subjectCreationMdp() : string {
     return "Bienvenue chez B.I.L.L.S : Accédez à votre compte dès maintenant";
 }
 
@@ -173,13 +173,24 @@ function bodyCreationMdp($username ,$pw) : string {
     return ob_get_clean();
 }
 
-function subjectDeletionClient(): string {
+function subjectDeletionClient() : string {
     return "Confirmation de demande de suppression de compte initiée par le PO";
 }
 
-function bodyDeletionClient($nC): string {
+function bodyDeletionClient($nC) : string {
     ob_start();
     $numClient = htmlspecialchars($nC); // sécuriser la variable
     include '../mail/mailDeletion.php';
+    return ob_get_clean();
+}
+
+function subjectModificationMdp() : string {
+    return "Demande de changement de mot de passe";
+}
+
+function bodyModificationMdp($pw) : string {
+    ob_start();
+    $password = htmlspecialchars($pw); // sécuriser la variable
+    include '../mail/mailChange.php';
     return ob_get_clean();
 }
