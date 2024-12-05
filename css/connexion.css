@@ -84,6 +84,14 @@ body:before {
     border-top-right-radius: 0;
 }
 
+.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+.g-recaptcha {
+    margin-bottom: 1rem;
+}
+
 .mdp{
     display: flex;
 }
