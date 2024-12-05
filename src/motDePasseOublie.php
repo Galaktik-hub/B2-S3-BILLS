@@ -36,6 +36,7 @@ if(isset($_POST['login'])) {
         $captchaError = false;
 
         include('../include/connexion.php');
+        include('../mail/sendMail.php');
         // On regarde d'abord si le login existe
         $login = $_POST['login'];
         $request = 'SELECT * FROM client;';
