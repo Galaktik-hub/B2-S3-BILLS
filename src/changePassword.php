@@ -25,7 +25,7 @@ if (!($req->execute(array(':pw' => $pw)))) {
     header('location: index.php');
 }
 $line = $req->fetch(PDO::FETCH_OBJ);
-$_SESSION['numClient'] = $line['numClient'];
+$_SESSION['numClient'] = $line->numClient;
 ?>
 
 <!DOCTYPE html>
