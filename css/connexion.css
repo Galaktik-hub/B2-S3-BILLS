@@ -34,7 +34,7 @@ body:before {
 
 /*Partie Centrale*/
 .text_center{
-    margin-top: 5%;
+    margin-top: 2rem;
     display: -ms-flexbox;
     display: -webkit-box;
     display: flex;
@@ -45,7 +45,6 @@ body:before {
     -webkit-box-pack: center;
     justify-content: center;
     padding-top: 40px;
-    padding-bottom: 40px;
     text-align: center;
 }
 
