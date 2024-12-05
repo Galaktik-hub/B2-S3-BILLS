@@ -20,7 +20,7 @@ if (!isset($_GET['pw'])) {
 
 //Check if the unique key that the user has is a key that links to an account
 $pw = $_GET['pw'];
-$req = $dbh->prepare("SELECT * FROM client WHERE passwordClient = :pw");
+$req = $dbh->prepare("SELECT * FROM mdptemp WHERE pw = :pw");
 if (!($req->execute(array(':pw' => $pw)))) {
     header('location: index.php');
 }
