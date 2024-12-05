@@ -32,7 +32,7 @@ if(isset($_POST['login'])) {
     // Vérifiez le statut de succès
     if (!$recaptchaVerify['success']) {
         $captchaError = true;
-    }
+    } else {
         $captchaError = false;
 
         include('../include/connexion.php');
@@ -53,13 +53,13 @@ if(isset($_POST['login'])) {
                     $insert_mdp_temp = $dbh->prepare("INSERT INTO `mdptemp` (`numClient`, `mail`, `pw`) VALUES (:unumclient, :umail, :upw);");
                     $insert_mdp_temp->execute(array(':unumclient' => $numClient, ':umail' => $line['mail'], ':upw' => $pwd_hash));
 
-                    sendmail($line['mail'], subjectModificationMdp(), bodyModificationMdp($random_mdp));
+                    sendmail($line['mail'], subjectModificationMdp(), bodyModificationMdp($pwd_hash));
                 }
             }
         } catch (Exception $e) {
             echo "<p class='error'>" . $e->getMessage() . "</p>";
         }
-
+    }
 }
 ?>
 

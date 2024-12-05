@@ -79,9 +79,9 @@
         <h1>Changement de mot de passe</h1>
     </div>
     <div class="content">
-        <h2>Votre compte a été créé avec succès !</h2>
+        <h2>Demande de changement de mot de passe</h2>
         <p>Bonjour,</p>
-        <p>Vous recevez ce mail suite à une demande de votre part pour changer de mot de passe. Si vous n'êtes pas à l'origine de cette demande, ne <strong>faites rien</strong>.</p>
+        <p>Vous recevez ce mail suite à une demande de votre part pour changer de mot de passe. Si vous n'êtes pas à l'origine de cette demande, <strong>ignorez ce mail</strong>.</p>
         <p>Veuillez bien le noter, il vous servira lors de la connexion à votre compte.</p>
         <p>Nous vous invitons à <strong>changer votre mot de passe</strong> en utilisant le lien ci-dessous :</p>
         <p>
