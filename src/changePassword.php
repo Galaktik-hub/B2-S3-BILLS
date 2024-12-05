@@ -24,7 +24,7 @@ $req = $dbh->prepare("SELECT * FROM client WHERE passwordClient = :pw");
 if (!($req->execute(array(':pw' => $pw)))) {
     header('location: index.php');
 }
-$line = $req->fetch();
+$line = $req->fetch(PDO::FETCH_OBJ);
 $_SESSION['numClient'] = $line['numClient'];
 ?>
 
