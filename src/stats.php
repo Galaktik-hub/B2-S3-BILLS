@@ -112,16 +112,63 @@ include('../data/fetchStats.php');
             };
             Plotly.newPlot('graphMotifs', [traceMotifs], {title: 'Motifs d’Impayés'});
 
-            // Fonction d'exportation en PDF
-            document.getElementById("exportPdf").onclick = function() {
-                html2canvas(document.querySelector(".container-graph")).then(canvas => {
-                    const imgData = canvas.toDataURL("image/png");
-                    const pdf = new jspdf.jsPDF("landscape", "mm", "a4");
-                    pdf.addImage(imgData, "SVG", 0, 0, 300, 190);
-                    const fileName = `Statistiques_${'<?= $raisonSociale ?>'}_${'<?= $date ?>'}.pdf`;
+            document.getElementById('exportPdf').addEventListener('click', function () {
+                const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4'); // Initialiser jsPDF
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                let cursorY = margin; // Position actuelle sur l'axe Y pour le contenu
+
+                // Données dynamiques pour le titre et le nom du fichier
+                const raisonSociale = '<?= str_replace(" ", "_", $_SESSION["raisonSociale"]) ?>';
+                const date = '<?= $date ?>';
+                const pdfTitle = `Statistiques de ${'<?= $_SESSION["raisonSociale"] ?>'} (${date})`;
+                const fileName = `Statistiques_${raisonSociale}_${date}.pdf`;
+
+                // Fonction pour ajouter un graphique Plotly à un PDF
+                const addPlotlyToPdf = (graphId, title) => {
+                    return new Promise((resolve) => {
+                        const graphElement = document.getElementById(graphId);
+                        html2canvas(graphElement).then((canvas) => {
+                            const imgData = canvas.toDataURL('image/png');
+                            const imgWidth = pageWidth - margin * 2;
+                            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                            if (cursorY + imgHeight > pageHeight - margin) {
+                                pdf.addPage(); // Ajouter une nouvelle page si nécessaire
+                                cursorY = margin;
+                            }
+
+                            pdf.text(title, margin, cursorY - 5); // Ajouter le titre du graphique
+                            pdf.addImage(imgData, 'PNG', margin, cursorY, imgWidth, imgHeight);
+                            cursorY += imgHeight + 10; // Mettre à jour la position Y
+                            resolve();
+                        });
+                    });
+                };
+
+                // Fonction principale pour générer le PDF
+                (async () => {
+                    // Ajouter le titre principal
+                    pdf.setFontSize(16);
+                    pdf.text(pdfTitle, pageWidth / 2, cursorY, { align: 'center' });
+                    cursorY += 20;
+
+                    // Ajouter le graphique de trésorerie
+                    await addPlotlyToPdf('graphTresorerie', 'Trésorerie Mensuelle');
+
+                    // Ajouter le graphique des motifs d’impayés si des données existent
+                    const graphMotifs = document.getElementById('graphMotifs');
+                    if (graphMotifs && graphMotifs.style.display !== 'none') {
+                        await addPlotlyToPdf('graphMotifs', 'Motifs d’Impayés');
+                    } else {
+                        pdf.text("Aucun impayé trouvé pour l'année sélectionnée.", margin, cursorY);
+                    }
+
+                    // Télécharger le fichier PDF avec le nom dynamique
                     pdf.save(fileName);
-                });
-            };
+                })();
+            });
         </script>
     </body>
 </html>
