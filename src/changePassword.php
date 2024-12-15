@@ -4,27 +4,35 @@ session_start();
 include('../include/function.php');
 include('../include/connexion.php');
 
+// Si les champs 'new_mdp' et 'pw' sont définis dans le formulaire, on procède au changement de mot de passe
 if (isset($_POST['new_mdp']) && isset($_POST['pw'])) {
+    // Hashage du nouveau mot de passe
     $newpw = hash('sha256', $_POST['new_mdp']);
     $req = $dbh->prepare("UPDATE `client` SET passwordClient = :newpw WHERE numClient = :numClient");
+    // Exécution de la requête et vérification du succès de l'opération
     if ($req->execute(array(':newpw' => $newpw, ':numClient' => $_SESSION['numClient']))) {
+        // Suppression du mot de passe temporaire de la table 'mdptemp'
         $req = $dbh->prepare("DELETE FROM `mdptemp` WHERE numClient = :numClient");
         $req->execute(array(':numClient' => $_SESSION['numClient']));
         header('location: index.php');
     }
 }
 
+// Si l'URL ne contient pas le paramètre 'pw', on redirige l'utilisateur vers la page d'accueil
 if (!isset($_GET['pw'])) {
     header('location: index.php');
 }
 
-//Check if the unique key that the user has is a key that links to an account
+// Vérification que le code de réinitialisation ('pw') correspond à un enregistrement valide dans la table 'mdptemp'
 $pw = $_GET['pw'];
 $req = $dbh->prepare("SELECT * FROM mdptemp WHERE pw = :pw");
 if (!($req->execute(array(':pw' => $pw)))) {
     header('location: index.php');
 }
+
+// Récupération de l'enregistrement
 $line = $req->fetch(PDO::FETCH_OBJ);
+// Stockage du numClient dans la session
 $_SESSION['numClient'] = $line->numClient;
 ?>
 
@@ -54,37 +62,41 @@ $_SESSION['numClient'] = $line->numClient;
     </head>
     <body>
         <script>
+            // Script JavaScript pour vérifier la correspondance des mots de passe
             document.addEventListener("DOMContentLoaded", function() {
+                // Initialisation des éléments HTML nécessaires
                 const newMdpField = document.getElementById("new_mdp");
                 const repeatMdpField = document.getElementById("repeatmdp");
                 const updateButton = document.querySelector(".connect");
 
+                // Vérifie si des changements ont été faits sur l'adresse email ou le mot de passe
                 function checkForChanges() {
                     const passwordEntered =
                         newMdpField.value === repeatMdpField.value &&
-                        newMdpField.value !== "" &&
                         newMdpField.value !== "";
 
-                    if (passwordEntered) {
-                        updateButton.disabled = false;
-                    } else {
-                        updateButton.disabled = true;
-                    }
+                    updateButton.disabled = !passwordEntered; // Désactive le bouton si les mots de passe ne correspondent pas
                 }
 
+                // Fonction pour valider visuellement la correspondance des mots de passe
                 function checkPasswordsMatch() {
                     if (newMdpField.value !== "" && newMdpField.value === repeatMdpField.value) {
+                        // Bordure verte si les mots de passe correspondent
                         repeatMdpField.style.borderColor = "green";
+                        // Cache le message d'erreur
                         errorMsg.hidden = true;
                     } else if (repeatMdpField.value !== "") {
+                        // Bordure rouge si les mots de passe diffèrent
                         repeatMdpField.style.borderColor = "red";
                         errorMsg.hidden = false;
                     } else {
+                        // Réinitialise les bordures si aucun mot de passe
                         repeatMdpField.style.borderColor = "";
                         errorMsg.hidden = true;
                     }
                 }
 
+                // Ajout des événements pour surveiller les saisies utilisateur
                 newMdpField.addEventListener("input", () => {
                     checkForChanges();
                     checkPasswordsMatch();
@@ -94,17 +106,20 @@ $_SESSION['numClient'] = $line->numClient;
                     checkPasswordsMatch();
                 });
 
+                // Désactive le bouton par défaut
                 updateButton.disabled = true;
             });
         </script>
 
-
+        <!-- Appel de la fonction pour afficher le header -->
         <?php head_login()?>
+
         <div class="text_center">
             <form class="form-signin" action="changePassword.php?pw=<?php echo $pw?>" method="post">
                 <h2 class="petit_titre">Changement de mot de passe</h2>
                 <div class="mdp mdp-top">
                     <input type="password" id="new_mdp" class="form-control mb-2" placeholder="Nouveau mot de passe" name="new_mdp" required>
+                    <!-- Icône d'œil pour afficher/cacher le mot de passe -->
                     <svg id ="oeil" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-slash oeil-new" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                         <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -122,13 +137,14 @@ $_SESSION['numClient'] = $line->numClient;
                     </svg>
                 </div>
 
-                <!--Hidden input to pass the old password value-->
+                <!-- Input caché pour passer la valeur du mot de passe temporaire -->
                 <input type="hidden" name="pw" value="<?php echo htmlspecialchars($pw); ?>">
 
                 <button class="connect" type="submit" disabled>Enregistrer</button>
             </form>
         </div>
 
+        <!-- Script pour l'affichage du mot de passe -->
         <script src="../js/oeil.js"></script>
 
         <footer>

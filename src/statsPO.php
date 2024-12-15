@@ -58,7 +58,6 @@ include('../data/fetchStatsPO.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
 <script>
-    // Données pour la trésorerie mensuelle
     // Données pour les motifs d'impayés (camembert)
     var traceMotifs = {
         labels: [<?= implode(',', array_map(fn($m) => "'" . $m['motif'] . "'", $motifsData)) ?>],
@@ -66,6 +65,8 @@ include('../data/fetchStatsPO.php');
         type: 'pie',
         name: 'Motifs d\'Impayés'
     };
+
+    // Affichage du graphique
     Plotly.newPlot('graphMotifs', [traceMotifs], {title: 'Motifs d’Impayés'});
 
     document.getElementById('exportPdf').addEventListener('click', function () {
@@ -73,14 +74,14 @@ include('../data/fetchStatsPO.php');
         const pageWidth = pdf.internal.pageSize.getWidth();
         const pageHeight = pdf.internal.pageSize.getHeight();
         const margin = 10;
-        let cursorY = margin; // Position actuelle sur l'axe Y pour le contenu
+        let cursorY = margin;
 
         // Données dynamiques pour le titre et le nom du fichier
         const date = '<?= $date ?>';
         const pdfTitle = `Statistiques des impayés de tous les utilisateurs (${date})`;
         const fileName = `Statistiques_PO_${date}.pdf`;
 
-        // Fonction pour ajouter un graphique Plotly à un PDF
+        // Fonction pour ajouter un graphique Plotly au PDF
         const addPlotlyToPdf = (graphId, title) => {
             return new Promise((resolve) => {
                 const graphElement = document.getElementById(graphId);
@@ -90,13 +91,13 @@ include('../data/fetchStatsPO.php');
                     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
                     if (cursorY + imgHeight > pageHeight - margin) {
-                        pdf.addPage(); // Ajouter une nouvelle page si nécessaire
+                        pdf.addPage();
                         cursorY = margin;
                     }
 
-                    pdf.text(title, margin, cursorY - 5); // Ajouter le titre du graphique
+                    pdf.text(title, margin, cursorY - 5);
                     pdf.addImage(imgData, 'PNG', margin, cursorY, imgWidth, imgHeight);
-                    cursorY += imgHeight + 10; // Mettre à jour la position Y
+                    cursorY += imgHeight + 10;
                     resolve();
                 });
             });

@@ -23,15 +23,18 @@
                 <h1 class="titre">Remises</h1>
 
                 <?php
+                    // Gestion des variables de session pour les filtres de recherche (numSiren, dates)
                     if(isset($_POST['numSiren'])) {
                         $_SESSION['numSiren'] = $_POST['numSiren'];
                         $numSiren = $_SESSION['numSiren'];
                     }
                     else {
                         unset($_SESSION['numSiren']);
+                        // Si aucun numéro Siren n'est envoyé, on vide la session
                         $numSiren = "";
                     }
 
+                    // Gestion de la date de début (début de la période)
                     if(isset($_POST['debut'])){
                         $_SESSION['debut.date'] = $_POST['debut'];
                         $debut = $_SESSION['debut.date'];
@@ -42,6 +45,7 @@
                         $debut = "";
                     }
 
+                    // Gestion de la date de fin (fin de la période)
                     if(isset($_POST['fin'])){
                         $_SESSION['fin.date'] = $_POST['fin'];
                         $fin = $_SESSION['fin.date'];
@@ -53,6 +57,7 @@
                     }
                 ?>
 
+                <!-- Section d'exportation de données -->
                 <section class="export-options">
                     <div class="select-container">
                         <label for="format">Format d'export :</label>
@@ -67,15 +72,19 @@
                     <button id="exportButton">Exporter</button>
                 </section>
 
+                <!-- Tableau ag-Grid pour afficher les données -->
                 <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
             </div>
         </div>
 
         <script>
+            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
             const data = <?php echo $remises_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
             const fileName = <?php echo json_encode("Remises_" . $_SESSION['raisonSociale'] . "_" . date('Y_m_j')); ?>;
         </script>
+
+        <!-- Fichier js de construction du tableau -->
         <script src="../js/constructor_agGrid_remise_po.js"></script>
     </body>
 </html>
