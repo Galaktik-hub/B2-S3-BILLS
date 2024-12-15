@@ -1,15 +1,15 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
-include("navbar.php");
+include('../include/function.php');
+include('../include/connexion.php');
+include("../include/navbar.php");
 include("../mail/sendMail.php");
 checkIsAdmin();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +71,7 @@ checkIsAdmin();
                                 $insert_mdp_temp = $dbh->prepare("INSERT INTO `mdptemp` (`numClient`, `mail`, `pw`) VALUES (:unumclient, :umail, :upw);");
                                 $insert_mdp_temp->execute(array(':unumclient' => $numClient, ':umail' => $email, ':upw' => $pw));
 
-                                sendmail($email, subjectCreationMdp(), bodyCreationMdp($pw));
+                                sendmail($email, subjectCreationMdp(), bodyCreationMdp($login, $pw));
 
                                 echo "<p class='success'>Insertion du client réussie !</p>";
                             }

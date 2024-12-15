@@ -1,10 +1,10 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include("navbar.php");
-    include('links.php');
-    checkIsAdmin();
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include("../include/navbar.php");
+    include('../include/links.php');
+    ifAdminNotPO();
     include('../data/fetchHomeDeleteClient.php');
 ?>
 
@@ -21,8 +21,13 @@
         <div class="page-container" >
             <div class="page-content">
                 <h1> Liste des demandes de suppression de comptes </h1>
-
-                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+                <?php
+                if(empty($clients)){
+                    echo " Il n'y a pas de demande de suppression de comptes actuellement.";
+                } else {
+                    echo '<div id="myGrid" class="ag-theme-quartz" style="width: 1200px; margin: auto; max-width: 100%; font-size: 15px"></div>';
+                }
+                ?>
             </div>
         </div>
 
@@ -34,7 +39,6 @@
         <?php
         if(isset($_GET['numClient'])){
             $numClient = $_GET["numClient"];
-            include('connexion.php');
             echo "Le client N° $numClient a bien été supprimé.";
         }
         ?>

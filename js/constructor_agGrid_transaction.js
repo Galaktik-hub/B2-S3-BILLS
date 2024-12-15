@@ -1,12 +1,23 @@
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
-    return columnNames.map(name => ({
+    const columns =  columnNames.map(name => ({
         headerName: name.charAt(0).toUpperCase() + name.slice(1),
         field: name,
         sortable: true,
-        filter: name === "Date de Remise" ? 'agDateColumnFilter' : true,
+        filter: true,
         flex: 1
     }));
+
+    columns.push({
+        headerName: 'Statut',
+        field: 'creditDebit',
+        valueGetter: params => params.data['Montant'] >= 0 ? 'Crédit' : 'Débit',
+        sortable: true,
+        filter: true,
+        flex: 1
+    });
+
+    return columns;
 }
 
 // The function to get the value amount of the grid
@@ -42,16 +53,6 @@ const gridOptions = {
         'row-red-8': params => getAmountValue(params) < -800 && getAmountValue(params) >= -900,
         'row-red-9': params => getAmountValue(params) < -900
     },
-    onRowClicked: event => {
-        // Récupérer le numClient
-        const numClient = event.data["N° Client"];
-
-        if (typeof isProductOwner !== 'undefined' && isProductOwner) {
-            window.location.href = `productOwnerSeeClient.php?numClient=${numClient}`;
-        } else {
-            window.location.href = `adminSeeClient.php?numClient=${numClient}`;
-        }
-    }
 };
 
 const myGridElement = document.querySelector('#myGrid');
@@ -108,3 +109,5 @@ function exportFilePdf() {
 
     doc.save(fileName + ".pdf");
 }
+
+document.getElementById('exportButton').addEventListener('click', exportFile);

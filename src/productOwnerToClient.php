@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('function.php');
+include('../include/function.php');
 checkIsPO();
 if(!isset($_GET['numClient']) || !isset($_GET['raisonSociale'])){
     $_SESSION['raisonSociale'] = "Product Owner";
@@ -15,5 +15,3 @@ $_SESSION['raisonSociale'] = $_GET['raisonSociale']." (Product Owner)";
 $_SESSION['numSiren'] = $_GET['numSiren'];
 header('Location: home.php');
 exit;
-
-?>

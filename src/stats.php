@@ -1,50 +1,11 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
-include('navbar.php');
+include('../include/function.php');
+include('../include/connexion.php');
+include('../include/navbar.php');
 checkIsUser();
-
-$date = isset($_GET['date']) ? $_GET['date'] : date('Y');
-$graph = isset($_GET['graph']) ? $_GET['graph'] : "bar";
-
-// Récupération de la raison sociale du client connecté
-$queryClient = "SELECT raisonSociale FROM client WHERE numClient = ?";
-$stmtClient = $dbh->prepare($queryClient);
-$stmtClient->execute([$_SESSION['numClient']]);
-$clientData = $stmtClient->fetch(PDO::FETCH_ASSOC);
-$raisonSociale = $clientData['raisonSociale'];
-
-// Requête pour obtenir la trésorerie (montant total) par mois pour l'année sélectionnée
-$queryTreasury = "
-    SELECT MONTH(dateRemise) AS month, 
-           COALESCE(SUM(montantTotal), 0) AS total_tresorerie
-    FROM remise 
-    WHERE YEAR(dateRemise) = ? AND numClient = ?
-    GROUP BY MONTH(dateRemise)
-    ORDER BY month
-";
-$stmt = $dbh->prepare($queryTreasury);
-$stmt->execute([$date, $_SESSION['numClient']]);
-$tresorerieData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Extraction des données pour le graphique
-$months = array_map(fn($d) => $d['month'], $tresorerieData);
-$totals = array_map(fn($d) => $d['total_tresorerie'], $tresorerieData);
-
-// Requête pour les motifs d'impayés
-$queryMotifs = "
-    SELECT ci.libelleImpaye AS motif, COUNT(i.numTransaction) AS count 
-    FROM impaye i
-    JOIN codeimpaye ci ON i.codeImpaye = ci.codeImpaye
-    JOIN remise r ON i.numTransaction = r.numRemise
-    WHERE YEAR(r.dateRemise) = ? AND r.numClient = ?
-    GROUP BY ci.libelleImpaye
-";
-$stmtMotifs = $dbh->prepare($queryMotifs);
-$stmtMotifs->execute([$date, $_SESSION['numClient']]);
-$motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
+include('../data/fetchStats.php');
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +19,28 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
     </head>
     <body>
         <div class="container">
-            <h1 class="title">Statistiques de votre compte</h1>
+            <?php
+            if (isset($_SESSION['numClient'])){
+                $raison_display = "Statistiques de votre compte";
+            }
+
+            // Si le PO veut voir la page du point de vue d'un client
+            if (isset($_SESSION['PO_VIEW_CLIENT'])){
+                $stmt = $dbh->prepare("SELECT raisonSociale FROM client WHERE numClient = :numClient");
+                $stmt->bindParam(':numClient', $_SESSION['PO_VIEW_CLIENT'], PDO::PARAM_INT);
+                $stmt->execute();
+
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($result) {
+                    $raison_display = htmlspecialchars("Statistiques du compte de ". $result['raisonSociale']);
+                    } else {
+                    // si jamais la requête échoue on garde le numéro
+                    $raison_display = htmlspecialchars("Statistiques du client n°".$_SESSION['PO_VIEW_CLIENT']);
+                }
+            }
+            ?>
+            <h1 class="title"><?php echo $raison_display;?></h1>
 
             <!-- Formulaire de sélection d'année et de type de graphique -->
             <form method='get' action='stats.php'>
@@ -130,16 +112,63 @@ $motifsData = $stmtMotifs->fetchAll(PDO::FETCH_ASSOC);
             };
             Plotly.newPlot('graphMotifs', [traceMotifs], {title: 'Motifs d’Impayés'});
 
-            // Fonction d'exportation en PDF
-            document.getElementById("exportPdf").onclick = function() {
-                html2canvas(document.querySelector(".container-graph")).then(canvas => {
-                    const imgData = canvas.toDataURL("image/png");
-                    const pdf = new jspdf.jsPDF("landscape", "mm", "a4");
-                    pdf.addImage(imgData, "SVG", 0, 0, 300, 190);
-                    const fileName = `Statistiques_${'<?= $raisonSociale ?>'}_${'<?= $date ?>'}.pdf`;
+            document.getElementById('exportPdf').addEventListener('click', function () {
+                const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4'); // Initialiser jsPDF
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                let cursorY = margin; // Position actuelle sur l'axe Y pour le contenu
+
+                // Données dynamiques pour le titre et le nom du fichier
+                const raisonSociale = '<?= str_replace(" ", "_", $_SESSION["raisonSociale"]) ?>';
+                const date = '<?= $date ?>';
+                const pdfTitle = `Statistiques de ${'<?= $_SESSION["raisonSociale"] ?>'} (${date})`;
+                const fileName = `Statistiques_${raisonSociale}_${date}.pdf`;
+
+                // Fonction pour ajouter un graphique Plotly à un PDF
+                const addPlotlyToPdf = (graphId, title) => {
+                    return new Promise((resolve) => {
+                        const graphElement = document.getElementById(graphId);
+                        html2canvas(graphElement).then((canvas) => {
+                            const imgData = canvas.toDataURL('image/png');
+                            const imgWidth = pageWidth - margin * 2;
+                            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                            if (cursorY + imgHeight > pageHeight - margin) {
+                                pdf.addPage(); // Ajouter une nouvelle page si nécessaire
+                                cursorY = margin;
+                            }
+
+                            pdf.text(title, margin, cursorY - 5); // Ajouter le titre du graphique
+                            pdf.addImage(imgData, 'PNG', margin, cursorY, imgWidth, imgHeight);
+                            cursorY += imgHeight + 10; // Mettre à jour la position Y
+                            resolve();
+                        });
+                    });
+                };
+
+                // Fonction principale pour générer le PDF
+                (async () => {
+                    // Ajouter le titre principal
+                    pdf.setFontSize(16);
+                    pdf.text(pdfTitle, pageWidth / 2, cursorY, { align: 'center' });
+                    cursorY += 20;
+
+                    // Ajouter le graphique de trésorerie
+                    await addPlotlyToPdf('graphTresorerie', 'Trésorerie Mensuelle');
+
+                    // Ajouter le graphique des motifs d’impayés si des données existent
+                    const graphMotifs = document.getElementById('graphMotifs');
+                    if (graphMotifs && graphMotifs.style.display !== 'none') {
+                        await addPlotlyToPdf('graphMotifs', 'Motifs d’Impayés');
+                    } else {
+                        pdf.text("Aucun impayé trouvé pour l'année sélectionnée.", margin, cursorY);
+                    }
+
+                    // Télécharger le fichier PDF avec le nom dynamique
                     pdf.save(fileName);
-                });
-            };
+                })();
+            });
         </script>
     </body>
 </html>

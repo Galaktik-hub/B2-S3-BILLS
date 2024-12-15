@@ -1,7 +1,8 @@
 <?php
-global $dbh;
+global $dbh, $key;
 session_start();
-include('function.php');
+include('../include/function.php');
+include('../credentials/recaptcha.php');
 
 if(isset($_SESSION['isAdmin'])){
     if($_SESSION['isAdmin'] && !$_SESSION['isProductOwner']){
@@ -19,68 +20,86 @@ if(isset($_SESSION['isAdmin'])){
 }
 
 if(isset($_POST['login'])){
-    include('connexion.php');
-    $login = $_POST['login'];
-    $password  = $_POST['password'];
-    $pwd_hash = hash('sha256',$password);
-    $request = 'SELECT * FROM client;';
-    $resultLoginsUser = $dbh->query($request);
+    $recaptchaResponse = $_POST['g-recaptcha-response']; // La réponse du reCAPTCHA
+    $recaptchaSecret = $key; // Clé secrète reCAPTCHA
 
-    $request = 'SELECT * FROM admin;';
-    $resultLoginsAdmin = $dbh->query($request);
+    // Validation de la réponse avec l'API Google
+    $recaptchaVerify = file_get_contents(
+        "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}"
+    );
+    $recaptchaVerify = json_decode($recaptchaVerify, true);
 
-    //compteur de nb de tentatives de co
-    if (!isset($_SESSION['limitation']))
-    {
-        $_SESSION['limitation'] = 1;
-    }
-    else {
-        $_SESSION['limitation'] = $_SESSION['limitation'] +1;
-    }
-    while($line=$resultLoginsUser->fetch()){
-        if(($login == $line['loginClient']) && ($pwd_hash == $line['passwordClient'])) {
-            $resultLoginsUser->closeCursor();
-            $_SESSION['numClient'] = $line['numClient'];
-            $_SESSION['raisonSociale'] = $line['raisonSociale'];
-            $_SESSION['numSiren'] = $line['numSiren'];
-            $_SESSION['isAdmin'] = false;
-            $_SESSION['limitation'] = 0;
-            header('Location: home.php');
-            exit;
+    // Vérifiez le statut de succès
+    if (!$recaptchaVerify['success']) {
+        $captchaError = true;
+    } else {
+        $captchaError = false;
+
+        include('../include/connexion.php');
+        $login = $_POST['login'];
+        $password  = $_POST['password'];
+        $pwd_hash = hash('sha256',$password);
+        $request = 'SELECT * FROM client;';
+        $resultLoginsUser = $dbh->query($request);
+
+        $request = 'SELECT * FROM admin;';
+        $resultLoginsAdmin = $dbh->query($request);
+
+        //compteur de nb de tentatives de co
+        if (!isset($_SESSION['limitation']))
+        {
+            $_SESSION['limitation'] = 1;
         }
-    }
-
-    while($line=$resultLoginsAdmin->fetch()) {
-        if (($login == $line['loginAdmin']) && ($pwd_hash == $line['passwordAdmin'])) {
-            $resultLoginsAdmin->closeCursor();
-
-            // Revoir les variables de sessions
-            $_SESSION['numClient'] = null;
-            $_SESSION['isProductOwner'] = $line['isProductOwner'];
-
-            if ($_SESSION['isProductOwner']) {
-                $_SESSION['raisonSociale'] = "Product Owner";
-
-            } else {
-                $_SESSION['raisonSociale'] = "ADMIN";
+        else {
+            $_SESSION['limitation'] = $_SESSION['limitation'] +1;
+        }
+        while($line=$resultLoginsUser->fetch()){
+            if(($login == $line['loginClient']) && ($pwd_hash == $line['passwordClient'])) {
+                $resultLoginsUser->closeCursor();
+                $_SESSION['numClient'] = $line['numClient'];
+                $_SESSION['raisonSociale'] = $line['raisonSociale'];
+                $_SESSION['numSiren'] = $line['numSiren'];
+                $_SESSION['isAdmin'] = false;
+                $_SESSION['limitation'] = 0;
+                header('Location: home.php');
+                exit;
             }
-            $_SESSION['isAdmin'] = true;
+        }
+
+        while($line=$resultLoginsAdmin->fetch()) {
+            if (($login == $line['loginAdmin']) && ($pwd_hash == $line['passwordAdmin'])) {
+                $resultLoginsAdmin->closeCursor();
+
+                // Revoir les variables de sessions
+                $_SESSION['numClient'] = null;
+                $_SESSION['isProductOwner'] = $line['isProductOwner'];
+
+                if ($_SESSION['isProductOwner']) {
+                    $_SESSION['raisonSociale'] = "Product Owner";
+
+                } else {
+                    $_SESSION['raisonSociale'] = "ADMIN";
+                }
+                $_SESSION['isAdmin'] = true;
 
 
-            header('Location: admin.php');
-            exit;
+                header('Location: admin.php');
+                exit;
+            }
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
         <!-- Bootstrap core CSS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -112,6 +131,7 @@ if(isset($_POST['login'])){
                         <path fill-rule="evenodd" d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z"/>
                     </svg>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6Lcl_pIqAAAAAHEcRzGdYDvjUOoJMMluexYWr-BV"></div>
                 <button class="connect" type="submit">Se connecter</button>
             </form>
         </div>
@@ -130,6 +150,9 @@ if(isset($_POST['login'])){
         <?php
         if(isset($_POST['login'])){
             // test du nombre d'essai changer "3" sur le "if" et "elseif" pour diminuer ou augmenter le nombre de tentative
+            if ($captchaError) {
+                echo "<div class='d-flex justify-content-center'><p class='erreur alert alert-warning w-50'>Veuillez valider le reCAPTCHA avant de vous connecter.</p></div>";
+            }
             if ((isset($_SESSION['limitation'])) && ($_SESSION['limitation'] < 3)) {
                 echo "<div class='d-flex justify-content-center'><p class='erreur alert alert-warning w-50'>Mauvais identifiant ou mot de passe, encore ";
                 echo 3-$_SESSION['limitation'];

@@ -42,15 +42,10 @@ const gridOptions = {
         'row-red-8': params => getAmountValue(params) < -800 && getAmountValue(params) >= -900,
         'row-red-9': params => getAmountValue(params) < -900
     },
-    onRowClicked: event => {
-        // Récupérer le numClient
-        const numClient = event.data["N° Client"];
 
-        if (typeof isProductOwner !== 'undefined' && isProductOwner) {
-            window.location.href = `productOwnerSeeClient.php?numClient=${numClient}`;
-        } else {
-            window.location.href = `adminSeeClient.php?numClient=${numClient}`;
-        }
+    onRowClicked: params => {
+        const numRemise = params.data['N° Remise'];
+        window.location.href = `transactions.php?numRemise=${numRemise}`;
     }
 };
 
@@ -108,3 +103,5 @@ function exportFilePdf() {
 
     doc.save(fileName + ".pdf");
 }
+
+document.getElementById('exportButton').addEventListener('click', exportFile);

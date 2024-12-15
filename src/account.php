@@ -1,10 +1,15 @@
 <?php
     session_start();
-    include('function.php');
-    include('connexion.php');
-    include('navbar.php');
+    include('../include/function.php');
+    include('../include/connexion.php');
+    include('../include/navbar.php');
     checkIsUser();
     include('../data/fetchAccount.php');
+
+    $is_disabled = "";
+    if (isset($_SESSION['PO_VIEW_CLIENT'])) {
+        $is_disabled = " disabled";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +73,11 @@
 
         <div class="form-container">
             <h1>Compte Client</h1>
+            <?php
+            if (isset($_SESSION['PO_VIEW_CLIENT'])) {
+                echo "<h4>Vous ne pouvez pas modifier les informations du client en mode visualisation.</h4>";
+            }
+            ?>
 
             <form method="POST" action="">
                 <div class="form-group">
@@ -87,17 +97,17 @@
 
                 <div class="form-group">
                     <label for="mail">Adresse mail</label>
-                    <input type="email" id="mail" name="mail" value="<?php echo $mail ?>" placeholder="Entrer votre adresse mail">
+                    <input type="email" id="mail" name="mail" value="<?php echo $mail ?>" placeholder="Entrer votre adresse mail" <?php echo $is_disabled; ?>>
                 </div>
 
                 <div class="form-group">
                     <label for="mdp">Mot de passe</label>
-                    <input type="password" id="new_mdp" name="new_mdp" placeholder="Entrer le mot de passe">
+                    <input type="password" id="new_mdp" name="new_mdp" placeholder="Entrer le mot de passe" <?php echo $is_disabled; ?>>
                 </div>
 
                 <div class="form-group">
                     <label for="repeatmdp">Confirmer le mot de passe</label>
-                    <input type="password" id="repeatmdp" name="repeatmdp" placeholder="Répéter le mot de passe">
+                    <input type="password" id="repeatmdp" name="repeatmdp" placeholder="Répéter le mot de passe" <?php echo $is_disabled; ?>>
                 </div>
 
                 <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
@@ -114,6 +124,5 @@
 
             </form>
         </div>
-
     </body>
 </html>

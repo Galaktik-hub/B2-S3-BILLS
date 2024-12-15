@@ -1,15 +1,15 @@
 <?php
 global $dbh;
 session_start();
-include('function.php');
-include('connexion.php');
+include('../include/function.php');
+include('../include/connexion.php');
 
 if (isset($_POST['new_mdp']) && isset($_POST['pw'])) {
     $newpw = hash('sha256', $_POST['new_mdp']);
-    $req = $dbh->prepare("UPDATE `client` SET passwordClient = :newpw WHERE passwordClient = :oldpw");
-    if ($req->execute(array(':newpw' => $newpw, ':oldpw' => $_POST['pw']))) {
-        $req = $dbh->prepare("DELETE FROM `mdptemp` WHERE pw = :oldpw");
-        $req->execute(array(':oldpw' => $_POST['pw']));
+    $req = $dbh->prepare("UPDATE `client` SET passwordClient = :newpw WHERE numClient = :numClient");
+    if ($req->execute(array(':newpw' => $newpw, ':numClient' => $_SESSION['numClient']))) {
+        $req = $dbh->prepare("DELETE FROM `mdptemp` WHERE numClient = :numClient");
+        $req->execute(array(':numClient' => $_SESSION['numClient']));
         header('location: index.php');
     }
 }
@@ -20,14 +20,17 @@ if (!isset($_GET['pw'])) {
 
 //Check if the unique key that the user has is a key that links to an account
 $pw = $_GET['pw'];
-$req = $dbh->prepare("SELECT * FROM client WHERE passwordClient = :pw");
+$req = $dbh->prepare("SELECT * FROM mdptemp WHERE pw = :pw");
 if (!($req->execute(array(':pw' => $pw)))) {
     header('location: index.php');
 }
+$line = $req->fetch(PDO::FETCH_OBJ);
+$_SESSION['numClient'] = $line->numClient;
 ?>
 
 <!DOCTYPE html>
-<html>
+
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
