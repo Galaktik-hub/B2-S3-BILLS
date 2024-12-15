@@ -9,6 +9,7 @@ checkIsPO();
 include('../data/fetchHomeAdmin.php');
 include("../mail/sendMail.php");
 
+// Récupère le numéro du client à partir de l'URL puis ses informations
 $numClient = $_GET["numClient"];
 $clientDetails = $client[0];
 include('../data/fetchDeleteClient.php');
@@ -51,6 +52,7 @@ include('../data/fetchPOseeClient.php');
     <div class="form-container">
         <h1 class="form-title">Détails du client</h1>
 
+        <!-- Formulaire pour la mise à jour des informations du client -->
         <form id="updateForm" method="POST" action="productOwnerSeeClient.php?numClient=<?php echo htmlspecialchars($numClient); ?>" onsubmit="return confirmUpdate()">
             <div class="form-group">
                 <label for="id_client">N° Client</label>
@@ -73,6 +75,7 @@ include('../data/fetchPOseeClient.php');
             </div>
 
             <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
+            <!-- Affichage des messages d'erreur ou de succès si disponibles -->
             <?php
             if (!empty($errorMsg)) {
                 echo $errorMsg;
@@ -87,8 +90,10 @@ include('../data/fetchPOseeClient.php');
         </form>
     </div>
 
+    <!-- Si une demande de suppression a été faite, affiche les détails de la demande -->
     <?php if (isset($clientDetailsSuppression['Date de la demande']) && isset($clientDetailsSuppression['Justificatif'])): ?>
         <p class="mt-4 text-danger"> <?php
+            // Vérifie si une demande de suppression a déjà été enregistrée
             if (!isset($_GET['deleteSuccess'])){
                 echo "Vous avez déjà demandé la suppression de ce compte.";
             } else {
@@ -98,6 +103,7 @@ include('../data/fetchPOseeClient.php');
             } ?>
         </p>
 
+        <!-- Affichage de la demande de suppresion en cours -->
         <div class="table-responsive">
             <table class="table table-bordered">
                 <tr>
@@ -111,6 +117,7 @@ include('../data/fetchPOseeClient.php');
             </table>
         </div>
     <?php else: ?>
+        <!-- Si aucune demande de suppression n'a été faite, propose un bouton pour en faire une -->
         <!-- Bouton pour ouvrir le modal de suppression -->
         <button type="button" class="btn btn-danger mt-4" data-toggle="modal" data-target="#deleteModal">Demander la suppression du client</button>
 
@@ -143,6 +150,7 @@ include('../data/fetchPOseeClient.php');
         </div>
     <?php endif; ?>
 
+    <!-- Formulaire pour se connecter au compte du client -->
     <form method="POST" action="">
         <button type="submit" name="connectClient" class="btn btn-primary mt-4">Se connecter au compte de ce client</button>
     </form>
@@ -153,7 +161,7 @@ include('../data/fetchPOseeClient.php');
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // Confirmation de mise à jour
+    // Fonction de confirmation de mise à jour des informations du client
     function confirmUpdate() {
         return confirm("Confirmer les modifications pour ce client ?");
     }

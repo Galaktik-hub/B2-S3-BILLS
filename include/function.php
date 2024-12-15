@@ -1,5 +1,6 @@
 <?php
 
+// Vérifie si l'utilisateur est un client connecté et redirige sinon
 function checkIsUser(){
     if (!(isset($_SESSION['PO_VIEW_CLIENT']))) {
         if(!(isset($_SESSION['numClient']))){
@@ -8,18 +9,21 @@ function checkIsUser(){
     }
 }
 
+// Vérifie si l'utilisateur est un administrateur connecté et redirige sinon
 function checkIsAdmin(){
     if(!(isset($_SESSION['isAdmin'])) || !$_SESSION['isAdmin']){
         header('Location: index.php');
     }
 }
 
+// Vérifie si l'utilisateur est un Product Owner connecté et redirige sinon
 function checkIsPO(){
     if(!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']){
         header('Location: index.php');
     }
 }
 
+// Vérifie si un administrateur n'est pas aussi Product Owner et redirige si nécessaire
 function ifAdminNotPO() {
     if (!(isset($_SESSION['isAdmin'])) || !$_SESSION['isAdmin'] || (isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'])) {
         header('Location: admin.php');
@@ -35,6 +39,7 @@ function head_login(){
     ";
 }
 
+// Construction de la navbar Client
 function nav_client() {
     $currentPage = basename($_SERVER['SCRIPT_NAME']);
     echo "
@@ -72,6 +77,7 @@ function nav_client() {
         </ul>";
 }
 
+// Construction de la navbar Admin
 function nav_admin($po) {
     $currentPage = basename($_SERVER['SCRIPT_NAME']);
     echo "
@@ -89,6 +95,7 @@ function nav_admin($po) {
                 </li>
             </a>";
 
+    // Page exclusivement pour le type Admin et non PO
     if ($po == 0) {
         echo "
             <a href='../src/deleteClientHome.php' class='nav-item " . ($currentPage == 'deleteClientHome.php' ? 'active' : '') . "'>
@@ -102,6 +109,7 @@ function nav_admin($po) {
             </a>";
     }
 
+    // Construction de la navbar PO
     if ($po == 1) {
         echo "
             <a href='../src/productOwner.php' class='nav-item " . ($currentPage == 'productOwner.php' ? 'active' : '') . "'>
@@ -133,6 +141,7 @@ function nav_admin($po) {
     echo "</ul>";
 }
 
+// Affichage de la barre de navigation en fonction du type d'utilisateur connecté
 function display_navigation() {
     // Si le PO veut voir la page du point de vue d'un client
     if (isset($_SESSION['PO_VIEW_CLIENT'])) {
@@ -149,7 +158,7 @@ function display_navigation() {
     }
 }
 
-
+// Création d'un mot de passe aléatoire et complexe de 100 caractères
 function create_random_password(): string {
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
     $password = '';
@@ -161,10 +170,12 @@ function create_random_password(): string {
     return $password;
 }
 
+// Retourne l'objet sujet pour l'email de bienvenue avec les instructions
 function subjectCreationMdp() : string {
     return "Bienvenue chez B.I.L.L.S : Accédez à votre compte dès maintenant";
 }
 
+// Génère le corps du message pour la création de mot de passe, incluant l'utilisateur et le mot de passe
 function bodyCreationMdp($username ,$pw) : string {
     ob_start();
     $password = htmlspecialchars($pw); // sécuriser la variable
@@ -173,10 +184,12 @@ function bodyCreationMdp($username ,$pw) : string {
     return ob_get_clean();
 }
 
+// Retourne l'objet sujet pour la demande de suppression de compte initiée par le PO
 function subjectDeletionClient() : string {
     return "Confirmation de demande de suppression de compte initiée par le PO";
 }
 
+// Génère le corps du message pour la demande de suppression de compte
 function bodyDeletionClient($nC) : string {
     ob_start();
     $numClient = htmlspecialchars($nC); // sécuriser la variable
@@ -184,10 +197,12 @@ function bodyDeletionClient($nC) : string {
     return ob_get_clean();
 }
 
+// Retourne l'objet sujet pour la demande de modification de mot de passe
 function subjectModificationMdp() : string {
     return "Demande de changement de mot de passe";
 }
 
+// Génère le corps du message pour la demande de modification de mot de passe
 function bodyModificationMdp($pw) : string {
     ob_start();
     $password = htmlspecialchars($pw); // sécuriser la variable

@@ -22,9 +22,11 @@
             <div class="page-content">
                 <h1 class="titre">Impayés</h1>
                 <?php
+                // Si la variable $impayes est vide, cela signifie qu'il n'y a pas d'impayés enregistrés
                 if (empty($impayes)) {
                     echo "Il n'y a pas d'impayés enregistrés pour ce compte.";
                 } else {
+                    // Si des impayés existent, afficher les options d'export et le tableau
                     echo '
                     <section class="export-options">
                         <div class="select-container">
@@ -40,6 +42,7 @@
                         <button id="exportButton">Exporter</button>
                     </section>
 
+                    <!-- On affiche le tableau ag-Grid -->
                     <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';
                 }
                 ?>
@@ -47,11 +50,14 @@
         </div>
 
         <script>
+            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
             const data = <?php echo $impayes_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
             const fileName = <?php echo json_encode("Liste des impayés de l'entreprise " . $_SESSION['raisonSociale'] . " N° SIREN "
                 . $_SESSION['numSiren'] ." - Extrait du " . date('Y-m-j')); ?>;
         </script>
+
+        <!-- Fichier js de construction du tableau -->
         <script src="../js/constructor_agGrid.js"></script>
     </body>
 </html>

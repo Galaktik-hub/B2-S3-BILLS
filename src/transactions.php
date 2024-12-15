@@ -26,6 +26,7 @@ include('../data/fetchTransaction.php');
                 </a>
                 <h1> Détails de la remise n° <?php echo $_GET['numRemise'] ?> </h1>
 
+                <!-- Section d'exportation de données -->
                 <section class="export-options">
                     <div class="select-container">
                         <label for="format">Format d'export :</label>
@@ -40,17 +41,20 @@ include('../data/fetchTransaction.php');
                     <button id="exportButton">Exporter</button>
                 </section>
 
+                <!-- Tableau ag-Grid pour afficher les données -->
                 <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
 
             </div>
         </div>
 
         <script>
+            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
             const data = <?php echo $transactions_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
             const fileName = <?php echo json_encode("Transactions_Remise_N°_" . $_GET['numRemise'] . "_" . $_SESSION['raisonSociale'] . "_" . date('Y_m_j')); ?>;
         </script>
 
+        <!-- Fichier js de construction du tableau -->
         <script src="../js/constructor_agGrid_transaction.js"></script>
     </body>
 </html>

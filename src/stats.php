@@ -20,6 +20,7 @@ include('../data/fetchStats.php');
     <body>
         <div class="container">
             <?php
+            // Affiche un titre personnalisé en fonction du client connecté
             if (isset($_SESSION['numClient'])){
                 $raison_display = "Statistiques de votre compte";
             }
@@ -32,10 +33,11 @@ include('../data/fetchStats.php');
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                // Si le client est trouvé, afficher son nom
                 if ($result) {
                     $raison_display = htmlspecialchars("Statistiques du compte de ". $result['raisonSociale']);
-                    } else {
-                    // si jamais la requête échoue on garde le numéro
+                } else {
+                    // Si jamais la requête échoue, afficher l'ID du client
                     $raison_display = htmlspecialchars("Statistiques du client n°".$_SESSION['PO_VIEW_CLIENT']);
                 }
             }
@@ -113,11 +115,11 @@ include('../data/fetchStats.php');
             Plotly.newPlot('graphMotifs', [traceMotifs], {title: 'Motifs d’Impayés'});
 
             document.getElementById('exportPdf').addEventListener('click', function () {
-                const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4'); // Initialiser jsPDF
+                const pdf = new jspdf.jsPDF('portrait', 'mm', 'a4');
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
                 const margin = 10;
-                let cursorY = margin; // Position actuelle sur l'axe Y pour le contenu
+                let cursorY = margin;
 
                 // Données dynamiques pour le titre et le nom du fichier
                 const raisonSociale = '<?= str_replace(" ", "_", $_SESSION["raisonSociale"]) ?>';
@@ -125,7 +127,7 @@ include('../data/fetchStats.php');
                 const pdfTitle = `Statistiques de ${'<?= $_SESSION["raisonSociale"] ?>'} (${date})`;
                 const fileName = `Statistiques_${raisonSociale}_${date}.pdf`;
 
-                // Fonction pour ajouter un graphique Plotly à un PDF
+                // Fonction pour ajouter un graphique Plotly au PDF
                 const addPlotlyToPdf = (graphId, title) => {
                     return new Promise((resolve) => {
                         const graphElement = document.getElementById(graphId);
@@ -135,13 +137,13 @@ include('../data/fetchStats.php');
                             const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
                             if (cursorY + imgHeight > pageHeight - margin) {
-                                pdf.addPage(); // Ajouter une nouvelle page si nécessaire
+                                pdf.addPage();
                                 cursorY = margin;
                             }
 
-                            pdf.text(title, margin, cursorY - 5); // Ajouter le titre du graphique
+                            pdf.text(title, margin, cursorY - 5);
                             pdf.addImage(imgData, 'PNG', margin, cursorY, imgWidth, imgHeight);
-                            cursorY += imgHeight + 10; // Mettre à jour la position Y
+                            cursorY += imgHeight + 10;
                             resolve();
                         });
                     });
