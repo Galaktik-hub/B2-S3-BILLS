@@ -15,7 +15,7 @@ include('../data/fetchStatsPO.php');
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="../css/statistiques.css" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <title>Espace Client</title>
+    <title>Espace Product Owner</title>
 </head>
 <body>
 <div class="container">
