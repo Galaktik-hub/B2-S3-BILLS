@@ -63,20 +63,26 @@
                 echo "<h2>Trésorerie du ".strftime('%A %e %B %Y', strtotime($date))."</h2>";
 
                 ?>
+                <div class="info-container">
+                    <?php
+                    $data = json_decode($remises_json, true);
 
-                <!-- Tableau ag-Grid pour afficher les données -->
-                <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>
+                    if (!empty($data)) {
+                        $row = $data[0];
+                        echo "<div class='info-row'>";
+                        foreach ($row as $key => $value) {
+                            echo "<div class='info-item'>";
+                            echo "<strong>" . htmlspecialchars($key) . " :</strong> " . htmlspecialchars($value);
+                            echo "</div>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>Aucune donnée à afficher.</p>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
-
-        <script>
-            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
-            const data = <?php echo $remises_json; ?>;
-            const columnNames = <?php echo $columns_json; ?>;
-        </script>
-
-        <!-- Fichier js de construction du tableau -->
-        <script src="../js/constructor_agGrid.js"></script>
     </body>
 </html>
 
