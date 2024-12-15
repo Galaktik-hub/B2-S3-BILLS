@@ -22,7 +22,9 @@
 </head>
     <body>
         <script>
+            // Script JavaScript pour vérifier la correspondance des mots de passe
             document.addEventListener("DOMContentLoaded", function() {
+                // Initialisation des éléments HTML nécessaires
                 const mailField = document.getElementById("mail");
                 const newMdpField = document.getElementById("new_mdp");
                 const repeatMdpField = document.getElementById("repeatmdp");
@@ -30,33 +32,36 @@
                 const initialMail = "<?php echo $mail ?>";
                 const errorMsg = document.querySelector('.error');
 
+                // Vérifie si des changements ont été faits sur l'adresse email ou le mot de passe
                 function checkForChanges() {
                     const mailChanged = mailField.value !== initialMail;
                     const passwordEntered =
                         newMdpField.value === repeatMdpField.value &&
-                        newMdpField.value !== "" &&
                         newMdpField.value !== "";
 
-                    if (mailChanged || passwordEntered) {
-                        updateButton.disabled = false;
-                    } else {
-                        updateButton.disabled = true;
-                    }
+                    // Active ou désactive le bouton en fonction des changements détectés
+                    updateButton.disabled = !(mailChanged || passwordEntered);
                 }
 
+                // Fonction pour valider visuellement la correspondance des mots de passe
                 function checkPasswordsMatch() {
                     if (newMdpField.value !== "" && newMdpField.value === repeatMdpField.value) {
+                        // Bordure verte si les mots de passe correspondent
                         repeatMdpField.style.borderColor = "green";
+                        // Cache le message d'erreur
                         errorMsg.hidden = true;
                     } else if (repeatMdpField.value !== "") {
+                        // Bordure rouge si les mots de passe diffèrent
                         repeatMdpField.style.borderColor = "red";
                         errorMsg.hidden = false;
                     } else {
+                        // Réinitialise les bordures si aucun mot de passe
                         repeatMdpField.style.borderColor = "";
                         errorMsg.hidden = true;
                     }
                 }
 
+                // Ajout des événements pour surveiller les saisies utilisateur
                 mailField.addEventListener("input", checkForChanges);
                 newMdpField.addEventListener("input", () => {
                     checkForChanges();
@@ -67,6 +72,7 @@
                     checkPasswordsMatch();
                 });
 
+                // Désactive le bouton par défaut
                 updateButton.disabled = true;
             });
         </script>
@@ -75,24 +81,26 @@
             <h1>Compte Client</h1>
             <?php
             if (isset($_SESSION['PO_VIEW_CLIENT'])) {
+                // Message informatif en mode visualisation PO
                 echo "<h4>Vous ne pouvez pas modifier les informations du client en mode visualisation.</h4>";
             }
             ?>
 
+            <!-- Formulaire pour modifier les informations du compte -->
             <form method="POST" action="">
                 <div class="form-group">
                     <label for="siren">Siren</label>
-                    <input type="text" id="siren" name="siren" value="<?php echo $siren ?>" placeholder="Entrer le Siren" disabled>
+                    <input type="text" id="siren" name="siren" value="<?php echo $siren ?>" placeholder="Entrer le Siren" disabled> <!-- Champ non modifiable -->
                 </div>
 
                 <div class="form-group">
                     <label for="raisonSociale">Raison Sociale</label>
-                    <input type="text" id="raisonSociale" name="raisonSociale" value="<?php echo $raisonSociale ?>" placeholder="Entrer la Raison Sociale" disabled>
+                    <input type="text" id="raisonSociale" name="raisonSociale" value="<?php echo $raisonSociale ?>" placeholder="Entrer la Raison Sociale" disabled> <!-- Champ non modifiable -->
                 </div>
 
                 <div class="form-group">
                     <label for="identifiant">Identifiant</label>
-                    <input type="text" id="identifiant" name="identifiant" value="<?php echo $loginClient ?>" placeholder="Entrer l'Identifiant" disabled>
+                    <input type="text" id="identifiant" name="identifiant" value="<?php echo $loginClient ?>" placeholder="Entrer l'Identifiant" disabled> <!-- Champ non modifiable -->
                 </div>
 
                 <div class="form-group">
@@ -112,6 +120,7 @@
 
                 <p class='error' hidden>Les mots de passe ne correspondent pas.</p>
                 <?php
+                    // Affichage des messages d'erreur ou de succès s'ils existent
                     if (!empty($errorMsg)) {
                         echo $errorMsg;
                     }

@@ -4,11 +4,14 @@ session_start();
 include('../include/function.php');
 include('../credentials/recaptcha.php');
 
+// Vérification de l'état de l'admin dans la session
 if(isset($_SESSION['isAdmin'])){
+    // Si l'utilisateur est un admin mais pas un PO, il est redirigé vers la page admin
     if($_SESSION['isAdmin'] && !$_SESSION['isProductOwner']){
         header('Location: admin.php');
         exit;
     }
+    // Si l'utilisateur est à la fois admin et PI, il est redirigé vers la page productOwner
     else if($_SESSION['isAdmin'] && $_SESSION['isProductOwner']){
         header('Location: productOwner.php');
         exit;
@@ -19,8 +22,10 @@ if(isset($_SESSION['isAdmin'])){
     }
 }
 
+// Si le formulaire est soumis (login est défini)
 if(isset($_POST['login'])) {
-    $recaptchaResponse = $_POST['g-recaptcha-response']; // La réponse du reCAPTCHA
+    // Récupère la réponse du reCAPTCHA
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
     $recaptchaSecret = $key; // Clé secrète reCAPTCHA
 
     // Validation de la réponse avec l'API Google
@@ -33,26 +38,33 @@ if(isset($_POST['login'])) {
     if (!$recaptchaVerify['success']) {
         $captchaError = true;
     } else {
+        // Si la validation reCAPTCHA réussit, on continue le processus
         $captchaError = false;
 
         include('../include/connexion.php');
         include('../mail/sendMail.php');
-        // On regarde d'abord si le login existe
+
+        // Recherche du login dans la base de données
         $login = $_POST['login'];
         $request = 'SELECT * FROM client;';
         $result = $dbh->query($request);
 
+        // Génération d'un mot de passe aléatoire et de son hash
         $random_mdp = create_random_password();
         $pwd_hash = hash('sha256', $random_mdp);
 
         try {
+            // Parcours des résultats de la requête pour vérifier si le login existe
             while ($line = $result->fetch()) {
                 if ($login == $line['loginClient']) {
+                    // Si le login existe, on récupère le numéro client
                     $numClient = $line['numClient'];
 
+                    // Insertion du mot de passe temporaire dans la table mdptemp
                     $insert_mdp_temp = $dbh->prepare("INSERT INTO `mdptemp` (`numClient`, `mail`, `pw`) VALUES (:unumclient, :umail, :upw);");
                     $insert_mdp_temp->execute(array(':unumclient' => $numClient, ':umail' => $line['mail'], ':upw' => $pwd_hash));
 
+                    // Envoi d'un email avec les instructions de réinitialisation du mot de passe
                     sendmail($line['mail'], subjectModificationMdp(), bodyModificationMdp($pwd_hash));
                 }
             }
@@ -87,6 +99,7 @@ if(isset($_POST['login'])) {
     </head>
     <body>
 
+        <!-- Appel de la fonction pour afficher le header -->
         <?php head_login()?>
         <div class="text_center">
             <form class="form-signin" action="motDePasseOublie.php" method="post">
@@ -98,7 +111,7 @@ if(isset($_POST['login'])) {
             </form>
         </div>
 
-
+        <!-- Footer avec des liens vers les profils LinkedIn -->
         <footer>
             <div class='contains d-flex justify-content-around align-items-center'>
                 <p><a href='https://www.linkedin.com/in/alexis-telle/' id='linkedIn' target='_blank'>Alexis Telle</a></p>
@@ -109,6 +122,7 @@ if(isset($_POST['login'])) {
             </div>
         </footer>
         <?php
+        // Affichage du message de succès ou d'erreur après soumission du formulaire
         if(isset($_POST['login'])){
             if ($captchaError) {
                 echo "<div class='d-flex justify-content-center'><p class='erreur alert alert-warning w-50'>Veuillez valider le reCAPTCHA.</p></div>";

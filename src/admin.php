@@ -27,12 +27,14 @@
         </div>
 
         <script>
-                const data = <?php echo $clients_json; ?>;
-                const columnNames = <?php echo $columns_json; ?>;
-                const isProductOwner = <?php echo isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'] ? 'true' : 'false'; ?>;
-            </script>
+            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
+            const data = <?php echo $clients_json; ?>;
+            const columnNames = <?php echo $columns_json; ?>;
+            const isProductOwner = <?php echo isset($_SESSION['isProductOwner']) && $_SESSION['isProductOwner'] ? 'true' : 'false'; ?>;
+        </script>
 
-            <script src="../js/constructor_agGrid_admin.js"></script>
+        <!-- Fichier js de construction du tableau -->
+        <script src="../js/constructor_agGrid_admin.js"></script>
 
     </body>
 </html>

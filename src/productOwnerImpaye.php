@@ -22,6 +22,7 @@
             <div class="page-content">
                 <h1 class="titre">Impayés</h1>
 
+                <!-- Section d'exportation de données -->
                 <section class="export-options">
                     <div class="select-container">
                         <label for="format">Format d'export :</label>
@@ -36,14 +37,18 @@
                     <button id="exportButton">Exporter</button>
                 </section>
 
+                <!-- Tableau ag-Grid pour afficher les données -->
                 <div id="myGrid" class="ag-theme-quartz" style="width: 1200px;"></div>
             </div>
         </div>
         <script>
+            // Récupération des données PHP dans des variables JavaScript pour alimenter ag-Grid
             const data = <?php echo $impayes_json; ?>;
             const columnNames = <?php echo $columns_json; ?>;
             const fileName = <?php echo json_encode("Impayes_" . $_SESSION['raisonSociale'] . "_" . date('Y_m_j')); ?>;
         </script>
+
+        <!-- Fichier js de construction du tableau -->
         <script src="../js/constructor_agGrid.js"></script>
     </body>
 </html>

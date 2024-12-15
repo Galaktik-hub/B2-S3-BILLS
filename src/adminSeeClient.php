@@ -6,18 +6,26 @@ include("../include/navbar.php");
 include('../include/links.php');
 ifAdminNotPO();
 include('../data/fetchHomeAdmin.php');
+
+// Récupération du numéro de client depuis l'URL
 $numClient = $_GET["numClient"];
+// Récupération des détails du client
 $clientDetails = $client[0];
 include('../data/fetchDeleteClient.php');
 
 if(!empty($clients)){
+    // Stockage des informations de suppression si elles existent
     $clientDetailsSupression = $clients[0];
 }
+
+// Si le formulaire est soumis (check)
 if(isset($_POST['check'])){
+    // Requête pour supprimer un client
     $request = "DELETE FROM client WHERE numClient = :numClient";
     $stmt = $dbh->prepare($request);
     $stmt->bindParam(':numClient', $numClient, PDO::PARAM_INT);
     $stmt->execute();
+    // Redirection après suppression
     header('Location: deleteClientHome.php?numClient=' . $numClient);
     exit;
 }
@@ -73,6 +81,7 @@ if(isset($_POST['check'])){
         ?>
     </table>
     <?php
+    // Si des informations de suppression existent
     if (isset($clientDetailsSupression['Date de la demande']) && isset($clientDetailsSupression['Justificatif'])) {
         ?>
         <div class="formulaire">
@@ -91,6 +100,7 @@ if(isset($_POST['check'])){
                             </button>
                         </div>
                         <?php
+                        // Afficher le message de confirmation de suppression correspondant à l'admin ou au PO
                         if (!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']) {
                             echo '
                                 <div class="modal-body">
@@ -124,6 +134,7 @@ if(isset($_POST['check'])){
         ?>
         <div class="formulaire">
             <?php
+            // Afficher le message correspondant à l'admin ou au PO
             if (!(isset($_SESSION['isProductOwner'])) || !$_SESSION['isProductOwner']) {
                 echo '
                     <form action="deleteClient.php" class="button_center" method="get">
