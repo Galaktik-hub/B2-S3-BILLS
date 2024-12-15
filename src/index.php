@@ -137,6 +137,7 @@ if(isset($_POST['login'])){
                 <div class="g-recaptcha" data-sitekey="6Lcl_pIqAAAAAHEcRzGdYDvjUOoJMMluexYWr-BV"></div>
                 <button class="connect" type="submit">Se connecter</button>
             </form>
+            <p>Mot de passe oublié ? Cliquez <a href="motDePasseOublie.php">ici</a>.</p>
         </div>
 
         <script src="../js/oeil.js"></script>
