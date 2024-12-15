@@ -1,6 +1,8 @@
 <?php
 global $dbh;
 $numRemise = $_GET['numRemise'];
+
+// Requête SQL pour récupérer les transactions liées à un numéro de remise spécifique
 $query = "SELECT 
                 t.numTransaction AS 'N° Transaction',
                 t.montant AS 'Montant',
@@ -18,12 +20,17 @@ $stmt->bindParam(':numRemise', $numRemise);
 $stmt->execute();
 
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Vérifie si aucune transaction n'a été trouvée, et redirige l'utilisateur vers la page productOwnerRemise.php
 if (empty($transactions)) {
     header("Location: productOwnerRemise.php");
     exit();
 }
 
+// Récupère les noms des colonnes du résultat pour les utiliser dans l'interface utilisateur
 $columns = array_keys($transactions[0]);
 
+// Conversion des transactiosn en JSON
 $transactions_json = json_encode($transactions);
+// Conversion des colonnes en JSON
 $columns_json = json_encode($columns);
