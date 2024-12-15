@@ -44,7 +44,7 @@ const gridOptions = {
 };
 
 const myGridElement = document.querySelector('#myGrid');
-new agGrid.Grid(myGridElement, gridOptions);
+agGrid.createGrid(myGridElement, gridOptions);
 
 function exportFile() {
     const format = document.getElementById('format').value;
