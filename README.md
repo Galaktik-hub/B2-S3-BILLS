@@ -24,6 +24,8 @@ Vous pouvez retrouver le projet final hébergé à l'adresse ci-dessous :
 - 🧑‍💻 Nom d'utilisateur : `client`
 - 🔒 Mot de passe : `client`
 
+Si vous souhaitez demander la création d'un compte, veuillez envoyer un mail à l'adresse suivante : contact [at] alexis-telle.fr
+
 ---
 
 ## ✨ Fonctionnalités
