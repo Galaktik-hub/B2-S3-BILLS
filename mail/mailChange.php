@@ -82,7 +82,6 @@
         <h2>Demande de changement de mot de passe</h2>
         <p>Bonjour,</p>
         <p>Vous recevez ce mail suite à une demande de votre part pour changer de mot de passe. Si vous n'êtes pas à l'origine de cette demande, <strong>ignorez ce mail</strong>.</p>
-        <p>Veuillez bien le noter, il vous servira lors de la connexion à votre compte.</p>
         <p>Nous vous invitons à <strong>changer votre mot de passe</strong> en utilisant le lien ci-dessous :</p>
         <p>
             <a class="button" href="https://bills.julien-synaeve.fr/src/changePassword.php?pw=<?= $password ?>">Changer mon mot de passe</a>
