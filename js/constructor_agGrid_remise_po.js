@@ -63,6 +63,7 @@ const gridOptions = {
     columnDefs: createDynamicColumns(columnNames),
     domLayout: 'autoHeight',
     rowStyle: {cursor: "pointer"},
+    localeText: localeText,
 
     // The condition to have a different style for the negative amounts
     rowClassRules: {
