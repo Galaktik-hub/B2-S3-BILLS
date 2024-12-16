@@ -1,4 +1,6 @@
 <?php
+// Script de déconnexion (Soit du point de vue PO, soit de sa session)
+
 session_start();
 
 if (isset($_SESSION['PO_VIEW_CLIENT'])){

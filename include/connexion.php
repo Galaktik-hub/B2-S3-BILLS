@@ -1,5 +1,5 @@
 <?PHP
-/* Connexion au serveur et à la base de données */
+// Connexion au serveur et à la base de données
 include('parametre.php');
 global $host, $db, $user, $pwd;
 try{
@@ -10,4 +10,3 @@ try{
 catch(Exception $e){
     die('Connexion impossible à la base de données !'.$e->getMessage());
 }
-?>
