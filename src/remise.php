@@ -40,6 +40,8 @@
                         </div>
                         <button id="exportButton">Exporter</button>
                     </section>
+                    
+                    <div class="nbRemises" id="rowCountInfo"></div>
 
                     <!-- Tableau ag-Grid pour afficher les données -->
                     <div id="myGrid" class="ag-theme-quartz" style="width: 1200px; max-width: 100%;"></div>';

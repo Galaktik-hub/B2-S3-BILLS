@@ -4,7 +4,6 @@
 $query = "
     SELECT 
         numSiren as 'N° Siren', 
-        numRemise as 'N° Remise', 
         dateRemise as 'Date de Remise',
         raisonSociale as 'Raison Sociale', 
         nbrTransaction as 'Nombre de Transactions', 
