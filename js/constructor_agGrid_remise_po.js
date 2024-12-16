@@ -85,7 +85,7 @@ const gridOptions = {
 };
 
 const myGridElement = document.querySelector('#myGrid');
-agGrid.createGrid(myGridElement, gridOptions);
+gridApi = agGrid.createGrid(myGridElement, gridOptions);
 
 function exportFile() {
     const format = document.getElementById('format').value;
@@ -99,19 +99,22 @@ function exportFile() {
 }
 
 function exportFileCsv() {
-    gridOptions.api.exportDataAsCsv({
+    gridApi.exportDataAsCsv({
         fileName: fileName,
         columnSeparator: ','
     });
 }
 
 function exportFileXls() {
-    // Récupère les données de la grille en format JSON
-    const rowData = [];
-    gridOptions.api.forEachNode(node => rowData.push(node.data));
+    // Récupère uniquement les lignes affichées
+    const displayedRowData = [];
+    for (let i = 0; i < gridApi.getDisplayedRowCount(); i++) {
+        const node = gridApi.getDisplayedRowAtIndex(i);
+        if (node) displayedRowData.push(node.data);
+    }
 
     // Convertit les données en une feuille Excel
-    const worksheet = XLSX.utils.json_to_sheet(rowData);
+    const worksheet = XLSX.utils.json_to_sheet(displayedRowData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Données");
 
@@ -123,16 +126,19 @@ function exportFilePdf() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('landscape');
 
-    // Récupérer les données de la grille et les colonnes
-    const rowData = [];
-    gridOptions.api.forEachNode(node => rowData.push(node.data));
+    // Récupère uniquement les lignes affichées
+    const displayedRowData = [];
+    for (let i = 0; i < gridApi.getDisplayedRowCount(); i++) {
+        const node = gridApi.getDisplayedRowAtIndex(i);
+        if (node) displayedRowData.push(node.data);
+    }
 
     const columnNames = gridOptions.columnDefs.map(colDef => colDef.headerName);
 
     // jspdf-autotable pour générer le tableau
     doc.autoTable({
         head: [columnNames],
-        body: rowData.map(row => columnNames.map(col => row[col])),
+        body: displayedRowData.map(row => columnNames.map(col => row[col])),
         startY: 10,
     });
 

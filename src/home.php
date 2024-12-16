@@ -66,7 +66,7 @@
                 <div class="info-container">
                     <?php
                     $data = json_decode($remises_json, true);
-                  
+
                     if (!empty($data)) {
                         $row = $data[0];
                         echo "<div class='info-row'>";
