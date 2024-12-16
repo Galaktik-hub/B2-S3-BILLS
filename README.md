@@ -98,7 +98,7 @@ Les fonctionnalités d'envoi d'email reposent sur le module [PHPMailer](https://
 ```bash
 composer require phpmailer/phpmailer
 ```
-- Vous devriez voir un dossier `vendor`, un fichier `composer.json` et un fichier `composer.lock`. Cela signifie que le build s'est bien passé. 🚀 Si vous rencontrez quelconque problème, veuillez vous référer à la page GitHub de [PHPMailer].(https://github.com/PHPMailer/PHPMailer).
+- Vous devriez voir un dossier `vendor`, un fichier `composer.json` et un fichier `composer.lock`. Cela signifie que le build s'est bien passé. 🚀 Si vous rencontrez quelconque problème, veuillez vous référer à la page GitHub de [PHPMailer](https://github.com/PHPMailer/PHPMailer).
 
 
 ### 5️⃣ **Démarrage** :
