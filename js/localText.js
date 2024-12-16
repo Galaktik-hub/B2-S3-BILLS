@@ -1421,7 +1421,7 @@ const localeText = {
     greaterThanOrEqual: 'Supérieur ou égal à',
     lessThan: 'Inférieur à',
     lessThanOrEqual: 'Inférieur ou égal à',
-    inRange: 'Dans la plage',
+    inRange: 'Entre',
     inRangeStart: 'De',
     inRangeEnd: 'À',
     // Filter Form
