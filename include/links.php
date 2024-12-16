@@ -1,6 +1,6 @@
 
 <!-- Ag-Grid -->
-<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community@33.0.0/dist/ag-grid-community.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/ag_grid.css">
 
 <!-- Pour exporter en xls -->

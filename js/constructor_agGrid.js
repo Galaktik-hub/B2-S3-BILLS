@@ -44,18 +44,7 @@ const gridOptions = {
 };
 
 const myGridElement = document.querySelector('#myGrid');
-agGrid.createGrid(myGridElement, gridOptions);
-
-function exportFile() {
-    const format = document.getElementById('format').value;
-    if (format === 'csv') {
-        exportFileCsv();
-    } else if (format === 'xls') {
-        exportFileXls();
-    } else {
-        exportFilePdf();
-    }
-}
+gridApi = agGrid.createGrid(myGridElement, gridOptions);
 
 function exportFile() {
     const format = document.getElementById('format').value;
@@ -69,7 +58,7 @@ function exportFile() {
 }
 
 function exportFileCsv() {
-    gridOptions.api.exportDataAsCsv({
+    gridApi.exportDataAsCsv({
         fileName: fileName,
         columnSeparator: ','
     });
@@ -78,7 +67,7 @@ function exportFileCsv() {
 function exportFileXls() {
     // Récupère les données de la grille en format JSON
     const rowData = [];
-    gridOptions.api.forEachNode(node => rowData.push(node.data));
+    gridApi.forEachNode(node => rowData.push(node.data));
 
     // Convertit les données en une feuille Excel
     const worksheet = XLSX.utils.json_to_sheet(rowData);
@@ -95,7 +84,7 @@ function exportFilePdf() {
 
     // Récupérer les données de la grille et les colonnes
     const rowData = [];
-    gridOptions.api.forEachNode(node => rowData.push(node.data));
+    gridApi.forEachNode(node => rowData.push(node.data));
 
     const columnNames = gridOptions.columnDefs.map(colDef => colDef.headerName);
 
