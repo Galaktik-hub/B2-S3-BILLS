@@ -90,17 +90,17 @@ $db = "banque";         // Le nom de la base de données
 
 ### 4️⃣ **Build Composer** :
 
-Les fonctionnalités d'envoie d'email reposent sur le module [PHPMailer](https://github.com/PHPMailer/PHPMailer). Pour plus d'informations, n'hésitez pas à aller voir la page GitHub associée, sinon voici un résumé de la configuration de PHPMailer :
-- Pour ce faire, vous devez avoir installer [Composer](https://getcomposer.org/download/).
-- Placez vous à la racine dans le dossier `mail` puis lancez la commande :
+Les fonctionnalités d'envoi d'email reposent sur le module [PHPMailer](https://github.com/PHPMailer/PHPMailer). Pour plus d'informations, n'hésitez pas à aller voir la page GitHub associée, sinon voici un résumé de la configuration de PHPMailer :
+- Pour ce faire, vous devez avoir installé [Composer](https://getcomposer.org/download/).
+- Placez vous dans le dossier `mail` puis lancez la commande :
 ```bash
 composer require phpmailer/phpmailer
 ```
-- Vous devriez voir un dossier `vendor`, un fichier `composer.json` et un fichier `composer.lock`. Cela signifie que le build s'est bien passé. 🚀 Si vous rencontrez quelconque problème, veuillez vous référer à la page GitHub de [PHPMailer](https://github.com/PHPMailer/PHPMailer).
+- Vous devriez voir un dossier `vendor`, un fichier `composer.json` et un fichier `composer.lock`. Cela signifie que le build s'est bien passé. 🚀 Si vous rencontrez quelconque problème, veuillez vous référer à la page GitHub de [PHPMailer].(https://github.com/PHPMailer/PHPMailer).
 
 
 ### 5️⃣ **Démarrage** :
-   - Lancez le serveur locaux (PHP & MySQL).
+   - Lancez les serveurs locaux (PHP & MySQL).
    - 🎉 Vous êtes prêts !
 
 ## 🙌 Crédit
