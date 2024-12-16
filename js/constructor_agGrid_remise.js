@@ -32,6 +32,7 @@ function createDynamicColumns(columnNames) {
                 }
             };
         }
+
         return {
             headerName: name.charAt(0).toUpperCase() + name.slice(1),
             field: name,
