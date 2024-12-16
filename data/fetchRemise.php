@@ -15,6 +15,7 @@ $date = date('Y-m-d');
 // Requête SQL pour récupérer les informations sur les remises liées à un client spécifique
 $query = "
     SELECT 
+        numRemise as 'N° Remise',
         dateRemise as 'Date de Remise', 
         numSiren as 'N° Siren', 
         raisonSociale as 'Raison Sociale', 

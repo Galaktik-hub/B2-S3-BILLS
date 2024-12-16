@@ -62,6 +62,7 @@ const gridOptions = {
     rowData: data,
     columnDefs: createDynamicColumns(columnNames),
     domLayout: 'autoHeight',
+    localeText: localeText,
 
     // The condition to have a different style for the negative amounts
     rowClassRules: {
@@ -75,7 +76,7 @@ const gridOptions = {
         'row-red-7': params => getAmountValue(params) < -700 && getAmountValue(params) >= -800,
         'row-red-8': params => getAmountValue(params) < -800 && getAmountValue(params) >= -900,
         'row-red-9': params => getAmountValue(params) < -900
-    },
+    }
 };
 
 const myGridElement = document.querySelector('#myGrid');
