@@ -1,12 +1,46 @@
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
-    return columnNames.map(name => ({
-        headerName: name.charAt(0).toUpperCase() + name.slice(1),
-        field: name,
-        sortable: true,
-        filter: name === "Date de Remise" ? 'agDateColumnFilter' : true,
-        flex: 1
-    }));
+    return columnNames.map(name => {
+        if (name === "Date de Remise") {
+            return {
+                headerName: name.charAt(0).toUpperCase() + name.slice(1),
+                field: name,
+                sortable: true,
+                filter: 'agDateColumnFilter',
+                flex: 1,
+                comparator: (valueA, valueB) => {
+                    const dateA = new Date(valueA);
+                    const dateB = new Date(valueB);
+                    return dateA - dateB;
+                },
+                filterParams: {
+                    comparator: (filterLocalDateAtMidnight, cellValue) => {
+                        const cellDate = new Date(cellValue);
+
+                        if (cellDate < filterLocalDateAtMidnight) {
+                            return -1;
+                        } else if (cellDate > filterLocalDateAtMidnight) {
+                            return 1;
+                        }
+                        return 0;
+                    },
+                    browserDatePicker: true,
+                },
+                valueFormatter: params => {
+                    const date = new Date(params.value);
+                    return date.toLocaleDateString();
+                }
+            };
+        }
+
+        return {
+            headerName: name.charAt(0).toUpperCase() + name.slice(1),
+            field: name,
+            sortable: true,
+            filter: true,
+            flex: 1
+        };
+    });
 }
 
 // The function to get the value amount of the grid
