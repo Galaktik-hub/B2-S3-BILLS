@@ -23,7 +23,7 @@ if(isset($_SESSION['isAdmin'])){
 }
 
 // Si le formulaire est soumis (login est défini)
-if(isset($_POST['login'])) {
+if(isset($_POST['login']) && $_POST['login'] != "client") {
     // Récupère la réponse du reCAPTCHA
     $recaptchaResponse = $_POST['g-recaptcha-response'];
     $recaptchaSecret = $key; // Clé secrète reCAPTCHA
