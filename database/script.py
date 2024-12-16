@@ -1,5 +1,5 @@
 """
-Script de génération de jeu de données pour le projet banque-tran
+Script de génération de jeu de données pour le projet BILLS
 - Génère des transactions, des remises et des impayés puis exporte les données en .txt
 - Les données sont utilisables directement en SQL
 """
