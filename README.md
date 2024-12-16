@@ -79,6 +79,13 @@ $mailsae = '[email_bot@example.com]';   // L'email qui sera utilisé pour envoye
 $mdp = '[clé secrete]';
 ```
 
+- Fichier `credentials/recaptcha.php`
+```php
+<?php
+
+$key="6Lcl_pIqAAAAAEPeIaBGDn_Putv211m42qLXHYVh";    // La clé secréte de votre reCaptcha
+```
+
 - Fichier `include/parametre.php`
 ```php
 <?php
