@@ -140,3 +140,13 @@ function exportFilePdf() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportFile);
+
+// Ajoute un écouteur d'événements agGrid pour mettre à jour le nombre d'impayés
+gridApi.addEventListener('modelUpdated', () => {
+    const displayedRowCount = gridApi.getDisplayedRowCount();
+    document.getElementById('rowCountInfo').textContent = `${displayedRowCount} impayés trouvées.`;
+});
+
+// Initialisation pour afficher dès le départ
+const initialRowCount = gridApi.getDisplayedRowCount();
+document.getElementById('rowCountInfo').textContent = `${initialRowCount} impayés trouvées.`;

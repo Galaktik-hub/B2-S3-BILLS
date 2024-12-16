@@ -145,3 +145,13 @@ function exportFilePdf() {
 }
 
 document.getElementById('exportButton').addEventListener('click', exportFile);
+
+// Ajoute un écouteur d'événements agGrid pour mettre à jour le nombre de remises
+gridApi.addEventListener('modelUpdated', () => {
+    const displayedRowCount = gridApi.getDisplayedRowCount();
+    document.getElementById('rowCountInfo').textContent = `${displayedRowCount} remises trouvées.`;
+});
+
+// Initialisation pour afficher dès le départ
+const initialRowCount = gridApi.getDisplayedRowCount();
+document.getElementById('rowCountInfo').textContent = `${initialRowCount} remises trouvées.`;

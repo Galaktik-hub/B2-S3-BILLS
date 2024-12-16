@@ -4,7 +4,6 @@ $numRemise = $_GET['numRemise'];
 
 // Requête SQL pour récupérer les transactions liées à un numéro de remise spécifique
 $query = "SELECT 
-                t.numTransaction AS 'N° Transaction',
                 t.montant AS 'Montant',
                 t.devise AS 'Devise',
                 t.numCarte AS 'N° Carte',
