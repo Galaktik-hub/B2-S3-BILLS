@@ -1,6 +1,8 @@
 // Génère automatiquement les colonnes à partir des noms des champs
 function createDynamicColumns(columnNames) {
-    return columnNames.map(name => {
+    return columnNames
+        .filter(name => name !== "N° Remise")
+        .map(name => {
         if (name === "Date de Remise") {
             return {
                 headerName: name.charAt(0).toUpperCase() + name.slice(1),

@@ -3,6 +3,7 @@
 // Définition de la requête SQL pour récupérer les remises et informations associées
 $query = "
     SELECT 
+        numRemise as 'N° Remise',
         numSiren as 'N° Siren', 
         dateRemise as 'Date de Remise',
         raisonSociale as 'Raison Sociale', 
