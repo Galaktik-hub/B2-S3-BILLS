@@ -1,6 +1,7 @@
 <?php
 global $dbh;
 $numRemise = $_GET['numRemise'];
+$numClient = $_SESSION['numClient'];
 
 // Préparation de la requête SQL pour récupérer les transactions liées à la remise spécifiée
 $query = "SELECT 
@@ -12,10 +13,12 @@ $query = "SELECT
               FROM transaction t
               LEFT JOIN impaye i ON t.numTransaction = i.numTransaction
               LEFT JOIN codeimpaye ci ON i.codeImpaye = ci.codeImpaye
-              WHERE t.numRemise = :numRemise";
+              INNER JOIN remise r ON t.numRemise = r.numRemise
+              WHERE t.numRemise = :numRemise AND r.numClient = :numClient";
 
 $stmt = $dbh->prepare($query);
 $stmt->bindParam(':numRemise', $numRemise);
+$stmt->bindParam(':numClient', $numClient);
 $stmt->execute();
 
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
