@@ -566,7 +566,7 @@ const localeText = {
     gridColumnMenuFilterGreaterThan: 'Supérieur à...',
     gridColumnMenuFilterLessThanOrEqual: 'Inférieur ou égal à...',
     gridColumnMenuFilterGreaterThanOrEqual: 'Supérieur ou égal à...',
-    gridColumnMenuFilterInRange: 'Dans la plage...',
+    gridColumnMenuFilterInRange: 'Entre...',
     gridColumnMenuFilterInList: 'Dans la liste...',
     gridColumnMenuFilterNotInList: 'Pas dans la liste...',
     gridColumnMenuFilterTrue: 'Vrai',
