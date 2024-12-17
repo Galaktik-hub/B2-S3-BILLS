@@ -21,7 +21,7 @@ Vous pouvez retrouver le projet final hébergé à l'adresse ci-dessous :
 🔗 [https://bills.julien-synaeve.fr](https://bills.julien-synaeve.fr)
 
 **Compte de démonstration** :
-- 🧑‍💻 Nom d'utilisateur : `client`
+- 🧑‍💻 Nom d'utilisateur : `carrefour`
 - 🔒 Mot de passe : `client`
 
 Si vous souhaitez demander la création d'un compte, veuillez envoyer un mail à l'adresse suivante : contact [at] alexis-telle.fr
