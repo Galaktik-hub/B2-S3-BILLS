@@ -7,7 +7,7 @@
     include('../data/fetchAccount.php');
 
     $is_disabled = "";
-    if (isset($_SESSION['PO_VIEW_CLIENT'])) {
+    if (isset($_SESSION['PO_VIEW_CLIENT']) || $_SESSION['numClient'] == 1) {
         $is_disabled = " disabled";
     }
 ?>
