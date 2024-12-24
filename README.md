@@ -18,7 +18,7 @@ Le projet a été conduit selon une méthodologie Agile Scrum, avec des rôles d
 
 Vous pouvez retrouver le projet final hébergé à l'adresse ci-dessous :
 
-🔗 [https://bills.julien-synaeve.fr](https://bills.julien-synaeve.fr)
+🔗 [https://bills.alexis-telle.fr](https://bills.alexis-telle.fr)
 
 **Compte de démonstration** :
 - 🧑‍💻 Nom d'utilisateur : `carrefour`
